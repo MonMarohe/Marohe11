@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900" viewBox="0 0 600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Welcome Chan Chan · Alpaca de Adobe Arcade</title>
+  <desc id="desc">Una alpaca blanca de píxeles, de cuello corto y lana esponjosa, explora un patio inspirado en las ruinas de Chan Chan. Muros de adobe, relieves de peces, corazones rosados y fuego dorado enmarcan la aventura. Una llamita amiga con pañuelo turquesa la acompaña y una araña violeta vigila el camino.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1">
+      <stop stop-color="#30243f"/>
+      <stop offset=".4" stop-color="#94618a"/>
+      <stop offset=".75" stop-color="#edbc9a"/>
+      <stop offset="1" stop-color="#efc58d"/>
+    </linearGradient>
+    <linearGradient id="adobe" x2="0" y2="1">
+      <stop stop-color="#f1ca95"/>
+      <stop offset="1" stop-color="#b87854"/>
+    </linearGradient>
+    <linearGradient id="floor" x2="0" y2="1">
+      <stop stop-color="#c79067"/>
+      <stop offset=".65" stop-color="#755365"/>
+      <stop offset="1" stop-color="#19152c"/>
+    </linearGradient>
+    <linearGradient id="letter" x2="0" y2="1">
+      <stop stop-color="#fffce8"/>
+      <stop offset="1" stop-color="#ffeac7"/>
+    </linearGradient>
+    <linearGradient id="pink" x2="0" y2="1">
+      <stop stop-color="#ffb0d9"/>
+      <stop offset="1" stop-color="#ff539b"/>
+    </linearGradient>
+    <radialGradient id="aura">
+      <stop stop-color="#ffeebc" stop-opacity=".8"/>
+      <stop offset=".45" stop-color="#ffc3b6" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#ffb9bc" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="5"/></filter>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#fff7db" stroke-opacity=".045"/></pattern>
+    <pattern id="adobeBlocks" width="88" height="48" patternUnits="userSpaceOnUse">
+      <path d="M0 0H88V48H0Z" fill="none" stroke="#855d51" stroke-opacity=".16" stroke-width="2"/>
+      <path d="M0 3H88M3 0V48" fill="none" stroke="#ffedbc" stroke-opacity=".15" stroke-width="2"/>
+    </pattern>
+    <pattern id="fishFrieze" width="92" height="52" patternUnits="userSpaceOnUse">
+      <path d="M8 20H16V12H24V8H48V12H56V20H64V12H72V8H80V36H72V32H64V24H56V32H48V36H24V32H16V24H8Z" fill="#a56c50"/>
+      <path d="M16 20H24V14H48V20H56V24H48V30H24V24H16Z" fill="#f8d8a2"/>
+      <path d="M29 17H35V23H29Z" fill="#8a594a"/>
+      <path d="M8 44H84" stroke="#eac18c" stroke-width="3"/>
+    </pattern>
+    <symbol id="heart" viewBox="0 0 32 28">
+      <path d="M4 0H12V4H20V0H28V4H32V16H28V20H24V24H20V28H12V24H8V20H4V16H0V4H4Z" fill="#352043"/>
+      <path d="M4 4H12V8H20V4H28V16H24V20H20V24H12V20H8V16H4Z" fill="#ff6fad"/>
+      <path d="M4 4H12V8H8V12H4Z" fill="#ffd5ef"/>
+      <path d="M24 12H28V16H24V20H20V24H12V20H20V16H24Z" fill="#d33480"/>
+    </symbol>
+    <symbol id="spark" viewBox="0 0 32 32">
+      <path d="M12 0H20V8H24V12H32V20H24V24H20V32H12V24H8V20H0V12H8V8H12Z" fill="#63f8e3"/>
+      <path d="M12 8H20V12H24V20H20V24H12V20H8V12H12Z" fill="#fffceb"/>
+    </symbol>
+    <symbol id="flame" viewBox="0 0 48 64">
+      <path d="M24 0H32V8H36V16H40V24H44V32H48V52H44V56H40V60H32V64H16V60H8V56H4V52H0V32H4V24H12V36H16V20H20V12H24Z" fill="#fff0b0"/>
+      <path d="M24 8H28V16H32V24H36V32H40V36H44V48H40V52H36V56H12V52H8V48H4V36H8V32H12V40H20V24H24Z" fill="#ff914f"/>
+      <path d="M24 28H28V36H32V44H36V48H32V52H16V48H12V44H16V40H20V36H24Z" fill="#ffd65e"/>
+      <path d="M24 40H28V48H24V52H20V48H24Z" fill="#fffade"/>
+    </symbol>
+    <symbol id="alpaca" viewBox="0 0 144 144">
+      <g shape-rendering="crispEdges">
+      <path d="M40 76H84V80H102V76H120V82H130V88H136V76H142V70H144V96H138V116H132V126H128V140H110V124H102V136H86V126H70V140H52V126H44V136H28V122H22V112H16V94H22V84H34V80H40Z" fill="#11101b"/>
+      <path d="M40 82H80V86H102V82H116V88H126V94H136V88H138V92H132V112H126V120H122V134H116V118H96V130H92V120H64V134H58V120H38V130H34V118H28V108H22V98H28V90H40Z" fill="#fffdf4"/>
+      <path d="M126 96H132V112H126V120H122V134H116V118H96V130H92V120H64V134H58V120H38V130H34V118H40V114H58V118H76V114H100V116H116V108H122V100H126Z" fill="#d8d1ed"/>
+      <path d="M32 92H38V98H32ZM80 88H86V94H80ZM108 94H114V100H108ZM44 106H50V112H44ZM76 104H82V110H76ZM108 108H114V114H108Z" fill="#eee5ef"/>
+      <path d="M30 6H42V12H48V30H64V12H70V6H82V12H88V30H94V36H100V44H104V62H98V70H90V78H80V84H36V80H26V74H18V66H12V46H18V36H24V30H28V12H30Z" fill="#11101b"/>
+      <path d="M34 12H38V18H42V34H34ZM74 12H78V18H82V34H74Z" fill="#fffdf4"/>
+      <path d="M36 20H40V32H36ZM76 20H80V32H76Z" fill="#ffc3df"/>
+      <path d="M26 38H36V32H44V38H50V32H60V38H68V32H76V38H88V42H94V50H98V58H92V66H84V72H76V78H38V74H30V68H24V62H18V50H24V42H26Z" fill="#fffdf4"/>
+      <path d="M88 60H94V66H86V72H78V78H38V74H32V68H40V72H72V68H82V64H88Z" fill="#d8d1ed"/>
+      <path d="M26 44H32V50H26ZM44 38H50V44H44ZM62 38H68V44H62ZM84 44H90V50H84Z" fill="#eee5ef"/>
+      <path d="M32 50H40V60H32ZM72 50H80V60H72Z" fill="#11101b"/>
+      <path d="M32 50H35V53H32ZM72 50H75V53H72Z" fill="#fff"/>
+      <path d="M22 60H36V66H22ZM78 60H92V66H78Z" fill="#ff9cc9"/>
+      <path d="M44 58H66V62H72V70H66V74H44V70H38V62H44Z" fill="#f3d6cb"/>
+      <path d="M50 61H60V65H56V69H52V65H50ZM46 69H52V72H46ZM58 69H64V72H58Z" fill="#342139"/>
+      <path d="M28 130H44V136H28ZM52 134H70V140H52ZM86 130H102V136H86ZM110 134H128V140H110Z" fill="#342139"/>
+      </g>
+    </symbol>
+    <symbol id="spider" viewBox="0 0 180 110">
+      <g fill="none" stroke="#281c3c" stroke-width="10" stroke-linejoin="miter">
+        <path d="M58 38H36V12H16M56 48H26V32H6M55 63H24V78H4M60 74H36V98H16"/>
+        <path d="M122 38H144V12H164M124 48H154V32H174M125 63H156V78H176M120 74H144V98H164"/>
+      </g>
+      <g fill="none" stroke="#bc84ea" stroke-width="4" stroke-linejoin="miter">
+        <path d="M58 37H36V11H16M56 47H26V31H6M55 62H24V77H4M60 73H36V97H16"/>
+        <path d="M122 37H144V11H164M124 47H154V31H174M125 62H156V77H176M120 73H144V97H164"/>
+      </g>
+      <path d="M68 14H112V20H126V34H132V76H124V88H110V94H70V88H56V76H48V34H54V20H68Z" fill="#281c3c"/>
+      <path d="M70 20H110V26H120V36H126V72H118V82H108V88H72V82H62V72H54V36H60V26H70Z" fill="#a566d6"/>
+      <path d="M70 22H104V28H116V34H98V30H74V38H62V32H70Z" fill="#e5a6fa"/>
+      <path d="M62 64H72V78H110V70H120V78H110V86H72V80H62Z" fill="#74418f"/>
+      <path d="M64 44H78V60H64ZM102 44H116V60H102Z" fill="#fff1b7"/>
+      <path d="M70 48H76V58H70ZM104 48H110V58H104Z" fill="#281c3c"/>
+      <path d="M80 70H88V80H80ZM94 70H102V80H94Z" fill="#fff2de"/>
+      <path d="M84 60H96V66H84Z" fill="#ee7fbc"/>
+    </symbol>
+    <symbol id="llama" viewBox="0 0 120 154">
+      <path d="M12 0H24V20H32V4H44V24H50V48H44V78H52V82H96V78H106V88H116V108H108V116H104V148H88V126H78V148H64V126H50V148H34V114H22V106H16V56H8V48H0V30H8V24H12Z" fill="#342039"/>
+      <path d="M16 6H20V24H36V10H40V28H44V44H38V82H48V88H96V84H102V92H110V104H102V110H98V142H94V120H72V142H70V120H44V142H40V108H26V102H22V50H12V44H6V34H12V30H16Z" fill="#fff2d4"/>
+      <path d="M16 6H20V21H16ZM36 10H40V24H36Z" fill="#ffb1c8"/>
+      <path d="M28 50H38V82H48V88H94V94H48V90H32V62H28ZM92 114H98V142H94V120H72V142H70V118H44V142H40V108H44V114Z" fill="#e4caa8"/>
+      <path d="M18 32H24V40H18ZM6 38H12V44H6Z" fill="#342039"/>
+      <path d="M26 42H36V48H26Z" fill="#ffa6c4"/>
+      <path d="M20 56H40V64H34V84H26V64H20Z" fill="#65e3cb"/>
+      <path d="M24 57H40V60H24Z" fill="#baffec"/>
+      <path d="M54 88H88V112H54Z" fill="#aa7cce"/>
+      <path d="M58 92H84V108H58Z" fill="#ff8fba"/>
+      <path d="M64 100H70V94H76V100H82V104H76V110H70V104H64Z" fill="#ffe9b8"/>
+      <path d="M104 92H114V84H120V98H114V104H106Z" fill="#342039"/>
+      <path d="M108 95H114V90H116V96H112V100H108Z" fill="#fff2d4"/>
+      <path d="M34 142H50V148H34ZM64 142H78V148H64ZM88 142H104V148H88Z" fill="#6c4c56"/>
+    </symbol>
+  </defs>
+
+  <path fill="url(#sky)" d="M0 0H600V900H0Z"/>
+  <circle cx="308" cy="274" r="310" fill="url(#aura)"/>
+  <path fill="url(#grid)" d="M0 0H600V900H0Z"/>
+  <path d="M268 149H334V157H342V177H334V185H268V177H260V157H268Z" fill="#ffe0b6" opacity=".72"/>
+  <g fill="#bba2aa" opacity=".3" shape-rendering="crispEdges">
+    <path d="M0 237H24V218H76V194H104V171H142V188H164V226H184V284H0Z"/>
+    <path d="M600 244H574V207H539V184H514V169H484V191H456V228H426V286H600Z"/>
+  </g>
+  <g shape-rendering="crispEdges">
+    <path d="M105 206H210V191H390V206H495V485H105Z" fill="#8c5b54"/>
+    <path d="M117 200H222V185H382V200H483V472H117Z" fill="url(#adobe)"/>
+    <path d="M117 200H222V185H382V200H483V472H117Z" fill="url(#adobeBlocks)"/>
+    <path d="M117 200H222V185H382V200H483V209H374V195H230V209H117Z" fill="#ffe6b3"/>
+    <path d="M190 230H410V247H190Z" fill="#9c674f"/>
+    <path d="M200 235H400V241H200Z" fill="#f8d3a0"/>
+    <path d="M225 261H375V479H225Z" fill="#ae7756"/>
+    <path d="M240 272H360V479H240Z" fill="#322238"/>
+    <path d="M250 280H350V471H250Z" fill="#221d31"/>
+    <path d="M250 284H262V455H250ZM262 284H350V295H262Z" fill="#8a6170" opacity=".4"/>
+    <path d="M205 463H395V478H205Z" fill="#ecc393"/>
+    <path d="M195 478H405V492H195Z" fill="#c28a68"/>
+    <path d="M177 492H423V508H177Z" fill="#e4b487"/>
+    <path d="M158 508H442V527H158Z" fill="#b88165"/>
+    <path d="M177 492H423V498H177ZM158 508H442V513H158Z" fill="#ffe0b2"/>
+    <path d="M0 274H124V311H176V503L0 594Z" fill="#ab7050"/>
+    <path d="M0 264H124V301H176V493L0 584Z" fill="url(#adobe)"/>
+    <path d="M0 264H124V301H176V493L0 584Z" fill="url(#adobeBlocks)"/>
+    <path d="M0 264H124V273H0ZM124 301H176V310H124Z" fill="#ffe0a6"/>
+    <path d="M600 274H477V311H425V503L600 594Z" fill="#ab7050"/>
+    <path d="M600 264H477V301H425V493L600 584Z" fill="url(#adobe)"/>
+    <path d="M600 264H477V301H425V493L600 584Z" fill="url(#adobeBlocks)"/>
+    <path d="M600 264H477V273H600ZM477 301H425V310H477Z" fill="#ffe0a6"/>
+    <path d="M0 350H166V407H0ZM435 350H600V407H435Z" fill="#b27852"/>
+    <path d="M0 353H166V403H0ZM435 353H600V403H435Z" fill="url(#fishFrieze)"/>
+    <path d="M0 337H164V342H0ZM437 337H600V342H437Z" fill="#fbe0b3"/>
+    <path d="M0 413H164V418H0ZM437 413H600V418H437Z" fill="#92634e"/>
+    <path d="M0 584L158 527H442L600 584V900H0Z" fill="url(#floor)"/>
+  </g>
+  <g fill="none" stroke="#ffe2b2" stroke-opacity=".18" stroke-width="2" shape-rendering="crispEdges">
+    <path d="M290 527L203 661M315 527L390 661M250 527L64 651M350 527L537 651M151 562H452M108 596H501M70 640H544"/>
+  </g>
+  <g shape-rendering="crispEdges">
+    <path d="M21 443H70V451H100V459H131V490H100V502H60V494H21Z" fill="#b37959"/>
+    <path d="M21 443H70V451H100V459H131V464H97V457H65V449H21Z" fill="#efcf9c"/>
+    <path d="M493 432H570V440H589V472H569V482H493V472H477V447H493Z" fill="#bd8461"/>
+    <path d="M493 432H570V439H503V447H477V440H493Z" fill="#efcf9c"/>
+    <path d="M27 546H72V556H86V575H65V583H20V564H27Z" fill="#82586c"/>
+    <path d="M28 546H71V552H60V558H20V564H16V556H28Z" fill="#dba780"/>
+  </g>
+
+  <g opacity=".65" filter="url(#glow)">
+    <use href="#flame" x="273" y="310" width="54" height="72"/>
+    <use href="#heart" x="175" y="259" width="40" height="35"/>
+    <use href="#heart" x="380" y="303" width="35" height="31"/>
+    <use href="#spark" x="431" y="507" width="31" height="31"/>
+  </g>
+  <use href="#flame" x="273" y="310" width="54" height="72"/>
+  <path d="M282 397H318M291 410H309" stroke="#fff4be" stroke-width="3" stroke-opacity=".3"/>
+  <use href="#heart" x="175" y="259" width="40" height="35"/>
+  <use href="#heart" x="380" y="303" width="35" height="31"/>
+  <use href="#heart" x="103" y="471" width="31" height="27"/>
+  <use href="#heart" x="491" y="417" width="27" height="24"/>
+  <use href="#heart" x="495" y="191" width="25" height="22" opacity=".8"/>
+  <g fill="#ffeabb" opacity=".8" shape-rendering="crispEdges">
+    <path d="M88 193H94V199H88ZM389 156H394V161H389ZM161 413H167V419H161ZM471 304H476V309H471ZM535 554H540V559H535Z"/>
+    <path d="M425 166H430V158H435V166H443V171H435V179H430V171H425Z"/>
+    <path d="M113 232H118V225H123V232H130V237H123V244H118V237H113Z"/>
+  </g>
+
+  <ellipse cx="295" cy="600" rx="102" ry="21" fill="#241b37" opacity=".5"/>
+  <ellipse cx="295" cy="599" rx="71" ry="9" fill="#ffbfcc" opacity=".2"/>
+  <use href="#alpaca" x="156" y="326" width="280" height="280" transform="rotate(-6 296 466)"/>
+  <g shape-rendering="crispEdges">
+    <path d="M352 530H367V519H406V526H421V548H404V559H367V551H352Z" fill="#272038"/>
+    <path d="M358 534H373V525H402V532H415V542H400V553H373V545H358Z" fill="#8f71c9"/>
+    <path d="M378 528H402V532H413V536H378Z" fill="#e4c4ff"/>
+    <path d="M396 538H417V544H396Z" fill="#67f5dd"/>
+    <path d="M374 543H383V550H374Z" fill="#ff9bc8"/>
+  </g>
+  <use href="#spark" x="433" y="519" width="29" height="29"/>
+  <use href="#spark" x="477" y="512" width="22" height="22"/>
+  <path d="M466 533H476M509 523H519" stroke="#c6fff2" stroke-width="4"/>
+  <use href="#spider" x="32" y="527" width="179" height="109" transform="rotate(-5 122 581)"/>
+  <use href="#llama" x="443" y="439" width="122" height="157"/>
+
+  <path d="M37 46H43V39H557V46H563V87H557V94H43V87H37Z" fill="#292037" fill-opacity=".86" stroke="#ebc5ad" stroke-opacity=".4" stroke-width="2"/>
+  <path d="M54 57H62V65H54ZM538 57H546V65H538Z" fill="#ff95c4"/>
+  <text x="300" y="74" text-anchor="middle" font-family="'Courier New',monospace" font-weight="bold" font-size="22" letter-spacing="7" fill="#fff0d1">ADOBE ARCADE</text>
+  <text x="300" y="122" text-anchor="middle" font-family="'Courier New',monospace" font-weight="bold" font-size="14" letter-spacing="6" fill="#ffcedf">CHAN CHAN · PERÚ</text>
+
+  <path d="M0 677H600V900H0Z" fill="#19152c" opacity=".32"/>
+  <g font-family="'Courier New',monospace" font-weight="900" text-anchor="middle" stroke-linejoin="miter" paint-order="stroke fill" letter-spacing="-4">
+    <text x="304" y="746" font-size="82" fill="#1ac5c9" stroke="#19152c" stroke-width="18">WELCOME</text>
+    <text x="297" y="733" font-size="82" fill="url(#letter)" stroke="#19152c" stroke-width="10">WELCOME</text>
+    <text x="304" y="852" font-size="78" fill="#b347a6" stroke="#19152c" stroke-width="20">CHAN CHAN</text>
+    <text x="297" y="839" font-size="78" fill="url(#pink)" stroke="#19152c" stroke-width="11">CHAN CHAN</text>
+  </g>
+  <path d="M68 865H221M378 865H531" stroke="#af8ce3" stroke-width="2" stroke-opacity=".5"/>
+  <use href="#heart" x="252" y="855" width="22" height="19"/>
+  <use href="#heart" x="289" y="855" width="22" height="19"/>
+  <use href="#heart" x="326" y="855" width="22" height="19"/>
+  <path d="M12 12H588V888H12Z" fill="none" stroke="#fff6d4" stroke-opacity=".13" stroke-width="2"/>
+</svg>

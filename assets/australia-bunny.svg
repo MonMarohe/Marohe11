@@ -1,0 +1,225 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900" viewBox="0 0 600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Welcome Iquitos · Delfín rosado de Jungle Arcade</title>
+  <desc id="desc">Un delfín rosado amazónico de píxeles, con hocico alargado y aletas, explora una selva luminosa. Un koala y un canguro lo acompañan; una serpiente vigila el camino. Corazones, destellos y una llama dorada marcan su aventura.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1">
+      <stop stop-color="#172645"/>
+      <stop offset=".35" stop-color="#146266"/>
+      <stop offset=".68" stop-color="#18877e"/>
+      <stop offset="1" stop-color="#092c40"/>
+    </linearGradient>
+    <radialGradient id="aura">
+      <stop stop-color="#aefff0" stop-opacity=".84"/>
+      <stop offset=".42" stop-color="#63dfd0" stop-opacity=".3"/>
+      <stop offset="1" stop-color="#59dfc7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ground" x2="0" y2="1">
+      <stop stop-color="#173544"/>
+      <stop offset="1" stop-color="#161529"/>
+    </linearGradient>
+    <linearGradient id="letter" x2="0" y2="1">
+      <stop stop-color="#fffce8"/>
+      <stop offset="1" stop-color="#ffeac7"/>
+    </linearGradient>
+    <linearGradient id="pink" x2="0" y2="1">
+      <stop stop-color="#ffb0d9"/>
+      <stop offset="1" stop-color="#ff539b"/>
+    </linearGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M30 0H0V30" fill="none" stroke="#b5ffe8" stroke-opacity=".055"/>
+    </pattern>
+    <symbol id="heart" viewBox="0 0 32 28">
+      <path d="M4 0H12V4H20V0H28V4H32V16H28V20H24V24H20V28H12V24H8V20H4V16H0V4H4Z" fill="#352043"/>
+      <path d="M4 4H12V8H20V4H28V16H24V20H20V24H12V20H8V16H4Z" fill="#ff6fad"/>
+      <path d="M4 4H12V8H8V12H4Z" fill="#ffd5ef"/>
+      <path d="M24 12H28V16H24V20H20V24H12V20H20V16H24Z" fill="#d33480"/>
+    </symbol>
+    <symbol id="spark" viewBox="0 0 32 32">
+      <path d="M12 0H20V8H24V12H32V20H24V24H20V32H12V24H8V20H0V12H8V8H12Z" fill="#95fff1"/>
+      <path d="M12 8H20V12H24V20H20V24H12V20H8V12H12Z" fill="#fffceb"/>
+    </symbol>
+    <symbol id="flame" viewBox="0 0 48 64">
+      <path d="M24 0H32V8H36V16H40V24H44V32H48V52H44V56H40V60H32V64H16V60H8V56H4V52H0V32H4V24H12V36H16V20H20V12H24Z" fill="#fff0b0"/>
+      <path d="M24 8H28V16H32V24H36V32H40V36H44V48H40V52H36V56H12V52H8V48H4V36H8V32H12V40H20V24H24Z" fill="#ff914f"/>
+      <path d="M24 28H28V36H32V44H36V48H32V52H16V48H12V44H16V40H20V36H24Z" fill="#ffd65e"/>
+      <path d="M24 40H28V48H24V52H20V48H24Z" fill="#fffade"/>
+    </symbol>
+    <symbol id="leaf" viewBox="0 0 70 150">
+      <path d="M32 0H46V8H54V24H62V52H70V86H62V112H54V132H46V142H38V150H24V140H16V122H8V94H0V58H8V32H16V14H24V6H32Z" fill="currentColor"/>
+      <path d="M35 12V138M35 54L16 38M35 78L56 58M35 105L16 90" fill="none" stroke="#c6ffd8" stroke-opacity=".28" stroke-width="4"/>
+    </symbol>
+    <symbol id="dolphin" viewBox="0 0 180 144">
+      <g shape-rendering="crispEdges">
+      <path d="M20 26H28V18H40V12H62V18H74V24H86V34H98V42H110V50H122V60H134V70H142V82H148V94H154V102H162V96H172V88H180V106H174V114H166V120H154V124H150V134H142V144H130V136H124V126H128V116H120V110H106V104H92V98H76V92H62V84H52V94H44V108H32V102H26V90H32V78H18V72H0V58H10V52H16V42H12V32H20Z" fill="#21162f"/>
+      <path d="M26 30H34V24H44V18H58V24H70V30H82V40H94V48H106V56H118V66H130V76H136V88H142V100H148V108H160V104H170V100H174V104H166V112H154V118H144V132H138V138H134V132H130V126H134V114H126V108H112V102H98V96H82V90H68V82H56V76H44V84H38V96H34V90H38V72H24V66H6V62H16V56H24V46H20V36H26Z" fill="#ff9fc8"/>
+      <path d="M32 30H38V26H50V24H58V30H70V36H76V42H64V36H44V40H32Z" fill="#ffdbeb"/>
+      <path d="M26 62H40V58H52V64H64V70H76V78H90V86H104V92H118V100H130V108H140V116H136V110H124V106H110V100H96V94H80V88H66V80H54V74H42V68H24V66H12V62Z" fill="#ffd0e3"/>
+      <path d="M76 42H84V48H94V54H104V60H116V70H128V80H134V92H140V104H146V110H154V116H146V122H142V132H138V136H134V130H138V114H130V108H118V102H106V96H92V90H80V82H70V76H74V68H80V56H76Z" fill="#e778ac"/>
+      <path d="M74 40H86V32H94V26H104V50H96V56H88Z" fill="#21162f"/>
+      <path d="M84 42H90V36H98V48H92V50H88Z" fill="#ed89b8"/>
+      <path d="M64 72H76V78H86V86H94V96H100V104H100V112H90V108H82V102H74V94H68V86H62Z" fill="#21162f"/>
+      <path d="M70 78H74V84H82V90H88V98H94V106H90V102H82V96H76V88H70Z" fill="#f28cba"/>
+      <path d="M32 42H42V52H32Z" fill="#21162f"/>
+      <path d="M34 42H38V46H34Z" fill="#fff6f8"/>
+      <path d="M22 54H32V60H22Z" fill="#f569ac"/>
+      <path d="M4 64H24V68H4ZM24 64H40V68H24Z" fill="#994772"/>
+      <path d="M44 52H48V56H44Z" fill="#e97aae"/>
+      </g>
+    </symbol>
+    <symbol id="koala" viewBox="0 0 100 102">
+      <path d="M4 16H12V8H28V14H34V8H68V14H74V8H90V16H98V38H90V44H84V58H78V64H76V80H82V96H68V90H60V96H40V90H32V96H18V80H24V64H22V58H16V44H10V38H4Z" fill="#192b43"/>
+      <path d="M10 18H26V36H10ZM76 18H92V36H76Z" fill="#f4c6e1"/>
+      <path d="M28 20H34V14H68V20H74V26H80V50H74V56H68V64H72V78H76V88H68V84H58V90H42V84H32V88H24V78H28V64H32V56H24V50H20V26H28Z" fill="#a8b7d8"/>
+      <path d="M34 66H64V80H60V88H40V80H34Z" fill="#e5d8eb"/>
+      <path d="M34 32H42V40H34ZM60 32H68V40H60Z" fill="#192b43"/>
+      <path d="M46 30H56V34H60V50H56V54H46V50H42V34H46Z" fill="#28344f"/>
+      <path d="M24 44H36V50H24ZM66 44H78V50H66Z" fill="#fdaccf"/>
+    </symbol>
+    <symbol id="kangaroo" viewBox="0 0 110 140">
+      <path d="M44 0H54V32H64V4H76V34H84V42H96V48H110V60H102V66H86V78H80V96H90V112H90V132H72V122H64V132H42V124H48V114H40V98H30V90H18V84H0V72H12V76H24V78H38V80H42V68H38V60H30V44H38V36H44Z" fill="#35263c"/>
+      <path d="M48 6H50V38H66V10H70V40H78V48H90V52H102V58H96V60H80V72H74V94H84V116H84V126H76V116H62V126H50V122H54V112H46V94H36V86H22V80H14V82H8V78H20V82H34V84H46V66H42V58H36V46H44V42H48Z" fill="#dba77f"/>
+      <path d="M52 76H70V94H76V108H60V116H54V108H50V96H52Z" fill="#ffddb8"/>
+      <path d="M64 44H70V52H64ZM100 52H106V56H100Z" fill="#35263c"/>
+      <path d="M74 58H84V62H74Z" fill="#ee93aa"/>
+    </symbol>
+    <symbol id="snake" viewBox="0 0 150 94">
+      <path d="M16 58H72V52H80V36H86V16H94V8H126V14H134V22H142V46H134V52H124V62H120V80H110V86H100V94H32V86H16V80H8V72H0V64H8V58Z" fill="#23142e"/>
+      <path d="M16 64H78V58H86V40H92V20H98V14H122V20H128V26H136V40H128V46H118V58H114V76H104V80H96V86H36V80H20V74H14V70H8V64Z" fill="#a66bed"/>
+      <path d="M20 64H34V74H20ZM46 64H60V74H46ZM72 60H82V72H72ZM86 42H98V52H86ZM92 24H102V34H92Z" fill="#e6a0fa"/>
+      <path d="M34 80H98V74H108V62H114V76H104V80H96V86H36Z" fill="#7642b3"/>
+      <path d="M108 24H120V36H108Z" fill="#ffe581"/>
+      <path d="M114 24H118V34H114Z" fill="#23142e"/>
+      <path d="M132 44H148V48H142V56H138V50H132Z" fill="#ff6fa8"/>
+    </symbol>
+  </defs>
+
+  <path fill="url(#sky)" d="M0 0H600V900H0Z"/>
+  <circle cx="315" cy="345" r="335" fill="url(#aura)"/>
+  <path fill="url(#grid)" d="M0 0H600V900H0Z"/>
+  <path d="M160 0L252 500H292L206 0ZM332 0L306 502H342L390 0ZM468 0L364 508H396L526 0Z" fill="#a5ffcd" opacity=".05"/>
+  <g fill="#70bab0" opacity=".23" shape-rendering="crispEdges">
+    <path d="M72 94H91V446H108V568H62V398H72Z"/>
+    <path d="M160 55H179V399H194V545H147V375H160Z"/>
+    <path d="M435 77H452V402H474V568H420V366H435Z"/>
+    <path d="M526 100H541V466H558V582H514V394H526Z"/>
+    <path d="M201 330H227V558H198V405H187V341H201ZM382 246H400V559H375V339H366V290H382Z"/>
+  </g>
+  <g fill="#49a59a" opacity=".36" shape-rendering="crispEdges">
+    <path d="M0 120H38V108H70V128H109V158H125V190H95V208H26V186H0Z"/>
+    <path d="M114 44H147V24H195V47H229V81H210V104H129V90H100V65H114Z"/>
+    <path d="M399 37H437V12H493V38H536V62H566V89H536V111H429V94H381V66H399Z"/>
+    <path d="M522 233H560V214H600V337H542V312H505V272H522Z"/>
+    <path d="M0 300H50V275H88V302H109V353H87V389H22V369H0Z"/>
+  </g>
+  <g fill="none" stroke="#69e4c0" stroke-opacity=".35" stroke-width="3">
+    <path d="M218 0V138H202V170H218V189H232V216"/>
+    <path d="M388 0V130H403V146H391V173H374V198"/>
+  </g>
+
+  <g shape-rendering="crispEdges">
+    <path d="M0 0H63V63H78V109H59V183H71V224H49V305H57V367H35V426H0Z" fill="#18383f"/>
+    <path d="M15 0H31V127H21V206H29V269H15Z" fill="#2b6660"/>
+    <path d="M600 0H548V65H532V136H546V212H531V289H546V390H571V437H600Z" fill="#18383f"/>
+    <path d="M580 0H591V276H578V358H567V290H573V132H580Z" fill="#2b6660"/>
+    <path d="M0 247H72V263H135V278H178V296H197V315H126V299H71V287H0Z" fill="#2b5758"/>
+    <path d="M0 247H72V263H135V278H159V285H130V272H64V258H0Z" fill="#51a286"/>
+  </g>
+  <g color="#20664d">
+    <use href="#leaf" x="-24" y="-25" width="100" height="215" transform="rotate(-37 36 45)"/>
+    <use href="#leaf" x="29" y="-56" width="101" height="216" transform="rotate(-70 66 38)"/>
+    <use href="#leaf" x="87" y="-69" width="98" height="210" transform="rotate(-105 125 39)"/>
+    <use href="#leaf" x="477" y="-50" width="100" height="213" transform="rotate(67 532 42)"/>
+    <use href="#leaf" x="534" y="-25" width="98" height="210" transform="rotate(35 579 42)"/>
+  </g>
+  <g color="#3e9971">
+    <use href="#leaf" x="-23" y="47" width="57" height="120" transform="rotate(-48 12 52)"/>
+    <use href="#leaf" x="49" y="-36" width="59" height="125" transform="rotate(-89 80 11)"/>
+    <use href="#leaf" x="498" y="-32" width="66" height="140" transform="rotate(82 526 22)"/>
+    <use href="#leaf" x="567" y="41" width="55" height="119" transform="rotate(39 588 44)"/>
+  </g>
+
+  <path d="M231 558H388V546H461V564H510V601H557V620H600V900H0V620H51V599H103V578H166V564H231Z" fill="url(#ground)"/>
+  <path d="M231 558H388V546H461V552H388V564H231V570H166V584H103V605H51V626H0V620H51V599H103V578H166V564H231Z" fill="#77cf97"/>
+  <path d="M316 572L473 650L416 695L352 649L283 616L246 637L214 614Z" fill="#2a5b62"/>
+  <path d="M310 577L374 611L365 625L305 593ZM386 618L454 651L431 667L379 635Z" fill="#66b79c" opacity=".32"/>
+  <g fill="#27384d" shape-rendering="crispEdges">
+    <path d="M35 529H102V545H120V560H99V570H22V552H35Z"/>
+    <path d="M481 527H531V540H550V567H524V575H468V555H481Z"/>
+  </g>
+  <g fill="#65d59c" shape-rendering="crispEdges">
+    <path d="M35 529H102V535H92V541H41V547H22V540H35Z"/>
+    <path d="M481 527H531V533H512V539H474V544H468V537H481Z"/>
+  </g>
+
+  <g opacity=".92">
+    <use href="#koala" x="94" y="194" width="99" height="102"/>
+    <use href="#heart" x="156" y="173" width="25" height="22"/>
+    <use href="#kangaroo" x="446" y="404" width="102" height="130"/>
+    <use href="#heart" x="503" y="377" width="28" height="25"/>
+  </g>
+  <g fill="#bd84e6" shape-rendering="crispEdges">
+    <path d="M43 423H57V410H71V423H84V437H71V449H57V437H43Z"/>
+    <path d="M527 256H539V245H551V256H562V268H551V280H539V268H527Z"/>
+    <path d="M125 547H134V538H143V547H152V556H143V565H134V556H125Z"/>
+  </g>
+  <g fill="#ffe68e">
+    <path d="M59 423H69V434H59Z"/>
+    <path d="M540 257H550V268H540Z"/>
+    <path d="M134 547H143V556H134Z"/>
+  </g>
+
+  <g opacity=".7" filter="url(#glow)">
+    <use href="#heart" x="216" y="212" width="41" height="36"/>
+    <use href="#heart" x="391" y="322" width="35" height="31"/>
+    <use href="#flame" x="418" y="190" width="61" height="82"/>
+    <use href="#spark" x="361" y="440" width="32" height="32"/>
+    <use href="#spark" x="413" y="422" width="26" height="26"/>
+  </g>
+  <use href="#heart" x="216" y="212" width="41" height="36"/>
+  <use href="#heart" x="391" y="322" width="35" height="31"/>
+  <use href="#heart" x="121" y="364" width="29" height="26"/>
+  <use href="#flame" x="418" y="190" width="61" height="82"/>
+  <g fill="#fff4bc" opacity=".8" shape-rendering="crispEdges">
+    <path d="M268 164H273V169H268ZM366 183H370V187H366ZM191 356H196V361H191ZM460 319H465V324H460ZM369 549H374V554H369ZM111 475H116V480H111Z"/>
+    <path d="M236 129H240V122H244V129H251V133H244V140H240V133H236Z"/>
+    <path d="M477 149H481V143H485V149H491V153H485V159H481V153H477Z"/>
+  </g>
+
+  <ellipse cx="302" cy="582" rx="110" ry="22" fill="#090e24" opacity=".5"/>
+  <ellipse cx="302" cy="584" rx="77" ry="11" fill="#63e5d2" opacity=".18"/>
+  <use href="#dolphin" x="135" y="288" width="330" height="264" transform="rotate(-18 300 420)"/>
+  <use href="#spark" x="397" y="480" width="29" height="29"/>
+  <use href="#spark" x="446" y="483" width="24" height="24"/>
+  <path d="M430 495H440M476 495H486" stroke="#d3fff3" stroke-width="4"/>
+  <use href="#snake" x="39" y="527" width="164" height="103"/>
+
+  <g color="#1d644f">
+    <use href="#leaf" x="-43" y="448" width="92" height="197" transform="rotate(-32 11 583)"/>
+    <use href="#leaf" x="4" y="518" width="70" height="150" transform="rotate(-60 46 623)"/>
+    <use href="#leaf" x="523" y="477" width="97" height="209" transform="rotate(30 574 615)"/>
+    <use href="#leaf" x="500" y="538" width="67" height="144" transform="rotate(68 548 642)"/>
+  </g>
+  <g color="#42bd89">
+    <use href="#leaf" x="-2" y="565" width="44" height="94" transform="rotate(-64 27 633)"/>
+    <use href="#leaf" x="560" y="570" width="45" height="96" transform="rotate(45 584 635)"/>
+  </g>
+
+  <path d="M37 46H43V39H557V46H563V87H557V94H43V87H37Z" fill="#142839" fill-opacity=".83" stroke="#88ddbe" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M54 57H62V65H54ZM538 57H546V65H538Z" fill="#ff95c4"/>
+  <text x="300" y="74" text-anchor="middle" font-family="'Courier New',monospace" font-weight="bold" font-size="22" letter-spacing="7" fill="#cefced">SELVA PERUANA</text>
+
+  <g font-family="'Courier New',monospace" font-weight="900" text-anchor="middle" stroke-linejoin="miter" paint-order="stroke fill" letter-spacing="-4">
+    <text x="302" y="745" font-size="82" fill="#1ac5c9" stroke="#101424" stroke-width="18">WELCOME</text>
+    <text x="298" y="733" font-size="82" fill="url(#letter)" stroke="#101424" stroke-width="10">WELCOME</text>
+    <text x="304" y="852" font-size="96" fill="#b347a6" stroke="#101424" stroke-width="20">IQUITOS</text>
+    <text x="297" y="839" font-size="96" fill="url(#pink)" stroke="#101424" stroke-width="11">IQUITOS</text>
+  </g>
+  <path d="M68 865H221M378 865H531" stroke="#af8ce3" stroke-width="2" stroke-opacity=".5"/>
+  <use href="#heart" x="252" y="855" width="22" height="19"/>
+  <use href="#heart" x="289" y="855" width="22" height="19"/>
+  <use href="#heart" x="326" y="855" width="22" height="19"/>
+  <path d="M12 12H588V888H12Z" fill="none" stroke="#cffff0" stroke-opacity=".1" stroke-width="2"/>
+</svg>

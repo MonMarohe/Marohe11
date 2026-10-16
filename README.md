@@ -1,6 +1,8 @@
 # MAROHE World · repositorio para Vercel
 
-Esta carpeta es la raíz independiente de la web. Incluye `index.html`, sus estilos, scripts, imágenes, la Ruleta de Pelis enlazada desde Play y las funciones necesarias en `api/`. No requiere compilación ni instalación de paquetes.
+Esta carpeta es la raíz independiente de la web. Incluye `index.html`, `src/css/`, `src/js/`, `assets/`, la Ruleta de Pelis en `peliculas/` y las funciones necesarias en `api/`. No requiere compilación ni instalación de paquetes.
+
+**Importante:** descomprime el ZIP completo. Dentro de `marohe-world-vercel-organizado` deben verse juntos `index.html` y las carpetas `src`, `assets`, `api`, `lib`, `peliculas` y `vendor`. Sube a GitHub el contenido de esa carpeta conservando las subcarpetas. Subir el ZIP como archivo único, o elegir solo los archivos de la raíz, produce una web sin estilos ni imágenes.
 
 ## Subir únicamente esta carpeta a GitHub
 
@@ -8,7 +10,7 @@ Esta carpeta es la raíz independiente de la web. Incluye `index.html`, sus esti
 2. Abre PowerShell y ejecuta estos comandos, reemplazando `TU_USUARIO` por tu usuario de GitHub:
 
 ```powershell
-cd "C:\Users\Claudia\Documents\Codex\2026-10-09\x20-x20-te-mando-imagenes-para\marohe-world-vercel"
+cd "C:\Users\Claudia\Documents\Codex\2026-10-09\x20-x20-te-mando-imagenes-para\marohe-world-vercel-organizado"
 git init -b main
 git add .
 git commit -m "Preparar MAROHE World para Vercel"
@@ -34,4 +36,4 @@ El sitio se puede desplegar sin claves. Para activar funciones conectadas, añad
 
 No guardes valores de estas claves en GitHub ni en archivos públicos. Sin ellas, la web estática se publica, pero las funciones correspondientes mostrarán que falta configuración.
 
-Después del despliegue, abre la portada, `/#agency/portfolio`, `/peliculas/index.html` y `/api/blog?action=status`. Esta última ruta debe responder `{"configured":true}` cuando el podcast tenga su almacenamiento y contraseña configurados.
+Después del despliegue, abre la portada, `/src/css/style.css`, `/src/js/app.js`, `/assets/marohe-logo.png`, `/#agency/portfolio`, `/peliculas/index.html` y `/api/blog?action=status`. Los archivos CSS, JS e imagen deben responder sin error 404; la última ruta debe responder `{"configured":true}` cuando el podcast tenga su almacenamiento y contraseña configurados.
