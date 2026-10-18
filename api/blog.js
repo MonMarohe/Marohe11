@@ -3,7 +3,7 @@
 const {createHmac, timingSafeEqual, randomBytes, createHash} = require('node:crypto');
 const KEY = 'welcome-mate:blog:posts:v1';
 const INDEX = 'welcome-mate:blog:index:v1';
-const covers = new Set(['assets/about-block-bunny.jpg','assets/build-world-kit.jpg','assets/parfait.jpg','assets/episodio-lima.png','assets/club-polimata-banner.jpg']);
+const covers = new Set(['assets/about-block-bunny.jpg','assets/build-world-kit.jpg','assets/boba-taro-classic.jpg','assets/parfait.jpg','assets/episodio-lima.png','assets/club-polimata-banner.jpg','assets/clothing-peru.jpg','assets/welcome-mate-boba-purple.jpg','assets/welcome-mate-boba-matcha.jpg','assets/welcome-mate-boba-pixel.jpg','assets/welcome-mate-kit-matcha.jpg','assets/welcome-mate-kit-purple.jpg']);
 const json = (res,status,data) => { res.statusCode=status; res.setHeader('Content-Type','application/json; charset=utf-8'); res.end(JSON.stringify(data)); };
 const settings = () => ({url:process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL,token:process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN,password:process.env.BLOG_ADMIN_PASSWORD});
 const configured = config => /^https:\/\//.test(config.url || '') && !!config.token && (config.password || '').length >= 16;
@@ -75,6 +75,11 @@ module.exports = async function handler(req,res) {
       }
       if (action==='edit' && !admin) return json(res,401,{error:'Ingresa como administradora.'});
       return json(res,200,{post:preview(post,action==='edit' && admin)});
+    }
+    if (req.method==='GET' && action==='subscribers') {
+      if (!admin) return json(res,401,{error:'Ingresa como administradora.'});
+      const values=await command(config,['HVALS','welcome-mate:newsletter:subscribers:v1']);
+      return json(res,200,{subscribers:(values || []).map(value=>JSON.parse(value))});
     }
     if (req.method==='GET') {
       const all=action==='admin'; if (all && !admin) return json(res,401,{error:'Ingresa como administradora.'});
