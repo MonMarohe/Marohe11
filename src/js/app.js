@@ -9,10 +9,12 @@ const canvas=$('#game'),ctx=canvas.getContext('2d'),rabbit=new Image();rabbit.sr
 const COLS=19,ROWS=13,SIZE=39,OX=(900-COLS*SIZE)/2,OY=54;
 const key=(x,y)=>`${x},${y}`,occupied=(list,x,y)=>list.some(p=>p.x===x&&p.y===y);
 function route(){
-  let view=(location.hash.slice(1)||'inicio').split('/')[0];if(view==='agency')view='about';if(view==='podcast')view='blog';
-  if(view==='tienda'||view==='proyectos')view='about';
+  let view=(location.hash.slice(1)||'inicio').split('/')[0];
+  const requested=view;
+  if(view==='podcast'||view==='news'||view==='episodios')view='blog';
+  if(['agency','about','proyectos','tienda'].includes(view))view='inicio';
   if(!['inicio','play','about','events','australia','peru','usa','fuel','juego','city','blocks','match','explorar','proyectos','episodios','blog'].includes(view))view='inicio';
-  const name=view==='events'?'explorar':view,navName=['australia','peru','usa','fuel','juego','city','blocks','match'].includes(name)?'play':(['explorar'].includes(name)?'play':name);
+  const name=view==='events'?'explorar':view,navName=requested==='news'?'news':['australia','peru','usa','fuel','juego','city','blocks','match'].includes(name)?'play':(['explorar'].includes(name)?'play':name);
   document.body.dataset.page=name;document.body.dataset.view=view;
   $$('.page').forEach(el=>el.hidden=el.id!==name);
   $$('nav a').forEach(a=>{const active=a.dataset.page===navName;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
@@ -39,7 +41,7 @@ let touchStart;canvas.addEventListener('pointerdown',e=>{touchStart=[e.clientX,e
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&state==='playing')pauseGame()});
 setInterval(()=>{if(state!=='playing'||document.hidden||location.hash!=='#juego')return;tick++;for(const b of bombs){if(trees.some(t=>Math.abs(t.x-b.x)+Math.abs(t.y-b.y)<=2))continue;let options=[[1,0],[-1,0],[0,1],[0,-1]].map(([dx,dy])=>({x:b.x+dx,y:b.y+dy})).filter(p=>!solid(p.x,p.y)&&!occupied(cubes,p.x,p.y)&&!occupied(bombs,p.x,p.y));if(!options.length)continue;if(tick%3===0)options.sort((a,b)=>Math.abs(a.x-player.x)+Math.abs(a.y-player.y)-Math.abs(b.x-player.x)-Math.abs(b.y-player.y));else options.sort(()=>Math.random()-.5);b.x=options[0].x;b.y=options[0].y}collision();draw()},900);
 function draw(){if(!grid)return;const w=worlds[current],portrait=portraitMaze(),width=portrait?620:900,height=portrait?900:620,ox=(width-(portrait?ROWS:COLS)*SIZE)/2,oy=portrait?74:54,point=(x,y)=>[ox+(portrait?y:x)*SIZE,oy+(portrait?x:y)*SIZE];if(canvas.width!==width)canvas.width=width;if(canvas.height!==height)canvas.height=height;ctx.clearRect(0,0,width,height);ctx.fillStyle=w.floor;ctx.fillRect(0,0,width,height);ctx.strokeStyle='#ffffff28';ctx.lineWidth=1;for(let x=0;x<width;x+=26){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,height);ctx.stroke()}for(let y=0;y<height;y+=26){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(width,y);ctx.stroke()}ctx.fillStyle='#79645c';ctx.font='11px monospace';ctx.fillText('WELCOME MATE / MAPA DE IDEAS',ox,25);ctx.fillText('N ↑',width-78,35);ctx.fillText(`IDEAS + LÍMITES + FUEGO · ${w.name.toUpperCase()}`,ox,height-30);for(let y=0;y<ROWS;y++)for(let x=0;x<COLS;x++){let[px,py]=point(x,y);if(grid[y][x]){ctx.fillStyle=w.wall;ctx.fillRect(px+2,py+3,SIZE-4,SIZE-4);ctx.fillStyle='#ffffff44';ctx.fillRect(px+2,py+3,SIZE-4,6);ctx.fillStyle='#3b294629';ctx.fillRect(px+SIZE-8,py+9,6,SIZE-10);ctx.strokeStyle='#49364c55';ctx.strokeRect(px+2,py+3,SIZE-4,SIZE-4)}else{ctx.strokeStyle='#8c6b761c';ctx.strokeRect(px,py,SIZE,SIZE)}}for(const s of sparks){let[x,y]=s.split(',').map(Number);drawIdeaSpark(point(x,y)[0]+SIZE/2,point(x,y)[1]+SIZE/2)}for(const c of cubes){let[px,py]=point(c.x,c.y);ctx.fillStyle='#9175c4';ctx.fillRect(px+4,py+5,31,30);ctx.fillStyle='#c2a5e4';ctx.fillRect(px+4,py+5,31,8);ctx.strokeStyle='#4d386b';ctx.strokeRect(px+4,py+5,31,30);ctx.beginPath();ctx.moveTo(px+19,py+13);ctx.lineTo(px+19,py+35);ctx.stroke()}ctx.textAlign='center';for(const t of trees)drawIdeaTree(point(t.x,t.y)[0]+20,point(t.x,t.y)[1]+22);drawCreativeFire(point(17,11)[0]+20,point(17,11)[1]+23);for(const b of bombs){let[px,py]=point(b.x,b.y);px+=20;py+=22;ctx.fillStyle='#282032';ctx.beginPath();ctx.arc(px,py,12,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#44334e';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(px+6,py-10);ctx.quadraticCurveTo(px+5,py-24,px+14,py-17);ctx.stroke();ctx.fillStyle='#ff94bd';ctx.fillRect(px+13,py-20,4,4);ctx.fillStyle='#ffb4d8';ctx.fillRect(px-6,py-4,4,3);ctx.fillRect(px+3,py-4,4,3);ctx.strokeStyle='#ff5d9d';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(px-8,py-8);ctx.lineTo(px-2,py-5);ctx.moveTo(px+8,py-8);ctx.lineTo(px+2,py-5);ctx.stroke()}let[px,py]=point(player.x,player.y);if(Date.now()<immuneUntil){ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.strokeRect(px+1,py+1,37,37)}if(rabbit.complete&&rabbit.naturalWidth)ctx.drawImage(rabbit,px+3,py+2,33,35);else{ctx.fillStyle='#ff00ef';ctx.fillRect(px+3,py+3,33,33)}ctx.textAlign='start';ctx.lineWidth=1}
-const instagramUrl='https://www.instagram.com/MISSMAROHE';
+const instagramUrl='https://www.instagram.com/welcomemate.pe';
 const products=[];
 function renderProducts(){}
 function renderCart(){const count=$('#cart-count'),items=$('#cart-items'),total=$('#cart-total');if(!count||!items||!total)return;bag=bag.filter(id=>{const p=products.find(p=>p.id===id);return p&&Number.isFinite(p.price)});count.textContent=bag.length;let sum=0;items.replaceChildren();if(!bag.length)items.textContent='Tu bolsa está esperando un poquito de magia.';for(const id of [...new Set(bag)]){const p=products.find(p=>p.id===id),n=bag.filter(x=>x===id).length;sum+=n*p.price;const row=document.createElement('div');row.className='cart-row';const text=document.createElement('span');text.textContent=`${p.name} × ${n} · S/ ${(p.price*n).toFixed(2)}`;const btn=document.createElement('button');btn.textContent='Quitar';btn.onclick=()=>{bag.splice(bag.indexOf(id),1);storage.write('mate-bag',bag);renderCart()};row.append(text,btn);items.append(row)}total.textContent=`Total referencial: S/ ${sum.toFixed(2)}`}
@@ -60,8 +62,8 @@ function installHelp(message) {
   if (!$('#install-help').open) $('#install-help').showModal();
 }
 async function requestPWAInstall() {
-  if (appInstalled) { installHelp('Ya estás usando MAROHE como una app instalada. Puedes abrirla desde su icono.'); return; }
-  if (!installPrompt) { installHelp('Puedes instalar MAROHE desde el menú de un navegador compatible. Si aún no aparece la opción, vuelve a cargar la página tras su primera visita.'); return; }
+  if (appInstalled) { installHelp('Ya estás usando Welcome Mate como una app instalada. Puedes abrirla desde su icono.'); return; }
+  if (!installPrompt) { installHelp('Puedes instalar Welcome Mate desde el menú de un navegador compatible. Si aún no aparece la opción, vuelve a cargar la página tras su primera visita.'); return; }
   const prompt = installPrompt; installPrompt = null; $('#install').hidden = true;
   try {
     await prompt.prompt();

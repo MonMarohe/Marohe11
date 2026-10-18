@@ -4,7 +4,7 @@
   if (!byId('blog-posts')) return;
   const POSTS_KEY = 'welcome-mate-blog-posts-v1';
   const ADMIN_KEY = 'welcome-mate-blog-admin-v1';
-const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-world-kit.jpg','assets/boba-taro-classic.jpg','assets/parfait.jpg','assets/episodio-lima.png','assets/club-polimata-banner.jpg','assets/clothing-peru.jpg']);
+const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-world-kit.jpg','assets/boba-taro-classic.jpg','assets/parfait.jpg','assets/episodio-lima.png','assets/club-polimata-banner.jpg','assets/clothing-peru.jpg','assets/welcome-mate-boba-purple.jpg','assets/welcome-mate-boba-matcha.jpg','assets/welcome-mate-boba-pixel.jpg','assets/welcome-mate-kit-matcha.jpg','assets/welcome-mate-kit-purple.jpg']);
   const seeds = [
     {id:'welcome-many-passions',title:'No tienes que elegir una sola pasión',category:'Creatividad',excerpt:'Tu curiosidad no es falta de enfoque. Puede ser el mapa que conecta todo lo que sabes hacer.',body:'A veces una mente curiosa parece estar cambiando de rumbo, cuando en realidad está reuniendo piezas. Una receta puede enseñarte color; un videojuego puede enseñarte ritmo; construir algo puede ayudarte a contar una historia.\n\nElige dos intereses que parezcan lejanos y crea una prueba pequeña que los una. No tiene que convertirse en un negocio ni definirte para siempre. Solo tiene que darte información sobre lo que disfrutas.',cover:'assets/about-block-bunny.jpg',published:true,created:'2026-10-10T12:00:00.000Z',updated:'2026-10-10T12:00:00.000Z'},
     {id:'small-creative-experiment',title:'El experimento creativo de veinte minutos',category:'Diseño',excerpt:'Una forma amable de empezar cuando una idea parece demasiado grande.',body:'Pon un límite de veinte minutos y construye la versión más pequeña de tu idea. Puede ser un dibujo, tres bloques, una etiqueta o el nombre de una bebida imaginaria.\n\nCuando termine el tiempo, no preguntes si quedó perfecto. Pregunta qué parte te dio energía y cuál quisieras repetir. Esa respuesta vale más que terminar algo enorme por presión.',cover:'assets/build-world-kit.jpg',published:true,created:'2026-10-09T15:30:00.000Z',updated:'2026-10-09T15:30:00.000Z'},
@@ -17,7 +17,7 @@ const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-worl
   let adminDestination = 'blog';
   let currentPost = null;
   let uploadedCover = null, uploadGeneration = 0, uploadBusy = false;
-  const updatedCovers = new Map([['assets/parfait.jpg','assets/boba-marohe-taro.jpg'],['assets/boba-taro-classic.jpg','assets/boba-marohe-taro.jpg'],['assets/build-world-kit.jpg','assets/kit-marohe-pintura.jpg'],['assets/about-block-bunny.jpg','assets/block-bunny.png']]);
+  const updatedCovers = new Map([['assets/parfait.jpg','assets/welcome-mate-boba-purple.jpg'],['assets/boba-taro-classic.jpg','assets/welcome-mate-boba-purple.jpg'],['assets/build-world-kit.jpg','assets/welcome-mate-kit-matcha.jpg'],['assets/about-block-bunny.jpg','assets/welcome-mate-boba-pixel.jpg']]);
   const coverSource = cover => updatedCovers.get(cover) || (allowedCovers.has(cover) || window.BunnyBlogMedia.safeCover(cover) || /^\/api\/blog\?action=cover&id=[a-zA-Z0-9_-]+&v=/.test(cover || '') ? cover : 'assets/rabbit.png');
 
   function readPosts() {
@@ -33,13 +33,14 @@ const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-worl
   async function api(query='',method='GET',payload) {
     const response = await fetch(`/api/blog${query}`,{method,cache:'no-store',credentials:'same-origin',headers:payload?{'Content-Type':'application/json'}:{},body:payload?JSON.stringify(payload):undefined,signal:AbortSignal.timeout(15000)});
     const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data.error || 'No se pudo conectar con el podcast compartido.');
+    if (!response.ok) throw new Error(data.error || 'No se pudo conectar con el blog compartido.');
     return data;
   }
   function cloudStatus(message) { byId('blog-sync-status').textContent = message; }
   function configureDashboard() {
-    byId('blog-dashboard-note').textContent = cloudReady ? 'Podcast compartido: al publicar, tu entrada estará disponible en computadora y celular. Las fotos también se guardan en el servidor. Puedes importar las entradas anteriores de este navegador.' : 'Falta conectar Storage en Vercel. Por ahora guardas copias locales: no se publican en otros dispositivos. Descarga un respaldo o importa estas entradas después de conectar el servidor.';
+    byId('blog-dashboard-note').textContent = cloudReady ? 'Blog compartido: al publicar, tu entrada estará disponible en computadora y celular. Las fotos también se guardan en el servidor. Puedes importar las entradas anteriores de este navegador.' : 'Falta conectar Storage en Vercel. Por ahora guardas copias locales: no se publican en otros dispositivos. Descarga un respaldo o importa estas entradas después de conectar el servidor.';
     byId('blog-import-local').disabled = !cloudReady;
+    byId('newsletter-export').disabled = !cloudReady || !adminUnlocked;
     byId('blog-post-form').querySelector('button[type="submit"]').textContent = cloudReady ? 'Guardar publicación' : 'Guardar copia local';
   }
   async function refreshShared(checkConfig=false) {
@@ -51,13 +52,13 @@ const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-worl
       if (!cloudReady) { cloudStatus('Mostrando las entradas disponibles en este navegador.'); return; }
       const data=await api(adminUnlocked?'?action=admin':''); posts=data.posts; renderPublic(); renderAdmin();
       try { localStorage.setItem('welcome-mate-blog-public-cache-v1',JSON.stringify(posts.filter(post=>post.published))); } catch {}
-      cloudStatus('Podcast actualizado.');
+      cloudStatus('Blog actualizado.');
       const sharedId=new URLSearchParams(location.search).get('post');
       const shared=posts.find(post=>post.id===sharedId && post.published);
       if (shared && !sharedOpened) { sharedOpened=true; openReader(shared); }
       if (sharedId && !shared) cloudStatus('Este artículo ya no está publicado o el enlace no existe.');
     } catch (error) {
-      cloudStatus(cloudReady ? 'No se pudo actualizar el podcast. Mostramos la última copia disponible; vuelve a intentarlo con conexión.' : 'Mostrando las entradas disponibles en este navegador.');
+      cloudStatus(cloudReady ? 'No se pudo actualizar el blog. Mostramos la última copia disponible; vuelve a intentarlo con conexión.' : 'Mostrando las entradas disponibles en este navegador.');
       if (cloudReady && !adminUnlocked) {
         try { posts=JSON.parse(localStorage.getItem('welcome-mate-blog-public-cache-v1')) || seeds; } catch { posts=seeds; }
         renderPublic();
@@ -143,7 +144,7 @@ const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-worl
     const latest = posts.filter(post => post.published).sort((a,b) => new Date(b.created)-new Date(a.created)).slice(0,3);
     if (!latest.length) { container.append(make('p','home-empty-note','Las próximas historias están en camino.')); return; }
     for (const post of latest) {
-      const card = make('a'); card.href = '#podcast';
+      const card = make('a'); card.href = '#blog';
       const image = make('img'); image.src = coverSource(post.cover); image.alt = `Portada de ${post.title}`; image.loading='lazy';
       card.append(image,make('span','',post.category.toLocaleUpperCase('es')),make('h3','',post.title),make('p','',post.excerpt));
       card.addEventListener('click',event=>{event.preventDefault();openReader(post);}); container.append(card);
@@ -233,7 +234,7 @@ const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-worl
     if(!adminUnlocked)return;
     if(adminDestination==='city'){location.hash='#explorar';route();window.cityAdmin?.open();}
     else if(adminDestination==='projects'){location.hash='#agency/portfolio';route();window.projectsAdmin?.open();}
-    else{location.hash='#podcast';route();byId('blog-dashboard').hidden=false;renderAdmin();byId('blog-dashboard').scrollIntoView({behavior:'smooth',block:'start'});}
+    else{location.hash='#blog';route();byId('blog-dashboard').hidden=false;renderAdmin();byId('blog-dashboard').scrollIntoView({behavior:'smooth',block:'start'});}
   }
   async function openAdmin(destination='blog'){adminDestination=destination;await refreshShared(true);if(adminUnlocked)enterDashboard();else{setAuthMode();byId('blog-admin-auth').showModal();}}
   async function logoutAdmin(){if(cloudReady){try{await api('?action=logout','POST',{});}catch{byId('blog-admin-status').textContent='No se pudo cerrar la sesión del servidor. Reintenta con conexión.';return;}}adminUnlocked=false;byId('blog-dashboard').hidden=true;resetEditor();window.cityAdmin?.close();window.projectsAdmin?.close();await refreshShared();}
@@ -349,6 +350,17 @@ const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-worl
   byId('blog-post-cancel').addEventListener('click',resetEditor);
   byId('blog-import-local').addEventListener('click',importLocal);
   byId('blog-export-local').addEventListener('click',exportLocal);
+  byId('newsletter-export').addEventListener('click',async()=>{
+    if(!adminUnlocked || !cloudReady)return;
+    try {
+      const data=await api('?action=subscribers');
+      const blob=new Blob([JSON.stringify(data.subscribers,null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob),link=document.createElement('a');
+      link.href=url;link.download='welcome-mate-suscriptores-'+new Date().toISOString().slice(0,10)+'.json';link.click();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+      byId('blog-admin-status').textContent='Registros descargados. El archivo contiene datos personales; guárdalo en un lugar privado.';
+    } catch(error) { byId('blog-admin-status').textContent=error.message || 'No se pudieron descargar los registros.'; }
+  });
   byId('blog-import-backup').addEventListener('change',importBackup);
   byId('blog-refresh').addEventListener('click',()=>refreshShared(true));
   byId('blog-photo-upload').addEventListener('change',uploadPhoto);
@@ -358,9 +370,9 @@ const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-worl
   renderPublic();
   configureDashboard(); void refreshShared(true);
   addEventListener('online',()=>refreshShared(true));
-  addEventListener('hashchange',()=>{if(['#blog','#podcast'].includes(location.hash))void refreshShared(true);});
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden && ['','#inicio','#blog','#podcast'].includes(location.hash))void refreshShared(true);});
-  setInterval(()=>{if(!document.hidden && ['','#inicio','#blog','#podcast'].includes(location.hash) && !adminUnlocked)void refreshShared();},30000);
+  addEventListener('hashchange',()=>{if(['#blog','#news','#podcast'].includes(location.hash))void refreshShared(true);});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden && ['','#inicio','#blog','#news','#podcast'].includes(location.hash))void refreshShared(true);});
+  setInterval(()=>{if(!document.hidden && ['','#inicio','#blog','#news','#podcast'].includes(location.hash) && !adminUnlocked)void refreshShared();},30000);
   window.blogApp = {refresh:()=>refreshShared(true),count:() => posts.filter(post => post.published).length};
   window.mateAdmin = {isUnlocked:()=>adminUnlocked,open:openAdmin,logout:logoutAdmin};
 })();
