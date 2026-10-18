@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#16131c">
-<meta name="description" content="MAROHE WORLD: historias, juegos, arte, bobas, kits creativos y ruletas para descubrir tu próximo plan.">
-<title>MAROHE WORLD · Crea, juega y ríe</title>
-<link rel="icon" href="assets/marohe-icon-192.png">
+<meta name="description" content="Welcome Mate: drinks peruanos en Lima y noticias bonitas del Perú contadas por Alpaca.">
+<title>Welcome Mate · Drinks peruanos y buenas noticias</title>
+<link rel="icon" type="image/svg+xml" href="assets/welcome-mate-icon.svg">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="stylesheet" href="./src/css/style.css">
 <link rel="stylesheet" href="./src/css/arcade.css">
@@ -31,60 +31,56 @@
 <link rel="stylesheet" href="./src/css/refresh.css">
 <link rel="stylesheet" href="./src/css/marohe.css">
 <link rel="stylesheet" href="./src/css/play-marohe.css">
+<link rel="stylesheet" href="./src/css/welcome-mate.css">
 </head>
 <body data-page="inicio">
 <header>
-<a href="#inicio" class="brand" aria-label="MAROHE, inicio">
-<img src="assets/marohe-logo.png" alt="MAROHE">
+<a href="#inicio" class="brand" aria-label="Welcome Mate, inicio">
+<img src="assets/welcome-mate-logo.png" alt="Welcome Mate">
 </a>
 <nav aria-label="Navegación principal">
 <a href="#inicio" data-page="inicio">Home</a>
-<a href="#agency" data-page="about">Estudio</a>
 <a href="#play" data-page="play">Play</a>
-<a href="#podcast" data-page="blog">Podcast</a>
+<a href="#news" data-page="news">News</a>
+<a href="#blog" data-page="blog">Blog</a>
 
 </nav>
 <button id="install" hidden>Instalar app</button>
-<span class="header-note">HECHO DE MAGIA. HECHO EN PERÚ.</span>
+<span class="header-note">DRINKS PERUANOS · NOTICIAS BONITAS</span>
 </header>
 <main>
 <section id="inicio" class="page">
 <div class="catalog-hero">
 <img fetchpriority="high" decoding="async" src="assets/mate-lima-alpaca-hero.png" alt="Una alpaca tomando boba en una Lima colorida al atardecer">
 <div class="hero-copy">
-<span class="original-label">
-<b>M</b> BIENVENIDO A TU MUNDO CREATIVO</span>
-<h1 class="hero-wordmark">MAROHE <span>WORLD</span></h1>
-<p class="hero-welcome">Hola, soy Marohe. Artista, comunicadora creativa y arquitecta en formación.<br>En este espacio comparto mis creaciones, procesos y conversaciones sobre arte, social media y arquitectura!</p>
+<span class="original-label"><b>✦</b> UN ABRAZO RICO DESDE EL PERÚ</span>
+<h1 class="hero-wordmark">WELCOME <span>MATE</span></h1>
+<p class="hero-welcome">Welcome Mate es una casita de drinks peruanos en Lima. ¿Qué es un mate? Es nuestro mate de coca, de muña, de anís. Es el abrazo calientito de la sierra. Lo trajimos al mundo boba, con infusiones peruanas, bobas de lúcuma y maracuyá, smoothies y todo lo que se toma rico aquí. Y mientras tomas tu drink, Alpaca te cuenta lo bueno de Perú.</p>
 <div class="hero-actions">
-<a class="home-play-bubble" href="#play/games" aria-label="Entrar a Play">PLAY <span aria-hidden="true">✦</span></a>
+<a class="home-play-bubble" href="#news" aria-label="Suscribirme a noticias bonitas">NEWS <span aria-hidden="true">✦</span></a>
 <button id="hero-install" class="hero-alt" type="button">↓ Descargar PWA</button>
 </div>
 </div>
 </div>
-<section class="home-shelf home-blog" data-home-row="blog" aria-labelledby="home-blog-title"><div class="catalog-heading"><h2 id="home-blog-title">PODCAST · Historias que prenden ideas</h2><a href="#podcast">Ver podcast ↗</a></div><div id="home-blog-posts" class="home-strip" aria-live="polite"></div></section>
-<section class="home-shelf home-episodes" data-home-row="episodios" aria-labelledby="home-episodes-title"><div class="catalog-heading"><h2 id="home-episodes-title">EPISODIOS · Detrás de la chispa</h2><a href="#episodios">Ver episodios ↗</a></div><div class="home-strip">
-<a href="#episodios"><img loading="lazy" decoding="async" src="assets/episodio-lima.png" alt="Una chispa en Lima"><span>LIMA · EN PREPARACIÓN</span><h3>Una chispa en la ciudad</h3><p>Balcones, aventuras y un fuego por descubrir.</p></a>
-<a href="#episodios"><img loading="lazy" decoding="async" src="assets/australia-bunny.svg" alt="Un delfín rosado en Iquitos"><span>IQUITOS · PRÓXIMAMENTE</span><h3>El bosque que escucha</h3><p>Una futura historia entre ríos y hojas.</p></a>
-<a href="#episodios"><img loading="lazy" decoding="async" src="assets/usa-bunny.svg" alt="Una alpaca en las montañas"><span>ANDES · PRÓXIMAMENTE</span><h3>La luz entre montañas</h3><p>Una futura aventura para encender tu curiosidad.</p></a>
+<section id="home-products" class="welcome-products home-shelf" aria-labelledby="welcome-products-title"><div class="catalog-heading"><div><span class="welcome-kicker">HECHOS PARA TOMARLOS CON CALMA</span><h2 id="welcome-products-title">Nuestros drinks y kits</h2></div></div><div class="welcome-product-row">
+<article><img loading="lazy" decoding="async" src="assets/welcome-mate-boba-purple.jpg" alt="Boba morada Welcome Mate"><div><span>DRINKS</span><h3>Boba morada</h3></div></article>
+<article><img loading="lazy" decoding="async" src="assets/welcome-mate-boba-matcha.jpg" alt="Boba verde Welcome Mate"><div><span>DRINKS</span><h3>Matcha boba</h3></div></article>
+<article><img loading="lazy" decoding="async" src="assets/welcome-mate-boba-pixel.jpg" alt="Boba morada en un mundo de píxeles"><div><span>UN MUNDO PARA IMAGINAR</span><h3>Play boba</h3></div></article>
+<article><img loading="lazy" decoding="async" src="assets/welcome-mate-kit-matcha.jpg" alt="Kit de matcha y boba Welcome Mate"><div><span>PARA HACER EN CASA</span><h3>Kit de matcha</h3></div></article>
+<article><img loading="lazy" decoding="async" src="assets/welcome-mate-kit-purple.jpg" alt="Kit de boba morada Welcome Mate"><div><span>PARA HACER EN CASA</span><h3>Kit de boba morada</h3></div></article>
 </div></section>
-<section class="home-shelf home-projects" data-home-row="proyectos" aria-labelledby="home-projects-title"><div class="catalog-heading"><h2 id="home-projects-title">PORTAFOLIO · ESTUDIO</h2><a href="#agency/portfolio">Ver portafolio ↗</a></div><div class="home-strip">
-<a href="#agency/escenografias"><img loading="lazy" decoding="async" src="assets/projects/scene-01.jpg" alt="Escenografía teatral"><span>ESCENOGRAFÍAS</span><h3>Historias construidas para escena.</h3></a>
-<a href="#agency/comida"><img loading="lazy" decoding="async" src="assets/projects/food-boba-taro.jpg" alt="Boba MAROHE"><span>COMIDA</span><h3>Experiencias para beber y comer con color.</h3></a>
-<a href="#agency/ropa"><img loading="lazy" decoding="async" src="assets/projects/tuks-polo-cusco.jpg" alt="Polo de Cusco de MAROHE"><span>ROPA</span><h3>Diseño, ilustración y color para llevar.</h3></a>
-<a href="#agency/animaciones"><img loading="lazy" decoding="async" src="assets/projects/dr-happy-cover.png" alt="Dibujo animado de MAROHE"><span>ANIMACIONES</span><h3>Diversión y buenas noticias para elevar tu espíritu.</h3></a>
-</div></section>
+<section class="home-shelf home-blog" data-home-row="blog" aria-labelledby="home-blog-title"><div class="catalog-heading"><h2 id="home-blog-title">BLOG · Lo bonito del Perú</h2><a href="#blog">Ver blog ↗</a></div><div id="home-blog-posts" class="home-strip" aria-live="polite"></div></section>
 
  </section>
 <section id="explorar" class="page ar-page" hidden>
-<div class="ar-intro"><a href="#inicio" class="ar-back">‹ MAROHE</a><span class="ar-kicker">UN JUEGO DE LANDMARKS Y ENCUENTROS</span><h1>BUNNY CITY <span>AR</span></h1><p class="ar-handwritten">La ciudad es tu tablero.</p><p>Descubre lugares, encuentra a Bunny y colecciona ideas. Los landmarks te cuentan la ciudad; los eventos te invitan a crearla con otras personas.</p></div>
+<div class="ar-intro"><a href="#inicio" class="ar-back">‹ WELCOME MATE</a><span class="ar-kicker">UN JUEGO DE LANDMARKS Y ENCUENTROS</span><h1>BUNNY CITY <span>AR</span></h1><p class="ar-handwritten">La ciudad es tu tablero.</p><p>Descubre lugares, encuentra a Bunny y colecciona ideas. Los landmarks te cuentan la ciudad; los eventos te invitan a crearla con otras personas.</p></div>
 <div class="ar-tabs" role="group" aria-label="Secciones de Bunny City AR"><button type="button" data-ar-tab="mapa" aria-pressed="true">◎ Explorar Lima</button><button type="button" data-ar-tab="eventos" aria-pressed="false">✧ Eventos <span id="ar-event-count">0</span></button><button type="button" data-ar-tab="pasaporte" aria-pressed="false">♡ Mi Pasaporte <span id="ar-tab-count">0/3</span></button><button type="button" data-ar-tab="mundo" aria-pressed="false">✦ Mundo</button></div>
 <section id="ar-mapa-panel" class="ar-panel">
 <div class="ar-map-heading"><div><span class="ar-kicker">CAPÍTULO 01 · PERÚ 🇵🇪</span><h2 id="ar-map-heading-title">Landmarks, conejos y nuevas ideas.</h2></div><button id="ar-locate" class="ar-pink-button" type="button">◎ Estoy aquí</button></div>
 <p id="ar-location-status" class="ar-location-status" role="status">Toca “Estoy aquí” y permite el acceso a tu ubicación. La cámara se activa cerca del lugar; puedes ver a Bunny en vista previa desde casa.</p>
 <div class="ar-map-tools"><span>◎ Landmarks <span class="ar-event-legend">✧ Eventos</span></span><button id="ar-map-overview" type="button">Ver toda Lima ◎</button><button id="ar-map-wide" type="button" aria-pressed="false">⤢ Ampliar plano</button></div>
 <div id="ar-map-wrap" class="ar-map-wrap"><div id="ar-map" role="region" aria-label="Plano de landmarks y eventos en Lima"></div><div id="ar-map-fallback" class="ar-map-fallback"><p>Explora las calles de Lima con landmarks y eventos.<br>El mapa necesita conexión. Tu pasaporte sigue disponible sin conexión.</p><button id="ar-map-retry" type="button">Cargar mapa ↗</button></div></div>
-<p id="ar-map-status" class="ar-map-note" role="status">Plano de exploración de MAROHE · orientativo, sin rutas de navegación. Toca un conejo para conocer el lugar.</p>
+<p id="ar-map-status" class="ar-map-note" role="status">Plano de exploración de Welcome Mate · orientativo, sin rutas de navegación. Toca un conejo para conocer el lugar.</p>
 <div id="ar-landmarks" class="ar-landmarks" hidden></div>
 <div id="ar-map-events" class="ar-map-events"><div class="ar-passport-heading"><span class="ar-kicker">DESPUÉS DEL MAPA</span><h2>Eventos en Lima.</h2><p>Encuentros, talleres y paseos para seguir creando en la ciudad.</p></div><div id="ar-map-event-list" class="ar-landmarks ar-events-list"></div><div id="ar-map-events-empty" class="ar-events-empty"><img loading="lazy" decoding="async" src="assets/rabbit.png" alt="Bunny preparando nuevos encuentros"><h3>Próximamente.</h3><p>Cuando se publique un evento, aparecerá aquí con su lugar, fecha y horario.</p></div></div>
 <p class="ar-visit-note">Detente en un espacio peatonal para usar la cámara. Respeta las zonas de acceso de cada lugar. Las distancias son en línea recta; los horarios y entradas de los recintos son independientes del juego.</p>
@@ -93,7 +89,7 @@
 <section id="ar-eventos-panel" class="ar-panel" hidden><div class="ar-passport-heading"><span class="ar-kicker">UN SELLO. UN ENCUENTRO. UNA IDEA NUEVA.</span><h2>Eventos en la ciudad.</h2><p>Talleres, paseos y encuentros creativos. Visita su punto mientras el evento está activo para ganar un sello de Bunny.</p></div><div id="ar-event-list" class="ar-landmarks ar-events-list"></div><div id="ar-events-empty" class="ar-events-empty"><img loading="lazy" decoding="async" src="assets/rabbit.png" alt="Bunny preparando nuevos encuentros"><h3>Estamos preparando nuevos encuentros.</h3><p>Cuando se publique un evento, verás aquí su lugar, fecha y horario. Mientras tanto, Lima tiene landmarks por descubrir.</p><button type="button" data-ar-tab="mapa">Explorar landmarks ↗</button></div><p class="ar-map-note">Horarios de eventos en hora de Lima (UTC−5). Los sellos no son entradas ni reservas.</p></section>
 <section id="ar-pasaporte-panel" class="ar-panel" hidden><div class="ar-passport-heading"><span class="ar-kicker">PASAPORTE DE CURIOSIDAD</span><h2>Mi Pasaporte <span>🇵🇪</span></h2><p>Recuerdos de los lugares que miraste de otra manera.</p><strong id="ar-passport-count">Lima · 0/3 conejos</strong><progress id="ar-passport-progress" value="0" max="3" aria-label="Conejos encontrados en Lima"></progress></div><div id="ar-passport-grid" class="ar-passport-grid"></div><div class="ar-block-bank"><h3>Tus bloques para crear</h3><div id="ar-blocks"></div></div><p class="ar-map-note">Tu pasaporte se guarda en este navegador y funciona sin conexión después de la primera visita. Conserva los datos de la app para mantener tus sellos.</p></section>
 <section id="ar-mundo-panel" class="ar-panel" hidden><div class="ar-passport-heading"><span class="ar-kicker">UNA CURIOSIDAD POR DESCUBRIR</span><h2>Lugares del Perú.</h2><p>Después de Lima, Bunny seguirá recorriendo paisajes, historias y formas de construir en todo el país.</p></div><div class="ar-world-grid"><article><span>🏔️</span><img loading="lazy" decoding="async" src="assets/rabbit.png" alt="Silueta de Bunny"><h3>Machu Picchu</h3><p>Piedra, montaña y una ciudad que conversa con el paisaje.</p><small>⌑ Próximamente</small></article><article><span>🌋</span><img loading="lazy" decoding="async" src="assets/rabbit.png" alt="Silueta de Bunny"><h3>Arequipa</h3><p>Sillar, luz y arquitectura de la Ciudad Blanca.</p><small>⌑ Próximamente</small></article><article><span>🌿</span><img loading="lazy" decoding="async" src="assets/rabbit.png" alt="Silueta de Bunny"><h3>Iquitos</h3><p>Selva, ríos y nuevas maneras de orientarse.</p><small>⌑ Próximamente</small></article><article><span>🧱</span><img loading="lazy" decoding="async" src="assets/rabbit.png" alt="Silueta de Bunny"><h3>Chan Chan</h3><p>Adobe, patios y memoria construida.</p><small>⌑ Próximamente</small></article></div></section>
-<section id="city-dashboard" class="city-dashboard" hidden aria-labelledby="city-dashboard-title"><div class="city-dashboard-head"><div><span class="ar-kicker">ADMIN · BUNNY CITY</span><h2 id="city-dashboard-title">Diseña el tablero de tu ciudad.</h2><p>Crea landmarks, publica eventos y elige qué idea comparte Bunny.</p></div><div><button id="city-admin-blog" type="button" hidden>Dashboard del podcast ↗</button><button id="city-admin-logout" type="button">Cerrar Admin ✕</button></div></div><p class="city-local-note">Versión local: los cambios se guardan en este navegador. Para publicar el mismo mapa y los eventos a todos hará falta conectar almacenamiento y autenticación de servidor.</p><div class="city-admin-grid"><form id="city-post-form" class="city-editor"><input id="city-post-id" type="hidden"><label>Tipo de punto<select id="city-post-type"><option value="landmark">Landmark · lugar de la ciudad</option><option value="event">Evento · encuentro con fecha</option></select></label><label>Nombre<input id="city-post-name" maxlength="100" required placeholder="Un lugar o un encuentro por descubrir"></label><label>Lugar / dirección<input id="city-post-area" maxlength="160" required placeholder="Distrito, espacio y dirección"></label><div class="city-coordinate-tools"><button id="city-pick-map" type="button" aria-pressed="false">Elegir punto en el plano ◎</button><button id="city-use-location" type="button">Usar mi ubicación</button></div><label>Latitud<input id="city-post-lat" type="number" step="any" min="-12.6" max="-11.65" required placeholder="−12.1200"></label><label>Longitud<input id="city-post-lng" type="number" step="any" min="-77.25" max="-76.65" required placeholder="−77.0300"></label><p id="city-coordinate-status" class="city-field-note" role="status">Puedes tocar el plano para colocar el punto. Revisa la ubicación antes de publicar.</p><div id="city-event-fields" class="city-event-fields" hidden><label>Empieza · hora de Lima<input id="city-post-start" type="datetime-local"></label><label>Termina · hora de Lima<input id="city-post-end" type="datetime-local"></label></div><label>Foto del post · opcional<input id="city-photo-upload" type="file" accept="image/jpeg,image/png,image/webp"></label><p id="city-photo-status" role="status">JPG, PNG o WebP · hasta 8 MB.</p><img loading="lazy" decoding="async" id="city-photo-preview" class="city-photo-preview" alt="Vista previa de la foto del post" hidden><button id="city-photo-remove" type="button" hidden>Quitar foto</button><label>Mensaje / misión de Bunny<textarea id="city-post-fact" rows="4" maxlength="700" required placeholder="¿Qué puede observar, aprender o crear quien visita este punto?"></textarea></label><label>Bloque de recompensa<select id="city-post-block"><option>Ideas</option><option>Encuentro</option><option>Sombra</option><option>Quincha</option><option>Luz</option></select></label><label>Enlace de información · opcional<input id="city-post-source" type="url" placeholder="https://..."></label><label class="city-publish"><input id="city-post-published" type="checkbox" checked> Publicar este punto</label><div class="city-editor-actions"><button id="city-post-save" type="submit">Guardar punto ✦</button><button id="city-post-cancel" type="button">Nuevo / limpiar</button></div><p id="city-admin-status" role="status"></p></form><div class="city-admin-entries"><div><h3>Tu tablero</h3><span id="city-admin-count"></span></div><div id="city-admin-list"></div></div></div></section>
+<section id="city-dashboard" class="city-dashboard" hidden aria-labelledby="city-dashboard-title"><div class="city-dashboard-head"><div><span class="ar-kicker">ADMIN · BUNNY CITY</span><h2 id="city-dashboard-title">Diseña el tablero de tu ciudad.</h2><p>Crea landmarks, publica eventos y elige qué idea comparte Bunny.</p></div><div><button id="city-admin-blog" type="button" hidden>Dashboard del blog ↗</button><button id="city-admin-logout" type="button">Cerrar Admin ✕</button></div></div><p class="city-local-note">Versión local: los cambios se guardan en este navegador. Para publicar el mismo mapa y los eventos a todos hará falta conectar almacenamiento y autenticación de servidor.</p><div class="city-admin-grid"><form id="city-post-form" class="city-editor"><input id="city-post-id" type="hidden"><label>Tipo de punto<select id="city-post-type"><option value="landmark">Landmark · lugar de la ciudad</option><option value="event">Evento · encuentro con fecha</option></select></label><label>Nombre<input id="city-post-name" maxlength="100" required placeholder="Un lugar o un encuentro por descubrir"></label><label>Lugar / dirección<input id="city-post-area" maxlength="160" required placeholder="Distrito, espacio y dirección"></label><div class="city-coordinate-tools"><button id="city-pick-map" type="button" aria-pressed="false">Elegir punto en el plano ◎</button><button id="city-use-location" type="button">Usar mi ubicación</button></div><label>Latitud<input id="city-post-lat" type="number" step="any" min="-12.6" max="-11.65" required placeholder="−12.1200"></label><label>Longitud<input id="city-post-lng" type="number" step="any" min="-77.25" max="-76.65" required placeholder="−77.0300"></label><p id="city-coordinate-status" class="city-field-note" role="status">Puedes tocar el plano para colocar el punto. Revisa la ubicación antes de publicar.</p><div id="city-event-fields" class="city-event-fields" hidden><label>Empieza · hora de Lima<input id="city-post-start" type="datetime-local"></label><label>Termina · hora de Lima<input id="city-post-end" type="datetime-local"></label></div><label>Foto del post · opcional<input id="city-photo-upload" type="file" accept="image/jpeg,image/png,image/webp"></label><p id="city-photo-status" role="status">JPG, PNG o WebP · hasta 8 MB.</p><img loading="lazy" decoding="async" id="city-photo-preview" class="city-photo-preview" alt="Vista previa de la foto del post" hidden><button id="city-photo-remove" type="button" hidden>Quitar foto</button><label>Mensaje / misión de Bunny<textarea id="city-post-fact" rows="4" maxlength="700" required placeholder="¿Qué puede observar, aprender o crear quien visita este punto?"></textarea></label><label>Bloque de recompensa<select id="city-post-block"><option>Ideas</option><option>Encuentro</option><option>Sombra</option><option>Quincha</option><option>Luz</option></select></label><label>Enlace de información · opcional<input id="city-post-source" type="url" placeholder="https://..."></label><label class="city-publish"><input id="city-post-published" type="checkbox" checked> Publicar este punto</label><div class="city-editor-actions"><button id="city-post-save" type="submit">Guardar punto ✦</button><button id="city-post-cancel" type="button">Nuevo / limpiar</button></div><p id="city-admin-status" role="status"></p></form><div class="city-admin-entries"><div><h3>Tu tablero</h3><span id="city-admin-count"></span></div><div id="city-admin-list"></div></div></div></section>
 </section>
 <section id="about" class="page" hidden>
 <div class="founder-note">
@@ -135,7 +131,7 @@
   <dialog id="projects-admin-dialog" class="projects-dialog">
     <button id="projects-admin-close" class="dialog-close" type="button" aria-label="Cerrar">×</button>
     <span class="eyebrow">DASHBOARD LOCAL</span><h2>Editar tu portafolio</h2><p>Los cambios y los archivos que subas se guardan en este navegador.</p>
-    <form id="projects-form"><input id="project-id" type="hidden"><label>Proyecto<select id="project-category" required><option value="escenografias">Escenografías</option><option value="comida">Comida</option><option value="ropa">Ropa</option><option value="animaciones">Animaciones</option></select></label><label>Título<input id="project-title" required maxlength="70"></label><label>Descripción<textarea id="project-description" required maxlength="220"></textarea></label><label>Foto o video nuevo <input id="project-media" type="file" accept="image/jpeg,image/png,image/webp,video/mp4"></label><p id="projects-form-message" role="status"></p><div class="projects-form-actions"><button class="primary" type="submit">Guardar proyecto</button><button id="project-new" type="button">Nuevo proyecto</button></div></form>
+    <form id="projects-form"><input id="project-id" type="hidden"><label>Proyecto<select id="project-category" required><option value="escenografias">Escenografías</option><option value="comida">Comida</option><option value="ropa">Ropa</option><option value="animaciones">Animaciones</option><option value="videojuegos">Videojuegos</option><option value="meme-generator">Meme Generator</option></select></label><label>Título<input id="project-title" required maxlength="70"></label><label>Descripción<textarea id="project-description" required maxlength="220"></textarea></label><label>Foto o video nuevo <input id="project-media" type="file" accept="image/jpeg,image/png,image/webp,video/mp4"></label><p id="projects-form-message" role="status"></p><div class="projects-form-actions"><button class="primary" type="submit">Guardar proyecto</button><button id="project-new" type="button">Nuevo proyecto</button></div></form>
     <div id="projects-admin-list" class="projects-admin-list"></div>
     <button id="projects-admin-logout" type="button">Cerrar sesión de administradora</button>
   </dialog>
@@ -146,7 +142,7 @@
 </section>
 <section id="australia" class="page" hidden>
 <a class="back-games" href="#inicio">‹ Todos los juegos</a>
-<div class="page-top"><div><span class="eyebrow">01 / IQUITOS · SELVA PERUANA</span><h1>Welcome <em>Iquitos.</em></h1><p>Explora una selva inspirada en Iquitos. Cada sendero abre una nueva aventura.</p></div><div class="combat-stamp">MAROHE WORLD<br>EXPEDICIÓN / 01</div></div>
+<div class="page-top"><div><span class="eyebrow">01 / IQUITOS · SELVA PERUANA</span><h1>Welcome <em>Iquitos.</em></h1><p>Explora una selva inspirada en Iquitos. Cada sendero abre una nueva aventura.</p></div><div class="combat-stamp">WELCOME MATE<br>EXPEDICIÓN / 01</div></div>
 <div class="combat-layout"><div class="game-shell combat-shell">
 <div class="game-top"><span>WELCOME IQUITOS</span><div><span id="australia-health" role="img" aria-label="Vida: 5 de 5">♥♥♥♥♥</span><span id="australia-hearts">♥ 0/6</span><span id="australia-wave">ZONA 1/3</span></div><button type="button" id="australia-pause" aria-label="Pausar Welcome Iquitos">Ⅱ</button></div>
 <div class="canvas-wrap"><canvas id="australia-canvas" width="960" height="640" tabindex="0" aria-label="Welcome Iquitos. Juega como un delfín rosado de pixel art. Muévete con flechas o WASD; espacio o J para lanzar algodón. Transforma serpientes en corazones de peluche y reúne corazones para conseguir la llama."></canvas><div id="australia-overlay" class="combat-overlay"></div></div>
@@ -156,7 +152,7 @@
 </section>
 <section id="peru" class="page" hidden>
 <a class="back-games" href="#inicio">‹ Todos los juegos</a>
-<div class="page-top"><div><span class="eyebrow">02 / PERÚ · CHAN CHAN ARCADE</span><h1>Welcome <em>Chan Chan.</em></h1><p>Recorre patios de adobe inspirados en Chan Chan, en la costa norte del Perú.</p></div><div class="combat-stamp">MAROHE WORLD<br>EXPEDICIÓN / 02</div></div>
+<div class="page-top"><div><span class="eyebrow">02 / PERÚ · CHAN CHAN ARCADE</span><h1>Welcome <em>Chan Chan.</em></h1><p>Recorre patios de adobe inspirados en Chan Chan, en la costa norte del Perú.</p></div><div class="combat-stamp">WELCOME MATE<br>EXPEDICIÓN / 02</div></div>
 <div class="combat-layout"><div class="game-shell combat-shell">
 <div class="game-top"><span>WELCOME CHAN CHAN</span><div><span id="peru-health" role="img" aria-label="Vida: 5 de 5">♥♥♥♥♥</span><span id="peru-hearts">♥ 0/6</span><span id="peru-wave">ZONA 1/3</span></div><button type="button" id="peru-pause" aria-label="Pausar Welcome Chan Chan">Ⅱ</button></div>
 <div class="canvas-wrap"><canvas id="peru-canvas" width="960" height="640" tabindex="0" aria-label="Welcome Chan Chan. Juega como una alpaca de pixel art. Muévete con flechas o WASD; espacio o J para lanzar algodón. Transforma arañas en corazones de peluche y reúne corazones para conseguir la llama."></canvas><div id="peru-overlay" class="combat-overlay"></div></div>
@@ -166,7 +162,7 @@
 </section>
 <section id="usa" class="page" hidden>
 <a class="back-games" href="#inicio">‹ Todos los juegos</a>
-<div class="page-top"><div><span class="eyebrow">03 / CUSCO · ANDES ARCADE</span><h1>Welcome <em>Cusco.</em></h1><p>Sigue a la alpaca por terrazas de piedra inspiradas en Machu Picchu, Cusco.</p></div><div class="combat-stamp">MAROHE WORLD<br>EXPEDICIÓN / 03</div></div>
+<div class="page-top"><div><span class="eyebrow">03 / CUSCO · ANDES ARCADE</span><h1>Welcome <em>Cusco.</em></h1><p>Sigue a la alpaca por terrazas de piedra inspiradas en Machu Picchu, Cusco.</p></div><div class="combat-stamp">WELCOME MATE<br>EXPEDICIÓN / 03</div></div>
 <div class="combat-layout"><div class="game-shell combat-shell">
 <div class="game-top"><span>WELCOME CUSCO</span><div><span id="usa-health" role="img" aria-label="Vida: 5 de 5">♥♥♥♥♥</span><span id="usa-hearts">♥ 0/6</span><span id="usa-wave">ZONA 1/3</span></div><button type="button" id="usa-pause" aria-label="Pausar Welcome Cusco">Ⅱ</button></div>
 <div class="canvas-wrap"><canvas id="usa-canvas" width="960" height="640" tabindex="0" aria-label="Welcome Cusco. Juega como una alpaca de pixel art. Muévete con flechas o WASD; espacio o J para lanzar algodón. Transforma águilas en corazones de peluche y reúne corazones para conseguir la llama."></canvas><div id="usa-overlay" class="combat-overlay"></div></div>
@@ -605,27 +601,24 @@
 <p id="youtube-empty" class="episode-status">El primer episodio está en preparación. Visita el canal para conocer las publicaciones disponibles.</p>
 </section>
 <section id="blog" class="page" hidden>
-<div class="blog-main-hero">
-<div>
-<span class="eyebrow">PODCAST · MAROHE WORLD</span>
-<h1>Historias para<br><em>encender tu creatividad.</em></h1>
-<p>Historias, arte, filosofía y creatividad para encender ideas y mirar el mundo con más curiosidad.</p>
-<div class="blog-hero-actions"><a href="#podcast" aria-label="El enlace al podcast estará disponible pronto">Escuchar el podcast · enlace pronto ↗</a></div>
-</div>
-<img loading="lazy" decoding="async" src="assets/rabbit.png" alt="Bunny leyendo y conectando nuevas ideas">
-</div>
+<section id="newsletter" class="blog-main-hero welcome-newsletter" aria-labelledby="newsletter-title">
+<div class="welcome-news-copy"><span class="eyebrow">WELCOME MATE NEWS · PERÚ</span><h1 id="newsletter-title">Lo bueno del Perú <em>también merece contarse.</em></h1><p>Crecemos rodeados de titulares difíciles, pero el Perú no es solo malas noticias. Alpaca te comparte historias bonitas para hacer una pausa y mirar nuestro país con otros ojos.</p><img loading="lazy" decoding="async" src="assets/welcome-mate-boba-matcha-leaves.jpg" alt="Drink Welcome Mate con hojas verdes"></div>
+<form id="newsletter-form" class="welcome-news-form"><h2>Recibe noticias bonitas ♡</h2><p>Deja tu mail y elige dónde quieres que te llegue lo bonito:</p><label class="welcome-email-label" for="newsletter-email">Tu mail <span aria-hidden="true">*</span></label><input id="newsletter-email" name="email" type="email" autocomplete="email" required placeholder="tu@correo.com">
+<fieldset><legend>¿Dónde te gustaría recibirlas?</legend><label class="welcome-channel"><input type="checkbox" name="channels" value="email" checked> <span><strong>Al mail</strong><small>Carta semanal de Alpaca por Substack</small></span></label><label class="welcome-channel"><input id="newsletter-whatsapp" type="checkbox" name="channels" value="whatsapp"> <span><strong>A WhatsApp</strong><small>Una buena noticia diaria en el canal</small></span></label><div id="newsletter-phone-wrap" class="welcome-phone-wrap" hidden><label for="newsletter-phone">Tu número de WhatsApp</label><input id="newsletter-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+51 999 999 999"><small>Solo lo pedimos si eliges WhatsApp.</small></div><label class="welcome-channel"><input type="checkbox" name="channels" value="instagram"> <span><strong>A Instagram</strong><small>Avisos por el canal de @welcomemate.pe</small></span></label></fieldset>
+<label class="welcome-consent"><input type="checkbox" name="consent" required> Acepto que Welcome Mate use estos datos únicamente para enviarme noticias por los canales que elegí. Puedo pedir que dejen de enviármelas cuando quiera.</label><button type="submit" disabled>Quiero recibir lo bonito ✦</button><p id="newsletter-status" role="status" aria-live="polite">Comprobando el registro…</p><a id="newsletter-substack-next" class="welcome-substack-link" href="https://substack.com/@welcomemate1" target="_blank" rel="noopener noreferrer" hidden>Confirma tu correo en Substack ↗</a><a class="welcome-substack-link" href="https://substack.com/@welcomemate1" target="_blank" rel="noopener noreferrer">Prefiero suscribirme directamente en Substack ↗</a></form>
+</section>
 
 <section id="blog-dashboard" class="blog-dashboard" hidden aria-labelledby="blog-dashboard-title">
-<div class="dashboard-head"><div><span class="eyebrow">ACCESO ADMINISTRADOR</span><h2 id="blog-dashboard-title">Dashboard del podcast</h2><p>Conserva tus entradas, crea borradores y decide qué aparece para tus lectores.</p></div><div><button id="blog-city-dashboard" type="button">Bunny City · eventos y landmarks ↗</button><button id="blog-admin-logout" type="button">Cerrar panel ✕</button></div></div>
-<div id="blog-dashboard-note" class="dashboard-note">Comprobando el almacenamiento del podcast…</div>
-<div class="blog-storage-actions"><button id="blog-import-local" type="button" disabled>Importar entradas de este navegador</button><button id="blog-export-local" type="button">Descargar respaldo de mis entradas</button></div>
+<div class="dashboard-head"><div><span class="eyebrow">ACCESO ADMINISTRADOR</span><h2 id="blog-dashboard-title">Dashboard del blog</h2><p>Conserva tus entradas, crea borradores y decide qué aparece para tus lectores.</p></div><div><button id="blog-city-dashboard" type="button">Bunny City · eventos y landmarks ↗</button><button id="blog-admin-logout" type="button">Cerrar panel ✕</button></div></div>
+<div id="blog-dashboard-note" class="dashboard-note">Comprobando el almacenamiento del blog…</div>
+<div class="blog-storage-actions"><button id="blog-import-local" type="button" disabled>Importar entradas de este navegador</button><button id="blog-export-local" type="button">Descargar respaldo de mis entradas</button><button id="newsletter-export" type="button" disabled>Descargar registros del newsletter</button></div>
 <label class="blog-backup-label">O importa un respaldo de otra versión de la web<input id="blog-import-backup" type="file" accept="application/json,.json"></label>
 <div class="dashboard-grid">
 <form id="blog-post-form" class="post-editor">
 <input id="blog-post-id" type="hidden">
 <label>Título<input id="blog-post-title" maxlength="100" required placeholder="Una idea que merece crecer"></label>
 <label>Categoría<select id="blog-post-category"><option>Creatividad</option><option>Diseño</option><option>Amor propio</option><option>Recetas</option><option>Historias</option></select></label>
-<label>Imagen<select id="blog-post-cover"><option value="assets/about-block-bunny.jpg">Block Mate</option><option value="assets/build-world-kit.jpg">Construye tu mundo</option><option value="assets/episodio-lima.png">Bunny en Lima</option><option value="assets/clothing-crea.jpg">Perú · Cusco · Lima</option></select></label>
+<label>Imagen<select id="blog-post-cover"><option value="assets/welcome-mate-boba-purple.jpg">Boba morada</option><option value="assets/welcome-mate-boba-matcha.jpg">Matcha boba</option><option value="assets/welcome-mate-boba-pixel.jpg">Play boba</option><option value="assets/welcome-mate-kit-matcha.jpg">Kit de matcha</option><option value="assets/welcome-mate-kit-purple.jpg">Kit de boba morada</option><option value="assets/about-block-bunny.jpg">Block Mate (anterior)</option><option value="assets/build-world-kit.jpg">Construye tu mundo (anterior)</option><option value="assets/boba-taro-classic.jpg">Boba clásica (anterior)</option><option value="assets/parfait.jpg">Parfait (anterior)</option><option value="assets/episodio-lima.png">Bunny en Lima (anterior)</option><option value="assets/club-polimata-banner.jpg">Club (anterior)</option><option value="assets/clothing-peru.jpg">Ropa Perú (anterior)</option></select></label>
 <div class="blog-photo-field"><label>O sube tu propia foto<input id="blog-photo-upload" type="file" accept="image/jpeg,image/png,image/webp"></label><div class="blog-photo-preview"><img loading="lazy" decoding="async" id="blog-photo-preview" src="assets/about-block-bunny.jpg" alt="Vista previa de la portada"><button id="blog-photo-remove" type="button" hidden>Quitar foto</button></div><p id="blog-photo-status" role="status">JPG, PNG o WebP · hasta 8 MB. Se reduce automáticamente para guardarla en este dispositivo.</p></div>
 <label>Resumen<textarea id="blog-post-excerpt" rows="3" maxlength="240" required placeholder="Una invitación breve para abrir el artículo"></textarea></label>
 <label>Artículo<textarea id="blog-post-body" rows="10" maxlength="8000" required placeholder="Escribe aquí. Separa los párrafos con una línea en blanco."></textarea></label>
@@ -637,11 +630,12 @@
 </div>
 </section>
 
+<h2 class="blog-section-title">BLOG</h2>
 <div class="blog-toolbar">
 <label><span>Buscar</span><input id="blog-search" type="search" placeholder="Ideas, recetas, creatividad…"></label>
 <label><span>Tema</span><select id="blog-category-filter"><option value="todos">Todos los temas</option><option>Creatividad</option><option>Diseño</option><option>Amor propio</option><option>Recetas</option><option>Historias</option></select></label>
 </div>
-<div class="blog-sync-bar"><p id="blog-sync-status" role="status">Actualizando el podcast…</p><button id="blog-refresh" type="button">Actualizar ↻</button></div>
+<div class="blog-sync-bar"><p id="blog-sync-status" role="status">Actualizando el blog…</p><button id="blog-refresh" type="button">Actualizar ↻</button></div>
 <div id="blog-posts" class="blog-post-grid" aria-live="polite"></div>
 <div id="blog-empty" class="blog-empty" hidden><span>◇</span><h2>No encontramos esa idea.</h2><p>Prueba otra palabra o vuelve a todos los temas.</p></div>
 
@@ -649,17 +643,15 @@
 <section id="play" class="page play-page" hidden></section>
 </main>
 <footer>
-<a class="footer-brand" href="#inicio"><img src="assets/marohe-logo.png" alt="MAROHE">
+<a class="footer-brand" href="#inicio"><img src="assets/welcome-mate-logo.png" alt="Welcome Mate">
 </a>
-<a class="footer-agency" href="#agency" data-page="about">Agency</a>
-<span>JUGAR. CREAR. REÍR.</span>
+<span>DRINKS PERUANOS · NOTICIAS BONITAS</span>
 <span>De Perú, con amor ♡</span>
-<div class="social-links" role="navigation" aria-label="Redes sociales de MAROHE">
-<a href="https://www.facebook.com/missmarohe" target="_blank" rel="noopener noreferrer" aria-label="Facebook de MAROHE"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 22v-8h3l.5-4H14V8c0-1.2.3-2 2-2h2V2.5A26 26 0 0 0 15 2c-3 0-5 1.8-5 5v3H7v4h3v8z"/></svg></a>
-<a href="https://www.instagram.com/MISSMAROHE" target="_blank" rel="noopener noreferrer" aria-label="Instagram de MAROHE"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
-<a href="https://www.youtube.com/@missmarohe" target="_blank" rel="noopener noreferrer" aria-label="YouTube de MAROHE"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 6 3-6 3z" fill="currentColor" stroke="none"/></svg></a>
+<div class="social-links" role="navigation" aria-label="Redes sociales de Welcome Mate">
+<a href="https://www.instagram.com/welcomemate.pe" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Welcome Mate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+<a href="https://substack.com/@welcomemate1" target="_blank" rel="noopener noreferrer" aria-label="Substack de Welcome Mate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="6" width="16" height="13" rx="2"/><path d="m4 8 8 6 8-6"/></svg></a>
 </div>
-<div class="footer-admin-links"><button id="blog-admin-open" class="footer-admin" type="button">Admin Podcast</button><button id="city-admin-open" class="footer-admin" type="button">Admin AR City</button><button id="projects-admin-open" class="footer-admin" type="button">Admin Proyectos</button></div>
+<div class="footer-admin-links"><button id="blog-admin-open" class="footer-admin" type="button">Admin Blog</button><button id="city-admin-open" class="footer-admin" type="button">Admin AR City</button><button id="projects-admin-open" class="footer-admin" type="button" hidden>Admin Proyectos</button></div>
 </footer>
 <dialog id="episode-dialog">
 <div class="dialog-head">
@@ -713,7 +705,7 @@
 </dialog>
 <dialog id="mail-club-dialog" class="community-dialog" aria-labelledby="mail-club-title">
 <div class="dialog-head"><div><span class="eyebrow">MAIL CLUB · CORREO FÍSICO</span><h2 id="mail-club-title">Un buzón para ti ♡</h2></div><button id="mail-club-close" type="button" aria-label="Cerrar formulario de cartas">✕</button></div>
-<p>Déjanos la dirección donde te gustaría recibir futuras cartas, stickers, recetas y detalles de MAROHE.</p>
+<p>Déjanos la dirección donde te gustaría recibir futuras cartas, stickers, recetas y detalles de Welcome Mate.</p>
 <form id="mail-club-form" class="community-form">
 <label>Nombre completo<input id="mail-name" name="name" autocomplete="name" maxlength="100" required></label>
 <label>Correo electrónico<input id="mail-email" name="email" type="email" autocomplete="email" maxlength="160" required></label>
@@ -724,7 +716,7 @@
 <label>País<input id="mail-country" name="country" autocomplete="country-name" maxlength="80" value="Perú" required></label>
 <label class="wide">Referencia <small>(opcional)</small><textarea id="mail-reference" name="reference" rows="2" maxlength="300" placeholder="Una referencia útil para encontrar tu dirección"></textarea></label>
 <label class="community-consent wide"><input id="mail-consent" type="checkbox" required> Autorizo guardar estos datos en este dispositivo para mi solicitud del club de cartas.</label>
-<p class="privacy-note wide">Por ahora el formulario se guarda únicamente en este navegador y todavía no envía la dirección a MAROHE. No uses un equipo compartido si prefieres mantenerla privada.</p>
+<p class="privacy-note wide">Por ahora el formulario se guarda únicamente en este navegador y todavía no envía la dirección a Welcome Mate. No uses un equipo compartido si prefieres mantenerla privada.</p>
 <button class="primary wide" type="submit">Guardar mi solicitud ♡</button>
 <p id="mail-club-result" class="form-result wide" role="status"></p>
 </form>
@@ -734,7 +726,7 @@
 <h2 id="install-help-heading">Lleva tu universo contigo</h2>
 <button id="install-help-close" type="button" aria-label="Cerrar ayuda de instalación">✕</button>
 </div>
-<p id="install-help-message" role="status">Puedes instalar MAROHE desde el menú de tu navegador.</p>
+<p id="install-help-message" role="status">Puedes instalar Welcome Mate desde el menú de tu navegador.</p>
 <ol class="install-steps">
 <li>
 <strong>En computadora o Android:</strong> busca «Instalar app» o «Añadir a la pantalla de inicio» en el menú del navegador.</li>
@@ -768,6 +760,7 @@
 <script src="./src/js/blog-media.js" defer></script>
 <script src="./src/js/blog.js" defer>
 </script>
+<script src="./src/js/newsletter.js" defer></script>
 <script src="./src/js/ar-engine.js" defer></script>
 <script src="./src/js/city-content.js" defer></script>
 <script src="vendor/leaflet/leaflet.js"></script>

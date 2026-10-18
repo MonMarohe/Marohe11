@@ -1,39 +1,21 @@
-# MAROHE World · repositorio para Vercel
+# Welcome Mate
 
-Esta carpeta es la raíz independiente de la web. Incluye `index.html`, `src/css/`, `src/js/`, `assets/`, la Ruleta de Pelis en `peliculas/` y las funciones necesarias en `api/`. No requiere compilación ni instalación de paquetes.
+Este repositorio contiene la web de Welcome Mate que se publica en `marohe11.vercel.app`. La raíz debe contener `index.html`, `src/`, `assets/`, `api/`, `peliculas/`, `vendor/` y `sw.js`. No hace falta compilar ni instalar paquetes para publicar los archivos estáticos.
 
-**Importante:** descomprime el ZIP completo. Dentro de `marohe-world-vercel-organizado` deben verse juntos `index.html` y las carpetas `src`, `assets`, `api`, `lib`, `peliculas` y `vendor`. Sube a GitHub el contenido de esa carpeta conservando las subcarpetas. Subir el ZIP como archivo único, o elegir solo los archivos de la raíz, produce una web sin estilos ni imágenes.
+## Registro de noticias bonitas
 
-## Subir únicamente esta carpeta a GitHub
+El formulario de `#news` pide un correo siempre y permite elegir correo, WhatsApp o Instagram. El teléfono solo es obligatorio cuando se elige WhatsApp. Cada registro se guarda en Redis; la administradora puede descargar los registros desde **Admin Blog → Descargar registros del newsletter**. Los datos no se guardan en el navegador de quien se registra.
 
-1. Crea en GitHub un repositorio vacío llamado `marohe-world`. No agregues README, `.gitignore` ni licencia desde GitHub porque esta carpeta ya incluye los archivos necesarios.
-2. Abre PowerShell y ejecuta estos comandos, reemplazando `TU_USUARIO` por tu usuario de GitHub:
+Para activar el registro en Vercel:
 
-```powershell
-cd "C:\Users\Claudia\Documents\Codex\2026-10-09\x20-x20-te-mando-imagenes-para\marohe-world-vercel-organizado"
-git init -b main
-git add .
-git commit -m "Preparar MAROHE World para Vercel"
-git remote add origin https://github.com/TU_USUARIO/marohe-world.git
-git push -u origin main
-```
+1. Abre el proyecto **marohe11** en Vercel y entra a **Storage** (o **Infrastructure → Storage**). Crea una base **Upstash Redis** desde el Marketplace y conéctala a este proyecto para **Production**.
+2. En **Settings → Environment Variables** verifica que se hayan añadido `UPSTASH_REDIS_REST_URL` y `UPSTASH_REDIS_REST_TOKEN`. También se admiten `KV_REST_API_URL` y `KV_REST_API_TOKEN`. No copies esos valores a GitHub.
+3. Añade `BLOG_ADMIN_PASSWORD` con al menos 16 caracteres en **Production** para habilitar el panel y la descarga privada de registros. Guárdala fuera del repositorio.
+4. Vuelve a desplegar la última versión de `main` para que las funciones reciban las variables nuevas.
+5. Comprueba `/api/newsletter?action=status`: debe responder `{"configured":true}`. Luego registra un correo de prueba desde `#news`, entra a Admin Blog y descarga los registros para comprobar que se guardó.
 
-Si Git solicita tu nombre y correo antes del primer commit, configúralos con `git config --global user.name "Tu nombre"` y `git config --global user.email "tu-correo@example.com"`, y repite `git commit` y `git push`.
+La web no inscribe automáticamente el correo en Substack. Si alguien elige recibir la carta por mail, verá un enlace para confirmar la suscripción en [Welcome Mate en Substack](https://substack.com/@welcomemate1). Los canales de WhatsApp e Instagram se gestionan manualmente; el formulario guarda las preferencias y, cuando corresponde, el teléfono. Hasta que Redis esté conectado, el formulario se mantiene desactivado y muestra el enlace directo a Substack.
 
-## Conectar GitHub con Vercel
+## Otras funciones
 
-1. En Vercel, entra en **Add New → Project** e importa el repositorio `marohe-world` desde GitHub.
-2. Selecciona **Framework Preset: Other** y **Root Directory: `./`**. La raíz del repositorio contiene `index.html`.
-3. En **Build and Output Settings**, activa la opción de sobrescribir el **Build Command** y déjalo vacío. La web se publica sin compilación. En **Output Directory**, usa `.` (la raíz), si Vercel no lo detecta automáticamente.
-4. Selecciona **Deploy**. Vercel publicará el sitio y creará nuevas versiones automáticamente al subir cambios a `main`.
-
-## Funciones que necesitan claves
-
-El sitio se puede desplegar sin claves. Para activar funciones conectadas, añade las variables en **Project Settings → Environment Variables** y vuelve a desplegar:
-
-- Podcast y dashboard compartido: `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` y `BLOG_ADMIN_PASSWORD` (mínimo 16 caracteres). También se admiten `KV_REST_API_URL` y `KV_REST_API_TOKEN` en lugar del par de Upstash.
-- Catálogo real de la Ruleta de Pelis: `TMDB_API_KEY`.
-
-No guardes valores de estas claves en GitHub ni en archivos públicos. Sin ellas, la web estática se publica, pero las funciones correspondientes mostrarán que falta configuración.
-
-Después del despliegue, abre la portada, `/src/css/style.css`, `/src/js/app.js`, `/assets/marohe-logo.png`, `/#agency/portfolio`, `/peliculas/index.html` y `/api/blog?action=status`. Los archivos CSS, JS e imagen deben responder sin error 404; la última ruta debe responder `{"configured":true}` cuando el podcast tenga su almacenamiento y contraseña configurados.
+La Ruleta de Pelis necesita `TMDB_API_KEY` para consultar el catálogo real. No es necesaria para el newsletter ni para publicar la web.
