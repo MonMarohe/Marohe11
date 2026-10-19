@@ -12,9 +12,9 @@ function route(){
   let view=(location.hash.slice(1)||'inicio').split('/')[0];
   const requested=view;
   if(view==='podcast'||view==='news'||view==='episodios')view='blog';
-  if(['agency','about','proyectos','tienda'].includes(view))view='inicio';
-  if(!['inicio','play','about','events','australia','peru','usa','fuel','juego','city','blocks','match','explorar','proyectos','episodios','blog'].includes(view))view='inicio';
-  const name=view==='events'?'explorar':view,navName=requested==='news'?'news':['australia','peru','usa','fuel','juego','city','blocks','match'].includes(name)?'play':(['explorar'].includes(name)?'play':name);
+  if(['agency','about','proyectos'].includes(view))view='inicio';
+  if(!['inicio','tienda','play','about','events','australia','peru','usa','fuel','juego','city','blocks','match','explorar','proyectos','episodios','blog'].includes(view))view='inicio';
+  const name=view==='events'?'explorar':view,navName=name==='blog'?'news':['australia','peru','usa','fuel','juego','city','blocks','match'].includes(name)?'play':(['explorar'].includes(name)?'play':name);
   document.body.dataset.page=name;document.body.dataset.view=view;
   $$('.page').forEach(el=>el.hidden=el.id!==name);
   $$('nav a').forEach(a=>{const active=a.dataset.page===navName;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
