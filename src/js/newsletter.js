@@ -1,50 +1,127 @@
 'use strict';
 (() => {
-  const form = document.querySelector('#newsletter-form');
-  if (!form) return;
-  const phoneChoice = form.querySelector('#newsletter-whatsapp');
-  const phoneWrap = form.querySelector('#newsletter-phone-wrap');
-  const phone = form.querySelector('#newsletter-phone');
-  const status = form.querySelector('#newsletter-status');
+  const byId = id => document.getElementById(id);
+  const form = byId('newsletter-form');
+  const dashboard = byId('newsletter-dashboard');
+  if (!form || !dashboard) return;
   const submit = form.querySelector('button[type="submit"]');
-  const substackNext = form.querySelector('#newsletter-substack-next');
-  function updatePhone() {
-    phoneWrap.hidden = !phoneChoice.checked;
-    phone.required = phoneChoice.checked;
-    if (!phoneChoice.checked) phone.value = '';
+  const publicStatus = byId('newsletter-status');
+  const adminStatus = byId('newsletter-admin-status');
+  const login = byId('newsletter-admin-login');
+  const content = byId('newsletter-admin-content');
+  const list = byId('newsletter-admin-list');
+  const next = byId('newsletter-next');
+  let currentCursor = null;
+  let nextCursor = null;
+  let visible = [];
+
+  async function api(query = '', method = 'GET', payload) {
+    const response = await fetch(`/api/newsletter${query}`, {
+      method, credentials: 'same-origin', cache: 'no-store',
+      headers: payload ? {'Content-Type': 'application/json'} : {},
+      body: payload ? JSON.stringify(payload) : undefined,
+      signal: AbortSignal.timeout(15000)
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || 'No pudimos conectar con el registro.');
+    return data;
   }
-  phoneChoice.addEventListener('change', updatePhone);
-  updatePhone();
   async function checkConnection() {
     try {
-      const response = await fetch('/api/newsletter?action=status', {cache: 'no-store', signal: AbortSignal.timeout(10000)});
-      const data = await response.json();
-      submit.disabled = !data.configured;
-      status.textContent = data.configured ? '' : 'El registro de preferencias aún no está activo. La suscripción por correo sí está disponible en Substack.';
+      const status = await api('?action=status');
+      submit.disabled = !status.configured;
+      publicStatus.textContent = status.configured ? '' : 'El formulario está visible, pero falta conectar el almacenamiento privado en Vercel. Todavía no puede recibir correos.';
     } catch {
       submit.disabled = true;
-      status.textContent = 'No pudimos comprobar el registro. Puedes suscribirte por correo directamente en Substack.';
+      publicStatus.textContent = 'No pudimos comprobar el registro. Intenta de nuevo más tarde.';
     }
   }
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (submit.disabled) return;
-    const channels = [...form.querySelectorAll('input[name="channels"]:checked')].map(input => input.value);
-    if (!channels.length) { status.textContent = 'Elige al menos un lugar para recibir las noticias.'; return; }
-    const data = {email: form.elements.email.value.trim(), channels, phone: phoneChoice.checked ? phone.value.trim() : '', consent: form.elements.consent.checked};
     submit.disabled = true;
-    status.textContent = 'Guardando tus preferencias…';
-    substackNext.hidden = true;
+    publicStatus.textContent = 'Guardando tu correo…';
     try {
-      const response = await fetch('/api/newsletter', {method: 'POST', credentials: 'same-origin', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data), signal: AbortSignal.timeout(15000)});
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'No pudimos guardar tus preferencias.');
-      status.textContent = channels.includes('email') ? 'Tus preferencias quedaron guardadas. Confirma la carta por correo en Substack para empezar a recibirla.' : 'Tus preferencias quedaron guardadas. Alpaca te avisará por los canales que elegiste.';
-      substackNext.hidden = !channels.includes('email');
+      await api('', 'POST', {
+        email: form.elements.email.value.trim(),
+        consent: form.elements.consent.checked,
+        company: form.elements.company.value.trim()
+      });
+      publicStatus.textContent = '¡Listo! Guardamos tu correo. Pronto recibirás la carta de Alpaca ♡';
       form.reset();
-      updatePhone();
-    } catch (error) { status.textContent = error.message || 'No pudimos guardar tus preferencias. Intenta de nuevo.'; }
-    finally { submit.disabled = false; }
+    } catch (error) {
+      publicStatus.textContent = `${error.message} Tu correo no se guardó.`;
+    } finally { submit.disabled = false; }
+  });
+  function showDashboard() {
+    location.hash = '#blog';
+    dashboard.hidden = false;
+    adminStatus.textContent = '';
+    setTimeout(() => dashboard.scrollIntoView({behavior: 'smooth', block: 'start'}), 80);
+  }
+  function render() {
+    list.replaceChildren();
+    byId('newsletter-count').textContent = visible.length ? `${visible.length} correo${visible.length === 1 ? '' : 's'} en esta página` : 'Todavía no hay correos en esta página.';
+    for (const subscriber of visible) {
+      const row = document.createElement('div'); row.className = 'newsletter-admin-row';
+      const email = document.createElement('span'); email.textContent = subscriber.email;
+      const date = document.createElement('time');
+      date.dateTime = subscriber.createdAt;
+      date.textContent = new Intl.DateTimeFormat('es-PE', {dateStyle: 'medium'}).format(new Date(subscriber.createdAt));
+      const remove = document.createElement('button'); remove.type = 'button'; remove.textContent = 'Borrar';
+      remove.addEventListener('click', () => deleteEmail(subscriber.id, subscriber.email));
+      row.append(email, date, remove); list.append(row);
+    }
+    next.hidden = !nextCursor;
+  }
+  async function load(cursor = null) {
+    adminStatus.textContent = 'Cargando correos…';
+    try {
+      const result = await api(`?action=list${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ''}`);
+      visible = result.subscribers || [];
+      currentCursor = cursor;
+      nextCursor = result.hasMore ? result.cursor : null;
+      render();
+      adminStatus.textContent = '';
+    } catch (error) { adminStatus.textContent = error.message; }
+  }
+  async function deleteEmail(id, email) {
+    if (!confirm(`¿Borrar ${email} del panel? Copia el correo a Substack antes si quieres conservarlo.`)) return;
+    try {
+      await api(`?action=delete&id=${encodeURIComponent(id)}`, 'DELETE', {});
+      visible = visible.filter(item => item.id !== id);
+      render();
+      adminStatus.textContent = 'Correo borrado del almacenamiento de Welcome Mate.';
+    } catch (error) { adminStatus.textContent = error.message; }
+  }
+  byId('newsletter-admin-open').addEventListener('click', showDashboard);
+  byId('newsletter-dashboard-close').addEventListener('click', () => { dashboard.hidden = true; byId('newsletter-admin-password').value = ''; });
+  login.addEventListener('submit', async event => {
+    event.preventDefault();
+    const button = login.querySelector('button'); button.disabled = true;
+    adminStatus.textContent = 'Entrando al panel…';
+    try {
+      await api('?action=login', 'POST', {password: byId('newsletter-admin-password').value});
+      byId('newsletter-admin-password').value = '';
+      login.hidden = true; content.hidden = false;
+      await load();
+    } catch (error) { adminStatus.textContent = error.message; }
+    finally { button.disabled = false; }
+  });
+  byId('newsletter-admin-logout').addEventListener('click', async () => {
+    try { await api('?action=logout', 'POST', {}); }
+    catch (error) { adminStatus.textContent = error.message; return; }
+    visible = []; currentCursor = null; nextCursor = null;
+    render(); content.hidden = true; login.hidden = false; dashboard.hidden = true;
+  });
+  byId('newsletter-refresh').addEventListener('click', () => load(currentCursor));
+  next.addEventListener('click', () => { if (nextCursor) void load(nextCursor); });
+  byId('newsletter-copy').addEventListener('click', async () => {
+    if (!visible.length) { adminStatus.textContent = 'Todavía no hay correos que copiar.'; return; }
+    try {
+      await navigator.clipboard.writeText(visible.map(item => item.email).join('\n'));
+      adminStatus.textContent = `${visible.length} correos copiados. Pégalos en Substack antes de borrarlos.`;
+    } catch { adminStatus.textContent = 'No se pudo copiar automáticamente. Selecciona los correos de la lista.'; }
   });
   void checkConnection();
 })();

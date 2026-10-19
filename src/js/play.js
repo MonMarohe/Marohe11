@@ -25,9 +25,6 @@
  const ar=document.getElementById('explorar');ar.insertAdjacentHTML('afterbegin',tabMarkup);
  function sync(){const isPlay=location.hash.split('/')[0]==='#play';const requested=location.hash.split('/')[1],key=['games','memes','retos','ruletas'].includes(requested)?requested:'games';root.querySelectorAll('[data-tool]').forEach(el=>el.hidden=el.dataset.tool!==key);document.querySelectorAll('[data-play]').forEach(a=>{if(a.dataset.play===(isPlay?key:'ar'))a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
  addEventListener('hashchange',sync);sync();route();
- // Shop cards choose their category after the existing router opens the store.
- function shopRoute(){if(location.hash==='#tienda')location.hash='#agency/portfolio';}
- addEventListener('hashchange',shopRoute);shopRoute();
  const get=id=>document.getElementById(id),mate=new Image();mate.src='assets/rabbit.png';
  const templates=[['Triste','#8b77cb','HOY NO'],['Feliz','#5bd3c6','TODO FLUYE'],['Bloqueado','#e49bc5','ERROR 404'],['Stickers','#ad92e8','PEGADO A MI IDEA'],['Café','#ca9d87','OTRO MATE'],['Deadline','#f587a7','PARA AYER'],['Inspirado','#75bfdb','AJÁ!'],['Caos','#c489cf','MIL IDEAS'],['Descanso','#96cdbc','ZZZ'],['Victoria','#ffffff','LO LOGRÉ']];
  let selected=0, ownImage=null;

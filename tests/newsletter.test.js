@@ -1,59 +1,82 @@
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const handler = require('../api/newsletter');
+const {createHandler} = require('../api/newsletter');
 
 function response() {
   return {headers: {}, setHeader(name, value) { this.headers[name] = value; }, end(value) { this.body = JSON.parse(value); }};
 }
-function request(body, url = '/api/newsletter') {
-  return {method: 'POST', url, body, headers: {host: 'example.vercel.app', origin: 'https://example.vercel.app', 'content-type': 'application/json', 'x-forwarded-for': '203.0.113.10'}};
+function request(method, url, body, cookie = '') {
+  return {method, url, body, headers: {host: 'example.vercel.app', origin: 'https://example.vercel.app', 'content-type': 'application/json', cookie}};
 }
 
-test('newsletter checks storage and saves only consented channel preferences', async () => {
-  const originalFetch = global.fetch;
-  const originalUrl = process.env.UPSTASH_REDIS_REST_URL;
-  const originalToken = process.env.UPSTASH_REDIS_REST_TOKEN;
-  const saved = new Map();
-  let count = 0;
-  process.env.UPSTASH_REDIS_REST_URL = 'https://redis.example';
-  process.env.UPSTASH_REDIS_REST_TOKEN = 'test-token';
-  global.fetch = async (_url, options) => {
-    const [command, ...args] = JSON.parse(options.body);
-    let result;
-    if (command === 'PING') result = 'PONG';
-    else if (command === 'INCR') result = ++count;
-    else if (command === 'EXPIRE') result = 1;
-    else if (command === 'HSET') { saved.set(args[1], JSON.parse(args[2])); result = 1; }
-    return {ok: true, json: async () => ({result})};
+test('visible form saves private emails, admin copies and deletes without exposing the list', async () => {
+  const previousToken = process.env.BLOB_READ_WRITE_TOKEN;
+  const previousPassword = process.env.NEWSLETTER_ADMIN_PASSWORD;
+  const records = new Map();
+  const blob = {
+    async get(path, options) {
+      assert.equal(options.access, 'private');
+      const value = records.get(path);
+      return value ? {statusCode: 200, stream: new Blob([value]).stream()} : null;
+    },
+    async put(path, value, options) {
+      assert.equal(options.access, 'private');
+      records.set(path, value);
+    },
+    async list(options) {
+      return {blobs: [...records.keys()].filter(path => path.startsWith(options.prefix)).map(path => ({pathname: path})), hasMore: false};
+    },
+    async del(path) { records.delete(path); }
   };
+  const handler = createHandler(blob);
   try {
-    const status = response();
-    await handler({method: 'GET', url: '/api/newsletter?action=status', headers: {}}, status);
-    assert.deepEqual(status.body, {configured: true});
+    delete process.env.BLOB_READ_WRITE_TOKEN;
+    delete process.env.NEWSLETTER_ADMIN_PASSWORD;
+    const missing = response();
+    await handler(request('GET', '/api/newsletter?action=status'), missing);
+    assert.deepEqual(missing.body, {configured: false});
 
+    process.env.BLOB_READ_WRITE_TOKEN = 'test-private-blob';
+    process.env.NEWSLETTER_ADMIN_PASSWORD = 'a-strong-password-for-tests';
     const invalid = response();
-    await handler(request({email: 'ana@example.com', channels: ['whatsapp'], consent: true}), invalid);
+    await handler(request('POST', '/api/newsletter', {email: 'ana@example.com', consent: false}), invalid);
     assert.equal(invalid.statusCode, 400);
 
     const accepted = response();
-    await handler(request({email: 'ANA@example.com', channels: ['whatsapp', 'instagram'], phone: '+51 999 888 777', consent: true}), accepted);
+    await handler(request('POST', '/api/newsletter', {email: ' ANA@example.com ', consent: true}), accepted);
     assert.equal(accepted.statusCode, 200);
-    assert.equal(saved.size, 1);
-    const record = [...saved.values()][0];
-    assert.equal(record.email, 'ana@example.com');
-    assert.deepEqual(record.channels, ['whatsapp', 'instagram']);
-    assert.equal(record.phone, '+51 999 888 777');
+    assert.equal(records.size, 1);
+    const saved = JSON.parse([...records.values()][0]);
+    assert.equal(saved.email, 'ana@example.com');
 
-    const rejected = response();
-    await handler(request({email: 'ana@example.com', channels: ['email'], consent: false}), rejected);
-    assert.equal(rejected.statusCode, 400);
-    assert.equal(saved.size, 1);
+    const duplicate = response();
+    await handler(request('POST', '/api/newsletter', {email: 'ana@example.com', consent: true}), duplicate);
+    assert.equal(duplicate.body.existing, true);
+    assert.equal(records.size, 1);
+
+    const publicList = response();
+    await handler(request('GET', '/api/newsletter?action=list'), publicList);
+    assert.equal(publicList.statusCode, 401);
+
+    const login = response();
+    await handler(request('POST', '/api/newsletter?action=login', {password: process.env.NEWSLETTER_ADMIN_PASSWORD}), login);
+    assert.equal(login.statusCode, 200);
+    const cookie = login.headers['Set-Cookie'].split(';')[0];
+
+    const list = response();
+    await handler(request('GET', '/api/newsletter?action=list', undefined, cookie), list);
+    assert.equal(list.statusCode, 200);
+    assert.equal(list.body.subscribers[0].email, 'ana@example.com');
+
+    const deleted = response();
+    await handler(request('DELETE', `/api/newsletter?action=delete&id=${saved.id}`, {}, cookie), deleted);
+    assert.equal(deleted.statusCode, 200);
+    assert.equal(records.size, 0);
   } finally {
-    global.fetch = originalFetch;
-    if (originalUrl === undefined) delete process.env.UPSTASH_REDIS_REST_URL;
-    else process.env.UPSTASH_REDIS_REST_URL = originalUrl;
-    if (originalToken === undefined) delete process.env.UPSTASH_REDIS_REST_TOKEN;
-    else process.env.UPSTASH_REDIS_REST_TOKEN = originalToken;
+    if (previousToken === undefined) delete process.env.BLOB_READ_WRITE_TOKEN;
+    else process.env.BLOB_READ_WRITE_TOKEN = previousToken;
+    if (previousPassword === undefined) delete process.env.NEWSLETTER_ADMIN_PASSWORD;
+    else process.env.NEWSLETTER_ADMIN_PASSWORD = previousPassword;
   }
 });

@@ -40,7 +40,6 @@ const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-worl
   function configureDashboard() {
     byId('blog-dashboard-note').textContent = cloudReady ? 'Blog compartido: al publicar, tu entrada estará disponible en computadora y celular. Las fotos también se guardan en el servidor. Puedes importar las entradas anteriores de este navegador.' : 'Falta conectar Storage en Vercel. Por ahora guardas copias locales: no se publican en otros dispositivos. Descarga un respaldo o importa estas entradas después de conectar el servidor.';
     byId('blog-import-local').disabled = !cloudReady;
-    byId('newsletter-export').disabled = !cloudReady || !adminUnlocked;
     byId('blog-post-form').querySelector('button[type="submit"]').textContent = cloudReady ? 'Guardar publicación' : 'Guardar copia local';
   }
   async function refreshShared(checkConfig=false) {
@@ -350,17 +349,6 @@ const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-worl
   byId('blog-post-cancel').addEventListener('click',resetEditor);
   byId('blog-import-local').addEventListener('click',importLocal);
   byId('blog-export-local').addEventListener('click',exportLocal);
-  byId('newsletter-export').addEventListener('click',async()=>{
-    if(!adminUnlocked || !cloudReady)return;
-    try {
-      const data=await api('?action=subscribers');
-      const blob=new Blob([JSON.stringify(data.subscribers,null,2)],{type:'application/json'});
-      const url=URL.createObjectURL(blob),link=document.createElement('a');
-      link.href=url;link.download='welcome-mate-suscriptores-'+new Date().toISOString().slice(0,10)+'.json';link.click();
-      setTimeout(()=>URL.revokeObjectURL(url),1000);
-      byId('blog-admin-status').textContent='Registros descargados. El archivo contiene datos personales; guárdalo en un lugar privado.';
-    } catch(error) { byId('blog-admin-status').textContent=error.message || 'No se pudieron descargar los registros.'; }
-  });
   byId('blog-import-backup').addEventListener('change',importBackup);
   byId('blog-refresh').addEventListener('click',()=>refreshShared(true));
   byId('blog-photo-upload').addEventListener('change',uploadPhoto);
