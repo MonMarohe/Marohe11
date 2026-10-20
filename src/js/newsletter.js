@@ -14,6 +14,8 @@
   let currentCursor = null;
   let nextCursor = null;
   let visible = [];
+  let submitting = false;
+  let submitted = false;
 
   async function api(query = '', method = 'GET', payload) {
     const response = await fetch(`/api/newsletter${query}`, {
@@ -29,16 +31,20 @@
   async function checkConnection() {
     try {
       const status = await api('?action=status');
-      submit.disabled = !status.configured;
-      publicStatus.textContent = status.configured ? '' : 'El formulario está visible, pero falta conectar el almacenamiento privado en Vercel. Todavía no puede recibir correos.';
+      if (!submitting && !submitted) publicStatus.textContent = status.configured ? '' : 'El registro aún no está conectado. Puedes intentar enviar tu correo de nuevo más tarde.';
     } catch {
-      submit.disabled = true;
-      publicStatus.textContent = 'No pudimos comprobar el registro. Intenta de nuevo más tarde.';
+      if (!submitting && !submitted) publicStatus.textContent = 'No pudimos comprobar el registro. Puedes intentar enviar tu correo de nuevo más tarde.';
     }
   }
+  form.addEventListener('input', () => { if (submitted) { submitted = false; publicStatus.textContent = ''; } });
+  addEventListener('focus', () => { void checkConnection(); });
+  addEventListener('pageshow', () => { void checkConnection(); });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) void checkConnection(); });
+  addEventListener('hashchange', () => { if (['#news', '#blog'].includes(location.hash)) void checkConnection(); });
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (submit.disabled) return;
+    submitting = true;
     submit.disabled = true;
     publicStatus.textContent = 'Guardando tu correo…';
     try {
@@ -48,10 +54,11 @@
         company: form.elements.company.value.trim()
       });
       publicStatus.textContent = '¡Listo! Guardamos tu correo. Pronto recibirás la carta de Alpaca ♡';
+      submitted = true;
       form.reset();
     } catch (error) {
       publicStatus.textContent = `${error.message} Tu correo no se guardó.`;
-    } finally { submit.disabled = false; }
+    } finally { submitting = false; submit.disabled = false; }
   });
   function showDashboard() {
     location.hash = '#blog';

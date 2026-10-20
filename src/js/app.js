@@ -9,7 +9,9 @@ const canvas=$('#game'),ctx=canvas.getContext('2d'),rabbit=new Image();rabbit.sr
 const COLS=19,ROWS=13,SIZE=39,OX=(900-COLS*SIZE)/2,OY=54;
 const key=(x,y)=>`${x},${y}`,occupied=(list,x,y)=>list.some(p=>p.x===x&&p.y===y);
 function route(){
-  let view=(location.hash.slice(1)||'inicio').split('/')[0];
+  const hashParts=(location.hash.slice(1)||'inicio').split('/');
+  let view=hashParts[0];
+  const productId=view==='tienda'&&/^[a-z0-9-]+$/.test(hashParts[1]||'')?`producto-${hashParts[1]}`:null;
   const requested=view;
   if(view==='podcast'||view==='news'||view==='episodios')view='blog';
   if(['agency','about','proyectos'].includes(view))view='inicio';
@@ -18,7 +20,11 @@ function route(){
   document.body.dataset.page=name;document.body.dataset.view=view;
   $$('.page').forEach(el=>el.hidden=el.id!==name);
   $$('nav a').forEach(a=>{const active=a.dataset.page===navName;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
-  if(name==='usa')window.usaGame?.refresh();else window.usaGame?.pause();if(name==='peru')window.peruGame?.refresh();else window.peruGame?.pause();if(name==='australia')window.australiaGame?.refresh();else window.australiaGame?.pause();if(name!=='juego'&&state==='playing')pauseGame();if(name!=='city')window.cityGame?.pause();if(name!=='blocks')window.blockGame?.pause();if(name!=='match')window.bobaGame?.pause();if(name==='fuel')window.platformGame?.refresh();else window.platformGame?.pause();window.scrollTo?.({top:0});
+  if(name==='usa')window.usaGame?.refresh();else window.usaGame?.pause();if(name==='peru')window.peruGame?.refresh();else window.peruGame?.pause();if(name==='australia')window.australiaGame?.refresh();else window.australiaGame?.pause();if(name!=='juego'&&state==='playing')pauseGame();if(name!=='city')window.cityGame?.pause();if(name!=='blocks')window.blockGame?.pause();if(name!=='match')window.bobaGame?.pause();if(name==='fuel')window.platformGame?.refresh();else window.platformGame?.pause();
+  $$('.welcome-store-card').forEach(card=>card.classList.toggle('is-featured',card.id===productId));
+  const product=productId?document.getElementById(productId):null;
+  if(product)requestAnimationFrame(()=>{product.focus({preventScroll:true});product.scrollIntoView({behavior:'smooth',block:'center'})});
+  else window.scrollTo?.({top:0});
 }
 addEventListener('hashchange',route);
 function renderWorlds(){$('#world-list').innerHTML=worlds.map((w,i)=>`<button class="world-button ${i===current?'selected':''}" data-world="${i}" style="--world-color:${w.color}" ${i>progress.unlocked?'disabled':''}><span class="world-icon">${w.symbol}</span><span><strong>0${i+1} / ${w.name}</strong><small>${w.reward}</small></span><span class="world-state">${progress.won.includes(i)?'✓':i>progress.unlocked?'⌑':'·'}</span></button>`).join('');[...$('#world-list').querySelectorAll('[data-world]')].forEach(b=>b.onclick=()=>{current=Number(b.dataset.world);reset();renderWorlds()})}
