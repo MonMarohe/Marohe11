@@ -17,7 +17,7 @@ Si falta cualquiera de las dos variables, el campo de correo sigue visible pero 
 
 ## Tienda y juegos
 
-**Tienda** muestra las bobas y kits con sus fotos y un enlace de consulta por Instagram. Las fotos de los kits con mate de coca y chicha son referenciales hasta recibir imágenes propias de esas variantes. Aún no incluye precios ni pago en línea. **Juegos** abre el catálogo de videojuegos, retos y memes.
+**Tienda** muestra las bobas y kits con sus fotos, incluidas las variantes con mate de coca y chicha, y un enlace de consulta por Instagram. Aún no incluye precios ni pago en línea. **Juegos** abre el catálogo de videojuegos, retos y memes.
 
 ## Otras funciones
 
