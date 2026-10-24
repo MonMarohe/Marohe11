@@ -4,17 +4,15 @@
   if (!byId('blog-posts')) return;
   const POSTS_KEY = 'welcome-mate-blog-posts-v1';
   const ADMIN_KEY = 'welcome-mate-blog-admin-v1';
-const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-world-kit.jpg','assets/boba-taro-classic.jpg','assets/parfait.jpg','assets/episodio-lima.png','assets/club-polimata-banner.jpg','assets/clothing-peru.jpg','assets/welcome-mate-boba-purple.jpg','assets/welcome-mate-boba-matcha.jpg','assets/welcome-mate-boba-pixel.jpg','assets/welcome-mate-kit-matcha.jpg','assets/welcome-mate-kit-purple.jpg']);
-  const seeds = [
-    {id:'welcome-many-passions',title:'No tienes que elegir una sola pasión',category:'Creatividad',excerpt:'Tu curiosidad no es falta de enfoque. Puede ser el mapa que conecta todo lo que sabes hacer.',body:'A veces una mente curiosa parece estar cambiando de rumbo, cuando en realidad está reuniendo piezas. Una receta puede enseñarte color; un videojuego puede enseñarte ritmo; construir algo puede ayudarte a contar una historia.\n\nElige dos intereses que parezcan lejanos y crea una prueba pequeña que los una. No tiene que convertirse en un negocio ni definirte para siempre. Solo tiene que darte información sobre lo que disfrutas.',cover:'assets/about-block-bunny.jpg',published:true,created:'2026-10-10T12:00:00.000Z',updated:'2026-10-10T12:00:00.000Z'},
-    {id:'small-creative-experiment',title:'El experimento creativo de veinte minutos',category:'Diseño',excerpt:'Una forma amable de empezar cuando una idea parece demasiado grande.',body:'Pon un límite de veinte minutos y construye la versión más pequeña de tu idea. Puede ser un dibujo, tres bloques, una etiqueta o el nombre de una bebida imaginaria.\n\nCuando termine el tiempo, no preguntes si quedó perfecto. Pregunta qué parte te dio energía y cuál quisieras repetir. Esa respuesta vale más que terminar algo enorme por presión.',cover:'assets/build-world-kit.jpg',published:true,created:'2026-10-09T15:30:00.000Z',updated:'2026-10-09T15:30:00.000Z'},
-    {id:'ritual-return-spark',title:'Un ritual para volver a tu chispa',category:'Recetas',excerpt:'Preparar algo con las manos también puede ser una pausa para escuchar tus ideas.',body:'Elige una boba y piensa en ella como una paleta de colores. Mientras la preparas, observa las texturas, los contrastes y las decisiones pequeñas que tomas sin pedir permiso.\n\nDespués anota una idea que apareció durante el proceso. Crear no siempre comienza frente a una pantalla; a veces comienza mezclando sabores y dándole espacio a la mente.',cover:'assets/boba-taro-classic.jpg',published:true,created:'2026-10-08T18:15:00.000Z',updated:'2026-10-08T18:15:00.000Z'}
-  ];
+const allowedCovers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post-mvlnnsmu.jpg",'assets/about-block-bunny.jpg','assets/build-world-kit.jpg','assets/boba-taro-classic.jpg','assets/parfait.jpg','assets/episodio-lima.png','assets/club-polimata-banner.jpg','assets/clothing-peru.jpg','assets/welcome-mate-boba-purple.jpg','assets/welcome-mate-boba-matcha.jpg','assets/welcome-mate-boba-pixel.jpg','assets/welcome-mate-kit-matcha.jpg','assets/welcome-mate-kit-purple.jpg']);
+  const seeds = [{"id":"post-mvlnktwz","title":"No estás disperso. Eres polímata.","category":"Creatividad","cover":"assets/blog/post-mvlnktwz.jpg","excerpt":"La palabra viene del griego polymathēs, que significa «el que ha aprendido mucho».","body":"Durante mucho tiempo pensé que había algo mal en mí por no poder elegir una sola cosa. \nMe gustaban demasiadas cosas. Saltaba de una idea a otra.\n\nHasta que me fui a Australia.\n\nAllá, por primera vez, eso que en otros lugares se veía como “falta de foco” fue mi mayor ventaja.\n\nPude conseguir buenos trabajos justamente porque no me centro en una sola cosa. Un día estaba en un proyecto creativo, otro día resolviendo logística, otro día enseñando, otro día creando algo con las manos. Era como si mi CV encajara en muchos trabajos, y si bien, me frustraba porque no encajaba como especialista en nada a la vez yo podía adaptarme, conectar puntos y aprender rápido.\n\nAhí entendí: no soy una especialista fallida. Soy polímata.\n\n¿Tenemos un cerebro diferente?\n\nNo más inteligente. Más flexible.\n\nLa ciencia lo llama flexibilidad cognitiva: la capacidad de tu cerebro para saltar entre conceptos, desaprender y reaprender, conectar una idea de la cocina con una idea de negocios.\n\nLos especialistas profundizan. Los polímatas conectamos.\nNinguno es mejor. Son estrategias distintas.\n\nEl especialista hace un pozo de 100 metros de profundidad.\nEl polímata hace una red de ríos que conectan varios territorios.\n\nEl mundo necesita a ambos. Pero si tú eres polímata, intentar vivir como especialista te va a agotar.\n\nLo bueno de ser polímata que nadie te cuenta:\n\nEres más adaptable. En un mundo que cambia, no dependes de una sola habilidad.\n\nInnovas por naturaleza. Las mejores ideas no nacen dentro de una sola disciplina, nacen en la intersección.\n\nEres más resiliente. Si un proyecto no funciona, tienes otros 5 intereses que te sostienen.\n\nNo te aburres. Y eso no es un capricho, es combustible.\n\n¿Y cómo se entrena? ¿Se puede mejorar? Sí. Y aquí el juego es clave.\n\nEl juego no es una pérdida de tiempo. Es el gimnasio de la mente polímata. Cuando juegas, tu cerebro practica sin miedo a equivocarse. Prueba, combina, falla y vuelve a intentar. Eso es exactamente lo que necesitas.\n\nSi eres como yo, prueba esto esta semana:\n\n1. Juega a propósito. 20 minutos sin objetivo productivo. Un puzzle, Lego, acuarelas, un juego de mesa. Solo por el placer de conectar.\n\n2. Crea tu mapa de conexiones. Agarra una hoja. En el centro escribe un tema que te obsesiona hoy. Alrededor, escribe otros 3 intereses que parecen no tener nada que ver. Oblígate a dibujar una línea que los conecte. Ahí está tu idea original.\n\n3. Haz un proyecto puente. No elijas entre A o B. Crea un mini-proyecto que necesite A + B. Ej: fotografía + psicología, cocina + escritura.\n\nSer polímata no es hacer de todo sin profundizar. Es darle lenguaje a tu forma de pensar para que deje de sentirse como caos y empiece a sentirse como un universo.\n\nTu curiosidad no es ruido. Es tu brújula.\n\n¿Te identificas? Cuéntame, ¿cuáles son esas 2-3 cosas que amas y que parecen no tener nada que ver?","published":true,"created":"2026-10-24T00:20:55.280Z","updated":"2026-10-24T00:20:55.280Z"},{"id":"post-mvlnnsmu","title":"Especialistas y polímatas: dos formas distintas de ser profundo","category":"Creatividad","cover":"assets/blog/post-mvlnnsmu.jpg","excerpt":"Siempre nos hacen elegir: ¿quieres ser muy bueno en una cosa o saber un poco de muchas?","body":"Siempre nos hacen elegir: ¿quieres ser muy bueno en una cosa o saber un poco de muchas?\n\nEsa pregunta está mal hecha. Especialista y polímata no compiten por lo mismo. Son dos tipos de profundidad diferentes.\n\n1. El especialista: profundidad vertical\n\nEs el pozo de 1.000 metros.\n\nPasa años en un solo territorio. Conoce cada detalle, cada excepción, cada fallo. Por eso llega a donde nadie más llega. Cuando el problema está dentro de su campo, es imbatible.\n\nSu ventaja es la precisión.\nSu riesgo es la rigidez. Tanto tiempo dentro de la misma caja que empieza a creer que todos los problemas se resuelven con las mismas herramientas. En psicología le llaman atrincheramiento cognitivo.\n\n2. El polímata: profundidad por conexión\n\nEs el océano que conecta varios pozos.\n\nNo baja 1.000 metros en un punto, baja 200 metros en cinco puntos distintos. Y lo que ve es cómo esos puntos se conectan.\n\nSu ventaja no es saber de todo, es traer una idea de un campo a otro. La biología le da una idea para arquitectura. La música le da una estructura para matemáticas.\n\nSu riesgo es el otro: quedarse en la superficie. Hablar de muchos temas sin la capacidad de construir algo que funcione de verdad. El polímata de verdad no es superficial, profundiza lo suficiente para ser útil en varios campos.\n\n3. Entonces, ¿quién es más profundo?\n\nNinguno. Depende de qué mides.\n\nSi mides profundidad como llegar al límite del conocimiento humano en un tema, gana el especialista.\n\nSi mides profundidad como la capacidad de integrar y crear algo nuevo combinando campos, gana el polímata.\n\nUno es profundo hacia abajo. El otro es profundo hacia los lados.\n\n4. Lo que funciona hoy\n\nEl mercado ya no premia al especialista puro encerrado en una sola caja, ni al generalista que sabe un poco de todo y no domina nada.\n\nLo que funciona es el perfil en forma de T o de peine:\n\nTienes 1 o 2 temas donde eres especialista de verdad, donde sí has hecho el pozo profundo. Y tienes la curiosidad y la disciplina del polímata para moverte con soltura entre otros 3 o 4 temas y conectar puntos.\n\nNo tienes que elegir entre ser profundo o ser flexible. Tienes que elegir dónde vas a ser profundo, para luego poder ser flexible en todo lo demás.","published":true,"created":"2026-10-24T00:23:13.590Z","updated":"2026-10-24T00:23:13.590Z"}];
   let posts = readPosts();
   let localPosts = posts.map(post => ({...post}));
   let cloudReady = false, syncing = false, sharedOpened = false, syncWaiters = [];
   let adminUnlocked = false;
   let adminDestination = 'blog';
+  const shareable = post => Boolean(post?.published && (cloudReady || seeds.some(seed=>seed.id===post.id)));
+  const publicPostUrl = post => new URL('/blog/'+encodeURIComponent(post.id),'https://marohe11.vercel.app');
   let currentPost = null;
   let uploadedCover = null, uploadGeneration = 0, uploadBusy = false;
   const updatedCovers = new Map([['assets/parfait.jpg','assets/welcome-mate-boba-purple.jpg'],['assets/boba-taro-classic.jpg','assets/welcome-mate-boba-purple.jpg'],['assets/build-world-kit.jpg','assets/welcome-mate-kit-matcha.jpg'],['assets/about-block-bunny.jpg','assets/welcome-mate-boba-pixel.jpg']]);
@@ -132,7 +130,7 @@ const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-worl
       const meta = make('div','blog-post-meta'); meta.append(make('span','',post.category),make('time','',formatDate(post.created)));
       const title = make('h2','',post.title);
       const excerpt = make('p','',post.excerpt);
-      const open = make('button','', 'Leer artículo ↗'); open.type = 'button'; open.addEventListener('click',() => openReader(post));
+      const open = make('a','', 'Leer artículo ↗'); open.href=publicPostUrl(post).href; open.target='_blank'; open.rel='noopener'; if(!cloudReady&&!seeds.some(seed=>seed.id===post.id))open.addEventListener('click',event=>{event.preventDefault();openReader(post);});
       copy.append(meta,title,excerpt,open); card.append(image,copy); container.append(card);
     });
   }
@@ -143,10 +141,10 @@ const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-worl
     const latest = posts.filter(post => post.published).sort((a,b) => new Date(b.created)-new Date(a.created)).slice(0,3);
     if (!latest.length) { container.append(make('p','home-empty-note','Las próximas historias están en camino.')); return; }
     for (const post of latest) {
-      const card = make('a'); card.href = '#blog';
+      const card = make('a'); card.href = publicPostUrl(post).href; card.target='_blank'; card.rel='noopener';
       const image = make('img'); image.src = coverSource(post.cover); image.alt = `Portada de ${post.title}`; image.loading='lazy';
       card.append(image,make('span','',post.category.toLocaleUpperCase('es')),make('h3','',post.title),make('p','',post.excerpt));
-      card.addEventListener('click',event=>{event.preventDefault();openReader(post);}); container.append(card);
+      if(!cloudReady&&!seeds.some(seed=>seed.id===post.id))card.addEventListener('click',event=>{event.preventDefault();openReader(post);}); container.append(card);
     }
   }
   function openReader(post) {
@@ -158,17 +156,20 @@ const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-worl
     byId('blog-reader-title').textContent = post.title;
     const body = byId('blog-reader-body'); body.replaceChildren();
     post.body.split(/\n\s*\n/).filter(Boolean).forEach(text => body.append(make('p','',text.trim())));
-    const shareUrl = new URL(location.href); shareUrl.searchParams.set('post', post.id); shareUrl.hash = 'blog';
+    const shareUrl = publicPostUrl(post);
     const canonical = shareUrl.href;
     const shareText = `${post.title} — ${post.excerpt}`;
     byId('blog-share-facebook').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonical)}&quote=${encodeURIComponent(shareText)}`;
     byId('blog-share-whatsapp').href = `https://wa.me/?text=${encodeURIComponent(`${shareText} ${canonical}`)}`;
-    byId('blog-share-status').textContent = '';
+    const available=shareable(post);
+      for(const id of ['blog-share-facebook','blog-share-whatsapp']){byId(id).hidden=!available;if(!available)byId(id).removeAttribute('href');}
+      byId('blog-share-copy').disabled=!available;byId('blog-share-native').disabled=!available;
+      byId('blog-share-status').textContent=available?'':'Esta es una copia local. Impórtala al blog público antes de compartirla.';
     byId('blog-reader-dialog').showModal();
   }
   async function sharePost() {
-    if (!currentPost) return;
-    const shareUrl = new URL(location.href); shareUrl.searchParams.set('post', currentPost.id); shareUrl.hash = 'blog';
+    if (!shareable(currentPost)) return;
+    const shareUrl = publicPostUrl(currentPost);
     const data = {title:currentPost.title,text:currentPost.excerpt,url:shareUrl.href};
     if (navigator.share) {
       try { await navigator.share(data); byId('blog-share-status').textContent = 'Listo, compartiste esta idea.'; }
@@ -178,8 +179,8 @@ const allowedCovers = new Set(['assets/about-block-bunny.jpg','assets/build-worl
     }
   }
   async function copyPostLink() {
-    if (!currentPost) return;
-    const shareUrl = new URL(location.href); shareUrl.searchParams.set('post', currentPost.id); shareUrl.hash = 'blog';
+    if (!shareable(currentPost)) return;
+    const shareUrl = publicPostUrl(currentPost);
     try {
       if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(shareUrl.href);
       else { const field = make('textarea'); field.value = shareUrl.href; field.style.position = 'fixed'; field.style.opacity = '0'; document.body.append(field); field.select(); const ok = document.execCommand('copy'); field.remove(); if (!ok) throw new Error('copy'); }

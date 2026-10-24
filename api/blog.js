@@ -1,13 +1,20 @@
 'use strict';
-// Vercel Node Function. Redis persists posts across devices and deployments.
+// Shared blog storage: preserve configured Redis deployments, otherwise use the existing private Blob store.
+const blobCommand=require("../lib/blog-blob").createCommand(require("@vercel/blob"));
 const {createHmac, timingSafeEqual, randomBytes, createHash} = require('node:crypto');
 const KEY = 'welcome-mate:blog:posts:v1';
 const INDEX = 'welcome-mate:blog:index:v1';
-const covers = new Set(['assets/about-block-bunny.jpg','assets/build-world-kit.jpg','assets/boba-taro-classic.jpg','assets/parfait.jpg','assets/episodio-lima.png','assets/club-polimata-banner.jpg','assets/clothing-peru.jpg','assets/welcome-mate-boba-purple.jpg','assets/welcome-mate-boba-matcha.jpg','assets/welcome-mate-boba-pixel.jpg','assets/welcome-mate-kit-matcha.jpg','assets/welcome-mate-kit-purple.jpg']);
+const covers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post-mvlnnsmu.jpg",'assets/about-block-bunny.jpg','assets/build-world-kit.jpg','assets/boba-taro-classic.jpg','assets/parfait.jpg','assets/episodio-lima.png','assets/club-polimata-banner.jpg','assets/clothing-peru.jpg','assets/welcome-mate-boba-purple.jpg','assets/welcome-mate-boba-matcha.jpg','assets/welcome-mate-boba-pixel.jpg','assets/welcome-mate-kit-matcha.jpg','assets/welcome-mate-kit-purple.jpg']);
 const json = (res,status,data) => { res.statusCode=status; res.setHeader('Content-Type','application/json; charset=utf-8'); res.end(JSON.stringify(data)); };
-const settings = () => ({url:process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL,token:process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN,password:process.env.BLOG_ADMIN_PASSWORD});
-const configured = config => /^https:\/\//.test(config.url || '') && !!config.token && (config.password || '').length >= 16;
-async function command(config,args,transaction=false) {
+const settings = () => {
+  const url=process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+  const token=process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
+  const blob=!(url && token) && !!process.env.BLOB_READ_WRITE_TOKEN;
+  return {url,token,blob,password:process.env.BLOG_ADMIN_PASSWORD || (blob?process.env.NEWSLETTER_ADMIN_PASSWORD:undefined)};
+};
+const configured = config => (config.blob || /^https:\/\//.test(config.url || '') && !!config.token) && (config.password || '').length >= 16;
+async function storageCommand(config,args,transaction=false) {
+  if(config.blob)return blobCommand(args,transaction);
   const response = await fetch(config.url.replace(/\/$/,'')+(transaction?'/multi-exec':''),{method:'POST',headers:{Authorization:`Bearer ${config.token}`,'Content-Type':'application/json'},body:JSON.stringify(args),signal:AbortSignal.timeout(10000)});
   if (!response.ok) throw new Error('storage');
   const data = await response.json(); if (data.error || transaction && data.some(item=>item.error)) throw new Error('storage'); return transaction ? data.map(item=>item.result) : data.result;
@@ -38,7 +45,7 @@ function validate(post) {
 function preview(post,fullCover=false) {
   return {...post,cover:post.cover?.startsWith('data:') && !fullCover ? `/api/blog?action=cover&id=${encodeURIComponent(post.id)}&v=${encodeURIComponent(post.updated)}` : post.cover};
 }
-module.exports = async function handler(req,res) {
+function createHandler(command=storageCommand) { return async function handler(req,res) {
   res.setHeader('Cache-Control','no-store'); res.setHeader('CDN-Cache-Control','no-store'); res.setHeader('Vercel-CDN-Cache-Control','no-store');
   res.setHeader('X-Content-Type-Options','nosniff');
   const config=settings(),url=new URL(req.url,'https://welcome-mate.local'),action=url.searchParams.get('action'),ready=configured(config);
@@ -104,4 +111,6 @@ module.exports = async function handler(req,res) {
     await command(config,[['HSET',KEY,post.id,JSON.stringify(post)],['HSET',INDEX,post.id,JSON.stringify(preview(post))]],true);
     return json(res,200,{post:preview(post)});
   } catch { return json(res,502,{error:'No se pudo conectar con el blog. Vuelve a intentarlo.'}); }
-};
+};}
+module.exports=createHandler();
+module.exports.createHandler=createHandler;

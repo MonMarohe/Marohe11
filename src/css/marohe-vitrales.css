@@ -1,0 +1,27 @@
+header .brand{width:auto;flex-basis:165px;color:#fff1f8;text-decoration:none}
+.brand-text{font:600 25px/1.2 'Space Grotesk',Arial,sans-serif;letter-spacing:.15em;text-shadow:0 0 18px #ed78b43b}
+#inicio .catalog-hero.marohe-heart-hero{min-height:720px}
+#inicio .catalog-hero>.marohe-heart-art{object-position:center;object-fit:cover}
+#inicio .marohe-heart-hero:after{background:linear-gradient(90deg,#11090ff5 0%,#11090fe8 25%,#11090f99 45%,#11090f15 75%)}
+#inicio .hero-copy .hero-wordmark{font:500 clamp(55px,6vw,88px)/1 'Space Grotesk',Arial,sans-serif;letter-spacing:.05em;color:#fff2f8;text-shadow:0 0 25px #eb75b52b;margin:25px 0}
+#inicio .marohe-manifesto{font-size:clamp(38px,4vw,57px)}
+#inicio .hero-copy{max-width:620px;padding-top:55px;padding-bottom:55px}
+.store-category-covers{margin:32px 0}
+.store-category-cover{display:block;position:relative;isolation:isolate;overflow:hidden;min-height:470px;border:1px solid #e798bf66;border-radius:24px;color:#fff5ef;text-decoration:none;background:#21101a}
+.store-category-cover>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+.store-category-cover:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#140c13eb,#140c1380 55%,#140c1310);z-index:0}
+.store-category-cover>div{position:relative;z-index:1;min-height:470px;padding:55px;display:flex;flex-direction:column;justify-content:end;align-items:start}
+.store-category-cover span{letter-spacing:.2em;font-size:12px;color:#ffc7e3}
+.store-category-cover h2{font:400 clamp(38px,5vw,65px)/1.15 Georgia,serif;margin:18px 0}
+.store-category-cover p{margin:0 0 30px;font-size:18px;color:#f7dae9}
+.store-category-cover strong{font-size:15px;border-bottom:1px solid #e798bf;padding-bottom:7px}
+.store-category-cover:hover>img{transform:scale(1.025)}
+.store-category-cover:focus-visible{outline:3px solid #ffa0d0;outline-offset:5px}
+.store-category-heading{margin:35px 0 25px}.store-category-heading>a{color:#f4add2}.store-category-heading h2{font:400 42px/1.2 Georgia,serif;margin:25px 0 10px}.store-category-heading p{color:#dcbecd}
+#store-categories[hidden],#store-spirituality[hidden]{display:none!important}
+@media(max-width:700px){header .brand{flex-basis:auto}.brand-text{font-size:22px}#inicio .catalog-hero.marohe-heart-hero{min-height:0}#inicio .catalog-hero>.marohe-heart-art{position:relative;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}#inicio .hero-copy{max-width:100%;padding:30px 25px 40px}#inicio .hero-copy .hero-wordmark{font-size:51px;letter-spacing:.05em;margin:18px 0}.store-category-cover,.store-category-cover>div{min-height:380px}.store-category-cover>div{padding:30px}.store-category-cover h2{font-size:39px}.store-category-cover p{font-size:16px}}
+@media(prefers-reduced-motion:reduce){.store-category-cover>img{transition:none}}
+
+.store-category-covers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:25px}#store-creativity[hidden]{display:none!important}.store-category-cover h2{font-size:clamp(32px,4vw,52px)}@media(max-width:700px){.store-category-covers{grid-template-columns:1fr}}
+
+.blog-post-copy>a{display:inline-block;padding:12px 18px;border-radius:20px;background:#f5acd2;color:#2d1424;font-weight:700;margin-top:16px}

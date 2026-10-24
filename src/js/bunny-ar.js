@@ -14,7 +14,7 @@
   const eventDate=place=>new Intl.DateTimeFormat('es-PE',{timeZone:'America/Lima',year:'numeric',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}).formatRange(new Date(place.start),new Date(place.end));
   function cardFor(place,index){
     const check=api.gate(position,place),collected=!!passport[place.id],event=place.type==='event',status=content.eventState(place);
-    const card=el('article',`ar-landmark${event?' ar-event-card':''}`);const top=el('div','ar-landmark-top'),img=el('img');img.src='assets/rabbit.png';img.alt='Bunny blanco de Welcome Mate';
+    const card=el('article',`ar-landmark${event?' ar-event-card':''}`);const top=el('div','ar-landmark-top'),img=el('img');img.src='assets/rabbit.png';img.alt='Bunny blanco de MAROHE';
     const label=event?({upcoming:'EN AGENDA ✧',live:'ENCUENTRO ACTIVO ✧',ended:'FINALIZADO'})[status]:`LANDMARK 0${index+1}`;
     top.append(img,el('span','',collected?'ENCONTRADO ♡':label));
     const button=el('button','',check.ok?(collected?'Volver a ver':'Abrir cámara ↗'):check.meters===null?'Activar ubicación':'Actualizar ubicación');button.type='button';button.dataset.arPlace=place.id;button.dataset.arReady=String(check.ok);button.addEventListener('click',()=>{if(api.gate(position,place).ok)openCamera(place);else locate();});
@@ -108,7 +108,7 @@
     $ar('ar-collect').disabled=false;$ar('ar-collect').dataset.collected='true';
   }
   function buildBunny(){
-    // White stepped silhouette, tall ears and black Y: the Welcome Mate character.
+    // White stepped silhouette, tall ears and black Y: the MAROHE character.
     const shapes=[[-76,104,152,65,38,'#171318'],[-60,84,120,90,42,'#171318'],[-44,69,88,105,42,'#171318'],[-45,0,29,92,32,'#171318'],[17,0,29,92,32,'#171318'],[-68,110,136,49,40,'#fffdfb'],[-52,93,104,66,44,'#fffdfb'],[-36,78,72,77,44,'#fffdfb'],[-37,8,13,88,34,'#fffdfb'],[25,8,13,88,34,'#fffdfb'],[-50,151,28,20,38,'#fffdfb'],[-15,151,30,23,38,'#fffdfb'],[23,151,28,20,38,'#fffdfb'],[-12,123,8,8,4,'#171318'],[5,123,8,8,4,'#171318'],[-5,130,12,7,4,'#171318'],[-1,136,5,12,4,'#171318']];
     shapes.forEach(([x,y,w,h,d,fill],index)=>{const cube=el('div','ar-cuboid');for(const [prop,val] of Object.entries({x,y,w,h,d,z:index>=13?27:0}))cube.style.setProperty(`--${prop}`,`${val}px`);cube.style.setProperty('--fill',fill);for(const side of ['front','back','left','right','top','bottom'])cube.append(el('i',`ar-face ${side}`));$ar('ar-voxel-bunny').append(cube);});
   }

@@ -98,7 +98,7 @@
       await api(`?action=delete&id=${encodeURIComponent(id)}`, 'DELETE', {});
       visible = visible.filter(item => item.id !== id);
       render();
-      adminStatus.textContent = 'Correo borrado del almacenamiento de Welcome Mate.';
+      adminStatus.textContent = 'Correo borrado del almacenamiento de MAROHE.';
     } catch (error) { adminStatus.textContent = error.message; }
   }
   byId('newsletter-admin-open').addEventListener('click', showDashboard);

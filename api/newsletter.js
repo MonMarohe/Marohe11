@@ -80,7 +80,7 @@ function createHandler(blob) {
         if (input.company) return json(res, 200, {ok: true});
         const email = typeof input.email === 'string' ? input.email.trim().toLowerCase() : '';
         if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || input.consent !== true) {
-          return json(res, 400, {error: 'Escribe un correo válido y acepta recibir la carta de Alpaca.'});
+          return json(res, 400, {error: 'Escribe un correo válido y acepta recibir las cartas de MAROHE.'});
         }
         const id = idFor(email);
         const path = pathname(id);
