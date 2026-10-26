@@ -15,6 +15,7 @@ const allowedCovers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post
   const publicPostUrl = post => new URL('/blog/'+encodeURIComponent(post.id),'https://marohe11.vercel.app');
   let currentPost = null;
   let uploadedCover = null, uploadGeneration = 0, uploadBusy = false;
+  const inlineEditor=window.createBlogImageEditor({canEdit:()=>adminUnlocked,onBusy:busy=>{byId('blog-post-form').querySelector('button[type="submit"]').disabled=busy||uploadBusy;}});
   const updatedCovers = new Map([['assets/parfait.jpg','assets/welcome-mate-boba-purple.jpg'],['assets/boba-taro-classic.jpg','assets/welcome-mate-boba-purple.jpg'],['assets/build-world-kit.jpg','assets/welcome-mate-kit-matcha.jpg'],['assets/about-block-bunny.jpg','assets/welcome-mate-boba-pixel.jpg']]);
   const coverSource = cover => updatedCovers.get(cover) || (allowedCovers.has(cover) || window.BunnyBlogMedia.safeCover(cover) || /^\/api\/blog\?action=cover&id=[a-zA-Z0-9_-]+&v=/.test(cover || '') ? cover : 'assets/rabbit.png');
 
@@ -155,7 +156,7 @@ const allowedCovers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post
     byId('blog-reader-date').textContent = formatDate(post.created);
     byId('blog-reader-title').textContent = post.title;
     const body = byId('blog-reader-body'); body.replaceChildren();
-    post.body.split(/\n\s*\n/).filter(Boolean).forEach(text => body.append(make('p','',text.trim())));
+    body.innerHTML=window.MaroheBlogContent.render(post.body,post.images);
     const shareUrl = publicPostUrl(post);
     const canonical = shareUrl.href;
     const shareText = `${post.title} — ${post.excerpt}`;
@@ -227,7 +228,7 @@ const allowedCovers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post
   }
   function resetEditor() {
     byId('blog-post-form').reset(); byId('blog-post-id').value = ''; byId('blog-post-published').checked = true;
-    resetPhoto();
+    resetPhoto(); inlineEditor.load();
     byId('blog-admin-status').textContent = 'Editor listo para una nueva publicación.';
   }
   function enterDashboard(){
@@ -288,7 +289,7 @@ const allowedCovers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post
     byId('blog-post-id').value = post.id; byId('blog-post-title').value = post.title; byId('blog-post-category').value = post.category;
     byId('blog-post-cover').value = allowedCovers.has(post.cover) ? post.cover : 'assets/about-block-bunny.jpg';
     uploadedCover = window.BunnyBlogMedia.safeCover(post.cover) ? post.cover : null; photoPreview();
-    byId('blog-post-excerpt').value = post.excerpt; byId('blog-post-body').value = post.body; byId('blog-post-published').checked = !!post.published;
+    byId('blog-post-excerpt').value = post.excerpt; byId('blog-post-body').value = post.body; byId('blog-post-published').checked = !!post.published; inlineEditor.load(post.images);
     byId('blog-admin-status').textContent = `Editando “${post.title}”.`; byId('blog-post-title').focus();
   }
   async function togglePost(id) {
@@ -310,10 +311,10 @@ const allowedCovers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post
     else { posts = before; byId('blog-admin-status').textContent = 'No se pudo guardar el cambio. Inténtalo de nuevo.'; }
   }
   async function savePost(event) {
-    event.preventDefault(); if (!adminUnlocked || uploadBusy) return;
+    event.preventDefault(); if (!adminUnlocked || uploadBusy || inlineEditor.isBusy()) return;
     const id = byId('blog-post-id').value;
     const now = new Date().toISOString();
-    const entry = {id:id || `post-${Date.now().toString(36)}`,title:byId('blog-post-title').value.trim(),category:byId('blog-post-category').value,cover:uploadedCover || byId('blog-post-cover').value,excerpt:byId('blog-post-excerpt').value.trim(),body:byId('blog-post-body').value.trim(),published:byId('blog-post-published').checked,created:now,updated:now};
+    const entry = {id:id || `post-${Date.now().toString(36)}`,title:byId('blog-post-title').value.trim(),category:byId('blog-post-category').value,cover:uploadedCover || byId('blog-post-cover').value,excerpt:byId('blog-post-excerpt').value.trim(),body:byId('blog-post-body').value.trim(),images:inlineEditor.getImages(),published:byId('blog-post-published').checked,created:now,updated:now};
     if (!entry.title || !entry.excerpt || !entry.body) { byId('blog-admin-status').textContent = 'Completa el título, el resumen y el artículo.'; return; }
     const existing = posts.findIndex(post => post.id === id);
     if (cloudReady) {

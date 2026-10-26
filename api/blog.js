@@ -2,6 +2,7 @@
 // Shared blog storage: preserve configured Redis deployments, otherwise use the existing private Blob store.
 const blobCommand=require("../lib/blog-blob").createCommand(require("@vercel/blob"));
 const {createHmac, timingSafeEqual, randomBytes, createHash} = require('node:crypto');
+const content=require('../src/js/blog-content');
 const KEY = 'welcome-mate:blog:posts:v1';
 const INDEX = 'welcome-mate:blog:index:v1';
 const covers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post-mvlnnsmu.jpg",'assets/about-block-bunny.jpg','assets/build-world-kit.jpg','assets/boba-taro-classic.jpg','assets/parfait.jpg','assets/episodio-lima.png','assets/club-polimata-banner.jpg','assets/clothing-peru.jpg','assets/welcome-mate-boba-purple.jpg','assets/welcome-mate-boba-matcha.jpg','assets/welcome-mate-boba-pixel.jpg','assets/welcome-mate-kit-matcha.jpg','assets/welcome-mate-kit-purple.jpg']);
@@ -32,18 +33,18 @@ function setSession(res,config,remove=false) {
   res.setHeader('Set-Cookie',`mate_blog=${remove?'':`${value}.${signature(value,config.password)}`}; HttpOnly; Secure; SameSite=Strict; Path=/api/blog; Max-Age=${remove?0:28800}`);
 }
 async function body(req) {
-  if (req.body && typeof req.body === 'object') return req.body;
-  if (typeof req.body === 'string') return JSON.parse(req.body);
-  let value=''; for await (const chunk of req) { value+=chunk; if (Buffer.byteLength(value)>1000000) throw new Error('size'); }
+  if (req.body && typeof req.body === 'object') {if(Buffer.byteLength(JSON.stringify(req.body))>3500000)throw new Error('size');return req.body;}
+  if (typeof req.body === 'string') {if(Buffer.byteLength(req.body)>3500000)throw new Error('size');return JSON.parse(req.body);}
+  let value=''; for await (const chunk of req) { value+=chunk; if (Buffer.byteLength(value)>3500000) throw new Error('size'); }
   return JSON.parse(value || '{}');
 }
 function validate(post) {
-  if (!post || !/^[a-zA-Z0-9_-]{1,100}$/.test(post.id || '')) return false;
+  if (!post || !content.validImages(post.images) || !/^[a-zA-Z0-9_-]{1,100}$/.test(post.id || '')) return false;
   for (const [name,max] of [['title',100],['excerpt',240],['body',8000]]) if (typeof post[name]!=='string' || !post[name].trim() || post[name].length>max) return false;
   return ['Creatividad','Diseño','Recetas','Amor propio','Historias'].includes(post.category) && typeof post.published==='boolean' && (covers.has(post.cover) || typeof post.cover==='string' && post.cover.length<=900000 && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(post.cover));
 }
 function preview(post,fullCover=false) {
-  return {...post,cover:post.cover?.startsWith('data:') && !fullCover ? `/api/blog?action=cover&id=${encodeURIComponent(post.id)}&v=${encodeURIComponent(post.updated)}` : post.cover};
+  return {...post,images:(post.images||[]).map(image=>({...image,src:fullCover?image.src:`/api/blog?action=image&id=${encodeURIComponent(post.id)}&image=${encodeURIComponent(image.id)}&v=${encodeURIComponent(post.updated)}`})),cover:post.cover?.startsWith('data:') && !fullCover ? `/api/blog?action=cover&id=${encodeURIComponent(post.id)}&v=${encodeURIComponent(post.updated)}` : post.cover};
 }
 function createHandler(command=storageCommand) { return async function handler(req,res) {
   res.setHeader('Cache-Control','no-store'); res.setHeader('CDN-Cache-Control','no-store'); res.setHeader('Vercel-CDN-Cache-Control','no-store');
@@ -75,6 +76,12 @@ function createHandler(command=storageCommand) { return async function handler(r
     if (req.method==='GET' && id) {
       const raw=await command(config,['HGET',KEY,id]); const post=raw?JSON.parse(raw):null;
       if (!post || !post.published && !admin) return json(res,404,{error:'Entrada no encontrada.'});
+      if(action==='image'){
+        const image=(post.images||[]).find(image=>image.id===url.searchParams.get('image'));
+        const match=/^data:image\/(jpeg|png|webp);base64,([A-Za-z0-9+/=]+)$/.exec(image?.src||'');
+        if(!match)return json(res,404,{error:'Imagen no encontrada.'});
+        res.statusCode=200;res.setHeader('Content-Type','image/'+match[1]);return res.end(Buffer.from(match[2],'base64'));
+      }
       if (action==='cover') {
         const match=/^data:image\/(jpeg|png|webp);base64,([A-Za-z0-9+/=]+)$/.exec(post.cover || '');
         if (!match) return json(res,404,{error:'Portada no encontrada.'});
@@ -100,17 +107,17 @@ function createHandler(command=storageCommand) { return async function handler(r
       await command(config,[['HDEL',KEY,id],['HDEL',INDEX,id]],true); return json(res,200,{ok:true});
     }
     const input=await body(req);
-    if (!validate(input.post)) return json(res,400,{error:'Revisa título, categoría, resumen, artículo y portada.'});
+    if (!validate(input.post)) return json(res,400,{error:'Revisa el texto, la portada y las imágenes. Puedes incluir hasta 4 imágenes dentro del artículo.'});
     const oldRaw=await command(config,['HGET',KEY,input.post.id]),old=oldRaw?JSON.parse(oldRaw):null;
     if (!old) {
       const count=await command(config,['HLEN',KEY]); if (count>=200) return json(res,409,{error:'Este blog admite hasta 200 entradas. Archiva o elimina alguna para continuar.'});
     }
     const now=new Date().toISOString();
-    const post={id:input.post.id,title:input.post.title.trim(),category:input.post.category,excerpt:input.post.excerpt.trim(),body:input.post.body.trim(),cover:input.post.cover,published:input.post.published,created:old?.created || (Number.isFinite(Date.parse(input.post.created))?new Date(input.post.created).toISOString():now),updated:now};
+    const post={id:input.post.id,title:input.post.title.trim(),category:input.post.category,excerpt:input.post.excerpt.trim(),body:input.post.body.trim(),cover:input.post.cover,images:(input.post.images||[]).map(({id,src,alt})=>({id,src,alt})),published:input.post.published,created:old?.created || (Number.isFinite(Date.parse(input.post.created))?new Date(input.post.created).toISOString():now),updated:now};
     // Keep the feed lightweight: uploaded photo bytes are fetched per image, never in the list.
     await command(config,[['HSET',KEY,post.id,JSON.stringify(post)],['HSET',INDEX,post.id,JSON.stringify(preview(post))]],true);
     return json(res,200,{post:preview(post)});
-  } catch { return json(res,502,{error:'No se pudo conectar con el blog. Vuelve a intentarlo.'}); }
+  } catch(error) { if(error.message==='size')return json(res,413,{error:'El artículo ocupa demasiado espacio. Reduce las imágenes.'});return json(res,502,{error:'No se pudo conectar con el blog. Vuelve a intentarlo.'}); }
 };}
 module.exports=createHandler();
 module.exports.createHandler=createHandler;

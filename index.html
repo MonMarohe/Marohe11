@@ -605,6 +605,7 @@
 <div class="blog-photo-field"><label>O sube tu propia foto<input id="blog-photo-upload" type="file" accept="image/jpeg,image/png,image/webp"></label><div class="blog-photo-preview"><img loading="lazy" decoding="async" id="blog-photo-preview" src="assets/about-block-bunny.jpg" alt="Vista previa de la portada"><button id="blog-photo-remove" type="button" hidden>Quitar foto</button></div><p id="blog-photo-status" role="status">JPG, PNG o WebP · hasta 8 MB. Se reduce automáticamente para guardarla en este dispositivo.</p></div>
 <label>Resumen<textarea id="blog-post-excerpt" rows="3" maxlength="240" required placeholder="Una invitación breve para abrir el artículo"></textarea></label>
 <label>Artículo<textarea id="blog-post-body" rows="10" maxlength="8000" required placeholder="Escribe aquí. Separa los párrafos con una línea en blanco."></textarea></label>
+<div class="blog-body-media"><label>Subir imagen dentro del artículo<input id="blog-body-upload" type="file" accept="image/jpeg,image/png,image/webp"></label><p>Coloca el cursor en el texto y elige una imagen. Su marcador indica dónde aparecerá; puedes moverlo entre los párrafos.</p><p id="blog-body-image-status" role="status">Hasta 4 imágenes por artículo. JPG, PNG o WebP · máximo 8 MB cada una.</p><div id="blog-body-images"></div><details><summary>Vista previa del artículo</summary><div id="blog-body-preview" class="blog-reader-body"></div></details></div>
 <label class="publish-toggle"><input id="blog-post-published" type="checkbox" checked> Publicar esta entrada</label>
 <div class="post-editor-actions"><button class="primary" type="submit">Guardar publicación ✦</button><button id="blog-post-cancel" type="button">Limpiar</button></div>
 <p id="blog-admin-status" role="status"></p>
@@ -743,6 +744,8 @@
 <script src="./src/js/about-map.js" defer>
 </script>
 <script src="./src/js/blog-media.js" defer></script>
+<script src="./src/js/blog-content.js" defer></script>
+<script src="./src/js/blog-image-editor.js" defer></script>
 <script src="./src/js/blog.js" defer>
 </script>
 <script src="./src/js/newsletter.js" defer></script>
