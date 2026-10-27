@@ -139,7 +139,7 @@ const allowedCovers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post
     const container = byId('home-blog-posts');
     if (!container) return;
     container.replaceChildren();
-    const latest = posts.filter(post => post.published).sort((a,b) => new Date(b.created)-new Date(a.created)).slice(0,3);
+    const latest = posts.filter(post => post.published).sort((a,b) => new Date(b.created)-new Date(a.created)).slice(0,6);
     if (!latest.length) { container.append(make('p','home-empty-note','Las próximas historias están en camino.')); return; }
     for (const post of latest) {
       const card = make('a'); card.href = publicPostUrl(post).href; card.target='_blank'; card.rel='noopener';
