@@ -234,11 +234,10 @@ const allowedCovers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post
   function enterDashboard(){
     if(!adminUnlocked)return;
     if(adminDestination==='city'){location.hash='#explorar';route();window.cityAdmin?.open();}
-    else if(adminDestination==='projects'){location.hash='#agency/portfolio';route();window.projectsAdmin?.open();}
     else{location.hash='#blog';route();byId('blog-dashboard').hidden=false;renderAdmin();byId('blog-dashboard').scrollIntoView({behavior:'smooth',block:'start'});}
   }
   async function openAdmin(destination='blog'){adminDestination=destination;await refreshShared(true);if(adminUnlocked)enterDashboard();else{setAuthMode();byId('blog-admin-auth').showModal();}}
-  async function logoutAdmin(){if(cloudReady){try{await api('?action=logout','POST',{});}catch{byId('blog-admin-status').textContent='No se pudo cerrar la sesión del servidor. Reintenta con conexión.';return;}}adminUnlocked=false;byId('blog-dashboard').hidden=true;resetEditor();window.cityAdmin?.close();window.projectsAdmin?.close();await refreshShared();}
+  async function logoutAdmin(){if(cloudReady){try{await api('?action=logout','POST',{});}catch{byId('blog-admin-status').textContent='No se pudo cerrar la sesión del servidor. Reintenta con conexión.';return;}}adminUnlocked=false;byId('blog-dashboard').hidden=true;resetEditor();window.cityAdmin?.close();await refreshShared();}
   function photoPreview() {
     byId('blog-photo-preview').src = uploadedCover || byId('blog-post-cover').value;
     byId('blog-photo-remove').hidden = !uploadedCover;
