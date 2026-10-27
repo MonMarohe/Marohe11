@@ -14,7 +14,7 @@ function route(){
   const productId=view==='tienda'&&/^[a-z0-9-]+$/.test(hashParts[1]||'')?`producto-${hashParts[1]}`:null;
   const requested=view;
   if(view==='podcast'||view==='news'||view==='episodios')view='blog';
-  if(['agency','about','proyectos'].includes(view))view='inicio';
+  if(['agency','proyectos'].includes(view))view='about';
   if(!['inicio','tienda','play','about','events','australia','peru','usa','fuel','juego','city','blocks','match','explorar','proyectos','episodios','blog'].includes(view))view='inicio';
   const name=view==='events'?'explorar':view,navName=name==='blog'?'news':['australia','peru','usa','fuel','juego','city','blocks','match'].includes(name)?'play':(['explorar'].includes(name)?'play':name);
   document.body.dataset.page=name;document.body.dataset.view=view;
