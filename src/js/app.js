@@ -11,12 +11,13 @@ const key=(x,y)=>`${x},${y}`,occupied=(list,x,y)=>list.some(p=>p.x===x&&p.y===y)
 function route(){
   const hashParts=(location.hash.slice(1)||'inicio').split('/');
   let view=hashParts[0];
+  if(view==='projects')view='tienda';
   const productId=view==='tienda'&&/^[a-z0-9-]+$/.test(hashParts[1]||'')?`producto-${hashParts[1]}`:null;
   const requested=view;
   if(view==='podcast'||view==='news'||view==='episodios')view='blog';
   if(['agency','proyectos'].includes(view))view='about';
   if(!['inicio','tienda','play','about','events','australia','peru','usa','fuel','juego','city','blocks','match','explorar','proyectos','episodios','blog'].includes(view))view='inicio';
-  const name=view==='events'?'explorar':view,navName=name==='blog'?'news':['australia','peru','usa','fuel','juego','city','blocks','match'].includes(name)?'play':(['explorar'].includes(name)?'play':name);
+  const name=view==='events'?'explorar':view,navName=name==='blog'?'news':name==='tienda'?'projects':['australia','peru','usa','fuel','juego','city','blocks','match'].includes(name)?'projects':(['explorar'].includes(name)?'projects':name);
   document.body.dataset.page=name;document.body.dataset.view=view;
   $$('.page').forEach(el=>el.hidden=el.id!==name);
   const storeCategory=hashParts[1]==='espiritualidad'||hashParts[1]==='fundamentos'?'espiritualidad':['creatividad','kit-cemento','kit-velas'].includes(hashParts[1])?'creatividad':null;
