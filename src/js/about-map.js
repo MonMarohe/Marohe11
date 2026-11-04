@@ -1,7 +1,7 @@
 'use strict';
 (() => {
   const find = id => document.getElementById(id);
-  const labels = {videojuegos:'Videojuegos', pwa:'PWA', arquitectura:'Arquitectura creativa', juegos:'Juegos creativos', kits:'DIY kits', comida:'Comida creativa'};
+  const labels = {videojuegos:'Videojuegos', pwa:'PWA', arquitectura:'Arquitectura creativa', juegos:'Juegos creativos', kits:'Música', comida:'Comida creativa'};
   const recipes = {
     'arquitectura+videojuegos':['Mundos que se recorren','Imaginamos espacios y paisajes que se pueden explorar jugando: del boceto al recorrido interactivo.','#play/games','Explorar los juegos ↗'],
     'arquitectura+pwa':['Ideas que habitan la web','Un espacio puede comenzar con una historia, un plano y una experiencia digital para recorrerlo a tu manera.','#blog','Leer el blog ↗'],
