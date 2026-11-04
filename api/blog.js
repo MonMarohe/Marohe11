@@ -11,7 +11,8 @@ const settings = () => {
   const url=process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
   const token=process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
   const blob=!(url && token) && !!process.env.BLOB_READ_WRITE_TOKEN;
-  return {url,token,blob,password:process.env.BLOG_ADMIN_PASSWORD || (blob?process.env.NEWSLETTER_ADMIN_PASSWORD:undefined)};
+  // Both private dashboards intentionally share the password the owner manages in Vercel.
+  return {url,token,blob,password:process.env.NEWSLETTER_ADMIN_PASSWORD || process.env.BLOG_ADMIN_PASSWORD};
 };
 const configured = config => (config.blob || /^https:\/\//.test(config.url || '') && !!config.token) && (config.password || '').length >= 16;
 async function storageCommand(config,args,transaction=false) {
