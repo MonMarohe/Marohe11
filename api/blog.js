@@ -68,7 +68,7 @@ function createHandler(command=storageCommand) { return async function handler(r
       const count=await command(config,['INCR',rateKey]); if(count===1) await command(config,['EXPIRE',rateKey,600]);
       if (count>10) return json(res,429,{error:'Demasiados intentos. Espera diez minutos.'});
       const input=await body(req);
-      if (typeof input.password!=='string' || !same(input.password,config.password)) return json(res,401,{error:'La contraseña no es correcta.'});
+      if (typeof input.password!=='string' || !same(input.password,config.password)) return json(res,401,{error:'La contraseña no es correcta. Usa la misma contraseña de Admin correos.'});
       setSession(res,config); return json(res,200,{ok:true});
     }
     if (req.method==='POST' && action==='logout') { setSession(res,config,true); return json(res,200,{ok:true}); }
