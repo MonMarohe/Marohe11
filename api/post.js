@@ -1,13 +1,13 @@
 'use strict';
 const blogHandler=require('./blog');
 const content=require('../src/js/blog-content');
-const seeds=require('../data/blog-posts.json');
+
 const ORIGIN='https://marohe11.vercel.app';
 const escape=value=>String(value||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 async function publishedPost(id){
  let status=200,body='';
  await blogHandler({method:'GET',url:'/api/blog?id='+encodeURIComponent(id),headers:{}},{set statusCode(v){status=v},setHeader(){},end(v){body=v}});
- if(status===503)return seeds.find(post=>post.id===id)||null;
+ if(status===504)throw new Error('timeout');
  if(status===404)return null;
  if(status!==200)throw new Error('storage');
  const post=JSON.parse(body).post;
@@ -18,12 +18,12 @@ function createHandler(load=publishedPost){return async(req,res)=>{
  if(!['GET','HEAD'].includes(req.method)){res.statusCode=405;return res.end('Método no permitido');}
  const id=new URL(req.url,ORIGIN).searchParams.get('id');
  if(!/^[a-zA-Z0-9_-]{1,100}$/.test(id||'')){res.statusCode=404;return res.end('Artículo no encontrado');}
- let post;try{post=await load(id);}catch{res.statusCode=503;return res.end('No pudimos cargar el artículo. Intenta de nuevo más tarde.');}
+ let post;try{post=await load(id);}catch(error){res.statusCode=error.message==='timeout'?504:503;res.setHeader('Retry-After','60');return res.end('No pudimos cargar el artículo. Intenta de nuevo más tarde.');}
  if(!post?.published){res.statusCode=404;return res.end('<!doctype html><html lang="es"><meta charset="utf-8"><meta name="robots" content="noindex"><title>Artículo no disponible · MAROHE</title><h1>Este artículo no está publicado.</h1><a href="/#blog">Volver al blog</a></html>');}
  const canonical=ORIGIN+'/blog/'+encodeURIComponent(id);
  const replacements={'assets/about-block-bunny.jpg':'assets/welcome-mate-boba-pixel.jpg','assets/build-world-kit.jpg':'assets/welcome-mate-kit-matcha.jpg','assets/boba-taro-classic.jpg':'assets/welcome-mate-boba-purple.jpg'};
  const cover=replacements[post.cover]||post.cover;
- const image=/^(assets\/[a-zA-Z0-9_./-]+|\/api\/blog\?action=cover&)/.test(cover||'')?new URL(cover,ORIGIN).href:ORIGIN+'/assets/marohe-stained-hearts.jpg';
+ const image=content.externalImage(cover)?cover:/^(assets\/[a-zA-Z0-9_./-]+|\/api\/blog\?action=cover&)/.test(cover||'')?new URL(cover,ORIGIN).href:ORIGIN+'/assets/marohe-stained-hearts.jpg';
  const title=escape(post.title),excerpt=escape(post.excerpt),url=escape(canonical),img=escape(image);
  res.statusCode=200;
  if(req.method==='HEAD')return res.end();

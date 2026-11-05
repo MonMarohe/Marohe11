@@ -1,7 +1,7 @@
 'use strict';
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.BunnyBlogMedia=api;})(typeof window==='object'?window:globalThis,()=>{
   const types=new Set(['image/jpeg','image/png','image/webp']);
-  function safeCover(value){return typeof value==='string'&&value.length<=900000&&/^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(value);}
+  function safeCover(value){return globalThis.MaroheBlogContent?.externalImage(value) || typeof value==='string'&&value.length<=900000&&/^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(value);}
   function validate(file){if(!file||!types.has(file.type))throw new Error('Elige una foto JPG, PNG o WebP.');if(file.size>8*1024*1024)throw new Error('La foto debe pesar como máximo 8 MB.');if(!file.size)throw new Error('La foto está vacía.');}
   async function prepare(file){
     validate(file);

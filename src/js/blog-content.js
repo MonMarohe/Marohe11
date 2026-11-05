@@ -2,8 +2,9 @@
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.MaroheBlogContent=api;})(typeof window==='object'?window:globalThis,()=>{
  const escape=value=>String(value||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const validData=src=>typeof src==='string' && src.length<=600000 && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(src);
- const safeSource=src=>validData(src) || typeof src==='string' && /^\/api\/blog\?action=image&id=[a-zA-Z0-9_-]+&image=[a-zA-Z0-9_-]+&v=[a-zA-Z0-9%_.:-]+$/.test(src);
- function validImages(images){return images===undefined || Array.isArray(images) && images.length<=4 && new Set(images.map(i=>i?.id)).size===images.length && images.every(i=>i && /^[a-zA-Z0-9_-]{1,60}$/.test(i.id) && validData(i.src) && typeof i.alt==='string' && i.alt.length<=160);}
+ const externalImage=src=>typeof src==='string' && /^https:\/\/[a-z0-9-]+\.supabase\.co\/storage\/v1\/object\/public\/marohe-blog\/[a-f0-9]{64}\.(jpeg|png|webp)$/.test(src);
+ const safeSource=src=>validData(src) || externalImage(src) || typeof src==='string' && /^\/api\/blog\?action=image&id=[a-zA-Z0-9_-]+&image=[a-zA-Z0-9_-]+&v=[a-zA-Z0-9%_.:-]+$/.test(src);
+ function validImages(images){return images===undefined || Array.isArray(images) && images.length<=4 && new Set(images.map(i=>i?.id)).size===images.length && images.every(i=>i && /^[a-zA-Z0-9_-]{1,60}$/.test(i.id) && (validData(i.src)||externalImage(i.src)) && typeof i.alt==='string' && i.alt.length<=160);}
  function render(body,images=[]){
   const byId=new Map((Array.isArray(images)?images:[]).map(i=>[i.id,i]));
   return String(body||'').split(/(\[\[imagen:[a-zA-Z0-9_-]+\]\])/g).map(part=>{
@@ -12,5 +13,5 @@
    return part.split(/\n\s*\n/).filter(p=>p.trim()).map(p=>'<p>'+escape(p.trim()).replace(/\n/g,'<br>')+'</p>').join('');
   }).join('');
  }
- return {render,validImages,validData};
+ return {render,validImages,validData,externalImage};
 });

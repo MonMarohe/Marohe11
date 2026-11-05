@@ -1,0 +1,12 @@
+# Activar el blog externo
+
+1. Crea un proyecto Free en Supabase. En SQL Editor ejecuta el archivo data/blog-schema.sql. Se crean la tabla marohe_posts (solo servidor) y el bucket público marohe-blog. Las imágenes son accesibles a quien tenga su URL, incluso si el artículo es un borrador.
+2. Antes de cambiar Vercel, recupera el listado completo del Blob anterior. Si muestra «Limits Exceeded» y rechaza las lecturas, espera a que se restablezca el acceso o recupera un respaldo completo del dashboard. El JSON disponible en Descargas contiene solo dos artículos antiguos. Conserva el Blob original.
+3. Para migrar desde el Blob legible, pausa las ediciones y abre PowerShell en esta carpeta. Crea un archivo .env.migration local (Git lo ignora) con BLOB_READ_WRITE_TOKEN del Blob original, BLOG_SUPABASE_URL=https://TU-PROYECTO.supabase.co y BLOG_SUPABASE_SECRET con la clave privada del servidor de Supabase, cada variable en su propia línea. Ejecuta con Node 24:
+
+       node --env-file=.env.migration scripts/migrate-blog.js "$env:USERPROFILE/Downloads/marohe-blog-completo.json"
+
+   Usa un nombre nuevo si ya existe. El script guarda primero un respaldo de entradas y fotos, migra cada artículo conservando su ID y comprueba su lectura. Comprueba el número de entradas y sus fechas. No compartas los archivos de secretos o respaldo.
+4. Publica el código. En Vercel → marohe11 → Settings → Environment Variables agrega BLOG_SUPABASE_URL y BLOG_SUPABASE_SECRET solo en Preview primero. Usa la URL del proyecto y la clave Secret o service_role, nunca una variable pública. Conserva NEWSLETTER_ADMIN_PASSWORD y la conexión de correos. Haz Redeploy.
+5. En Preview abre un artículo antiguo por su URL, comprueba la portada y las imágenes interiores. Entra al dashboard, crea un borrador de prueba, edítalo y bórralo. Comprueba que las imágenes cargadas se sirven desde tu dominio supabase.co. Tras verificar que están los artículos esperados, aplica las mismas dos variables en Production y pulsa Redeploy. Para volver al origen anterior, retira ambas variables y vuelve a desplegar; guarda antes las publicaciones nuevas.
+6. Las imágenes nuevas se comprimen en el navegador y se guardan una sola vez por contenido. Al leerlas, el navegador las solicita directamente al almacenamiento externo. La subida y las solicitudes de artículos siguen pasando por Vercel. Revisa Usage de ambos proveedores. Los planes gratuitos tienen cuotas. Los archivos de imagen pueden compartirse entre entradas: borrar una entrada no borra automáticamente esos archivos.

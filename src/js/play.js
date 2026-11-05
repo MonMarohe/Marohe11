@@ -9,7 +9,7 @@
  <a class="roulette-cover roulette-cover-movies" href="peliculas/index.html" aria-label="Abrir MAROHE Ruleta de Pelis"><span class="roulette-kicker">01 / UNA NOCHE DE PELI</span><div class="roulette-cover-scene" aria-hidden="true"><span class="roulette-flower">✿</span><div class="mini-slot"><span>✦ MAROHE ✦</span><div><i>★</i><i>▶</i><i>♡</i></div><b>EL AZAR DA PLAY</b></div><span class="roulette-star">✦</span></div><h3>Ruleta<br>de Pelis</h3><p>Géneros, moods y un poquito de azar.</p><span class="roulette-card-action">Elegir mi peli ↗</span></a>
  <article class="roulette-cover roulette-cover-restaurants" aria-label="Ruleta de Restaurantes, próximamente"><span class="roulette-kicker">02 / UN NUEVO ANTOJO</span><div class="roulette-cover-scene" aria-hidden="true"><span class="roulette-flower">✿</span><div class="mini-slot"><span>✦ MAROHE ✦</span><div><i>☕</i><i>♡</i><i>✿</i></div><b>UNA MESA POR DESCUBRIR</b></div><span class="roulette-star">✦</span></div><h3>Ruleta de<br>Restaurantes</h3><p>Tu próxima mesa en Perú está en camino.</p><span class="roulette-soon">PRÓXIMAMENTE</span></article>
  </div></section>
- <section class="play-tool" data-tool="memes" hidden><span class="play-slogan">CREA. JUEGA. RÍE.</span><h2>MEME GENERATOR</h2><p>Elige una escena de cine, arte o teatro y escribe tu propia reacción.</p><div class="studio-grid"><div class="studio-controls"><div id="meme-templates" class="template-list"></div><label for="meme-image">Tu propia foto · opcional</label><input id="meme-image" type="file" accept="image/png,image/jpeg,image/webp"><label for="meme-top">Texto de arriba</label><input id="meme-top" type="text" maxlength="100" value="CUANDO DICEN QUE EL CINE ES ABURRIDO"><label for="meme-bottom">Texto de abajo</label><input id="meme-bottom" type="text" maxlength="100" value=""><button id="meme-ideas" type="button">Sugerir frases</button><div id="meme-captions" class="caption-ideas" aria-live="polite"></div></div><div class="studio-preview"><canvas id="meme-canvas" width="1024" height="1024" aria-label="Vista previa de tu meme"></canvas><button id="meme-download" type="button">Descargar PNG ↓</button></div></div></section>
+ <section class="play-tool" data-tool="memes" hidden><span class="play-slogan">CREA. JUEGA. RÍE.</span><h2>MEME GENERATOR</h2><p>Elige una escena de cine, arte o teatro y escribe tu propia reacción.</p><div class="studio-grid"><div class="studio-controls"><div id="meme-templates" class="template-list"></div><label for="meme-image">Tu propia foto · opcional</label><input id="meme-image" type="file" accept="image/png,image/jpeg,image/webp"><button type="button" id="meme-remove">Quitar imagen</button><label for="meme-top">Texto de arriba</label><input id="meme-top" type="text" maxlength="100" value="CUANDO DICEN QUE EL CINE ES ABURRIDO"><label for="meme-bottom">Texto de abajo</label><input id="meme-bottom" type="text" maxlength="100" value=""><button id="meme-ideas" type="button">Sugerir frases</button><div id="meme-captions" class="caption-ideas" aria-live="polite"></div></div><div class="studio-preview"><canvas id="meme-canvas" width="1024" height="1024" aria-label="Vista previa de tu meme"></canvas><button id="meme-download" type="button">Descargar PNG ↓</button></div></div></section>
  `;
  const gameCatalog=[
   ['usa','usa-bunny.svg','Welcome Cusco','Aventura por Perú','Cusco','Sigue a la alpaca por terrazas de piedra inspiradas en Machu Picchu, Cusco.'],
@@ -28,23 +28,59 @@
  const get=id=>document.getElementById(id);
  const templates=[['Cine','assets/meme-cine.png'],['Arte','assets/blog/post-mvlnnsmu.jpg'],['Teatro','assets/crush-02.jpg']];
  const scenes=templates.map(([,src])=>{const img=new Image();img.src=src;return img;});
- let selected=0, ownImage=null;
+ let selected=0, ownImage=null, imageVersion=0;
  function art(canvas,index){
    const ctx=canvas.getContext('2d');
    const img=canvas.id==='meme-canvas' && ownImage || scenes[index];
    ctx.fillStyle='#161018';ctx.fillRect(0,0,canvas.width,canvas.height);
-   if(!img.naturalWidth)return;
+   if(!img?.naturalWidth)return;
    const scale=Math.min(canvas.width/img.naturalWidth,canvas.height/img.naturalHeight);
    const w=img.naturalWidth*scale,h=img.naturalHeight*scale;
    ctx.drawImage(img,(canvas.width-w)/2,(canvas.height-h)/2,w,h);
  }
  function lines(x,text,max){const words=text.toUpperCase().split(/\s+/);const result=[];let row='';for(const word of words){for(const part of (word.match(/.{1,22}/gu)||[''])){const next=row?row+' '+part:part;if(x.measureText(next).width>max&&row){result.push(row);row=part;}else row=next;}}if(row)result.push(row);return result.slice(0,4);}
  function meme(){const c=get('meme-canvas'),x=c.getContext('2d');art(c,selected);x.font='900 58px Arial';x.textAlign='center';x.lineJoin='round';x.lineWidth=9;x.strokeStyle='#201627';x.fillStyle='white';for(const [text,bottom]of[[get('meme-top').value,false],[get('meme-bottom').value,true]]){const rows=lines(x,text,900);rows.forEach((t,i)=>{const y=bottom?960-(rows.length-1-i)*62:78+i*62;x.strokeText(t,512,y);x.fillText(t,512,y);});}}
- templates.forEach((t,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',`Plantilla ${t[0]}`);b.setAttribute('aria-pressed',String(i===0));const c=document.createElement('canvas');c.width=c.height=160;const label=document.createElement('small');label.textContent=t[0];b.append(c,label);b.onclick=()=>{selected=i;ownImage=null;get('meme-image').value='';get('meme-templates').querySelectorAll('button').forEach((el,j)=>el.setAttribute('aria-pressed',String(j===i)));get('meme-captions').replaceChildren();meme();};get('meme-templates').append(b);});
- function redraw(){get('meme-templates').querySelectorAll('canvas').forEach((c,i)=>art(c,i));meme();}scenes.forEach(img=>img.onload=redraw);redraw();get('meme-image').onchange=async e=>{const file=e.target.files[0];if(!file)return;if(!['image/png','image/jpeg','image/webp'].includes(file.type)||file.size>10*1024*1024){alert('Usa PNG, JPG o WebP de hasta 10 MB.');return;}const url=URL.createObjectURL(file);try{const img=new Image();img.src=url;await img.decode();ownImage=img;meme();}catch{alert('No se pudo abrir la foto.');}finally{URL.revokeObjectURL(url);}};['meme-top','meme-bottom'].forEach(id=>get(id).addEventListener('input',meme));
+ templates.forEach((t,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',`Plantilla ${t[0]}`);b.setAttribute('aria-pressed',String(i===0));const c=document.createElement('canvas');c.width=c.height=160;const label=document.createElement('small');label.textContent=t[0];b.append(c,label);b.onclick=()=>{imageVersion++;selected=i;ownImage=null;get('meme-remove').disabled=false;get('meme-image').value='';get('meme-templates').querySelectorAll('button').forEach((el,j)=>el.setAttribute('aria-pressed',String(j===i)));get('meme-captions').replaceChildren();meme();};get('meme-templates').append(b);});
+ function redraw(){get('meme-templates').querySelectorAll('canvas').forEach((c,i)=>art(c,i));meme();}scenes.forEach(img=>img.onload=redraw);redraw();const fileInput=get('meme-image'), removeImage=get('meme-remove');
+ function markTemplate(){
+   get('meme-templates').querySelectorAll('button').forEach((button,index)=>button.setAttribute('aria-pressed',String(index===selected)));
+ }
+ removeImage.onclick=()=>{
+   imageVersion++;
+   selected=-1;
+   ownImage=null;
+   fileInput.value='';
+   removeImage.disabled=true;
+   markTemplate();
+   meme();
+   fileInput.focus();
+ };
+ fileInput.onchange=async()=>{
+   const file=fileInput.files[0];
+   if(!file)return;
+   const version=++imageVersion;
+   fileInput.value='';
+   if(!['image/png','image/jpeg','image/webp'].includes(file.type)||file.size>10*1024*1024){
+     alert('Usa PNG, JPG o WebP de hasta 10 MB.');return;
+   }
+   const url=URL.createObjectURL(file);
+   removeImage.disabled=false;
+   try{
+     const img=new Image();
+     img.src=url;
+     await img.decode();
+     if(version!==imageVersion)return;
+     selected=-1;
+     ownImage=img;
+     markTemplate();
+     meme();
+   }catch{if(version===imageVersion)alert('No se pudo abrir la foto.');}
+   finally{URL.revokeObjectURL(url);}
+ };
+ ['meme-top','meme-bottom'].forEach(id=>get(id).addEventListener('input',meme));
  function download(c,name){const a=document.createElement('a');a.href=c.toDataURL('image/png');a.download=name;document.body.append(a);a.click();a.remove();}
  get('meme-download').onclick=()=>download(get('meme-canvas'),'marohe-meme.png');
  const ideas=[[['VINE POR LAS PALOMITAS','SALÍ DISCUTIENDO EL FINAL']], [['YO FRENTE AL CUADRO','MI AMIGA YA LEYÓ LA CARTELA']], [['ÚLTIMO ENSAYO','ALGUIEN CAMBIÓ EL GUIÓN']]];
- get('meme-ideas').onclick=()=>{const pairs=ideas[selected];get('meme-captions').replaceChildren();pairs.forEach(([a,b])=>{const button=document.createElement('button');button.type='button';button.textContent=a+' / '+b;button.onclick=()=>{get('meme-top').value=a;get('meme-bottom').value=b;meme();};get('meme-captions').append(button);});};
+ get('meme-ideas').onclick=()=>{const pairs=ideas[Math.max(0,selected)];get('meme-captions').replaceChildren();pairs.forEach(([a,b])=>{const button=document.createElement('button');button.type='button';button.textContent=a+' / '+b;button.onclick=()=>{get('meme-top').value=a;get('meme-bottom').value=b;meme();};get('meme-captions').append(button);});};
 
 })();

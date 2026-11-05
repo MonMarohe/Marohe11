@@ -49,12 +49,16 @@ const allowedCovers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post
       if (checkConfig) { const status=await api('?action=status'); cloudReady=!!status.configured; configureDashboard(); }
       if (!cloudReady) { cloudStatus('Mostrando las entradas disponibles en este navegador.'); return; }
       const data=await api(adminUnlocked?'?action=admin':''); posts=data.posts; renderPublic(); renderAdmin();
+      setMore(data.next);
       try { localStorage.setItem('welcome-mate-blog-public-cache-v1',JSON.stringify(posts.filter(post=>post.published))); } catch {}
       cloudStatus('Blog actualizado.');
       const sharedId=new URLSearchParams(location.search).get('post');
-      const shared=posts.find(post=>post.id===sharedId && post.published);
-      if (shared && !sharedOpened) { sharedOpened=true; openReader(shared); }
-      if (sharedId && !shared) cloudStatus('Este artículo ya no está publicado o el enlace no existe.');
+      if(sharedId && !sharedOpened){
+        try{
+          const {post}=await api('?id='+encodeURIComponent(sharedId));
+          if(post.published){sharedOpened=true;openReader(post);}
+        }catch(error){cloudStatus(error.message);}
+      }
     } catch (error) {
       cloudStatus(cloudReady ? 'No se pudo actualizar el blog. Mostramos la última copia disponible; vuelve a intentarlo con conexión.' : 'Mostrando las entradas disponibles en este navegador.');
       if (cloudReady && !adminUnlocked) {
@@ -68,6 +72,19 @@ const allowedCovers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post
     if(i<0)localPosts.push({...entry}); else localPosts[i]={...entry};
     savePosts();
   }
+  function setMore(next){
+    let button=byId('blog-load-more');
+    if(!button){button=make('button','','Ver más entradas');button.id='blog-load-more';byId('blog-posts').after(button);}
+    button.hidden=!next;button.disabled=false;
+    button.onclick=async()=>{
+      button.disabled=true;
+      try{
+        const page=await api('?after='+encodeURIComponent(next)+(adminUnlocked?'&action=admin':''));
+        posts=[...new Map([...posts,...page.posts].map(p=>[p.id,p])).values()];
+        renderPublic();renderAdmin();setMore(page.next);
+      }catch{cloudStatus('No se pudo cargar la página. Inténtalo de nuevo.');button.disabled=false;}
+    };
+  }
   async function storeShared(entry) {
     rememberLocal(entry);
     return (await api('','POST',{post:entry})).post;
@@ -80,7 +97,7 @@ const allowedCovers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post
       const existing=new Set(posts.map(post=>post.id));
       for(const entry of localPosts) {
         if(existing.has(entry.id))continue;
-        await api('','POST',{post:entry}); imported++; existing.add(entry.id);
+        const result=await api('?action=import','POST',{post:entry}); if(!result.skipped)imported++; existing.add(entry.id);
         byId('blog-admin-status').textContent=`Importando entradas… ${imported} guardadas en el servidor.`;
       }
       await refreshShared();
@@ -361,7 +378,7 @@ const allowedCovers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post
   addEventListener('online',()=>refreshShared(true));
   addEventListener('hashchange',()=>{if(['#blog','#news','#podcast'].includes(location.hash))void refreshShared(true);});
   document.addEventListener('visibilitychange',()=>{if(!document.hidden && ['','#inicio','#blog','#news','#podcast'].includes(location.hash))void refreshShared(true);});
-  setInterval(()=>{if(!document.hidden && ['','#inicio','#blog','#news','#podcast'].includes(location.hash) && !adminUnlocked)void refreshShared();},30000);
+  // Refresh on navigation, reconnect or an explicit refresh.
   window.blogApp = {refresh:()=>refreshShared(true),count:() => posts.filter(post => post.published).length};
   window.mateAdmin = {isUnlocked:()=>adminUnlocked,open:openAdmin,logout:logoutAdmin};
 })();
