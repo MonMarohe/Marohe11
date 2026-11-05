@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#16131c">
 <meta name="description" content="MAROHE es un universo creativo nacido en Lima que combina diseño, arte, espiritualidad y tecnología. MAROHE es un estudio que crea productos, espacios, experiencias y pequeños rituales para volver a ti.">
 <title>MAROHE · Arte, creatividad y amor propio</title>
-<meta property="og:type" content="website"><meta property="og:site_name" content="MAROHE"><meta property="og:title" content="MAROHE · Arte, creatividad y espiritualidad"><meta property="og:description" content="Un universo creativo nacido en Lima. Productos, espacios, experiencias y pequeños rituales para volver a ti."><meta property="og:url" content="https://marohe11.vercel.app/"><meta property="og:image" content="https://marohe11.vercel.app/assets/marohe-stained-hearts.jpg"><meta name="twitter:card" content="summary_large_image">
+<meta property="og:type" content="website"><meta property="og:site_name" content="MAROHE"><meta property="og:title" content="MAROHE · Cultura para jugar"><meta property="og:description" content="Un universo creativo nacido en Lima: arte, teatro, juegos y nuevas historias."><meta property="og:url" content="https://marohe11.vercel.app/"><meta property="og:image" content="https://marohe11.vercel.app/assets/marohe-theater-hero.jpg"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="assets/marohe-icon.svg">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="stylesheet" href="./src/css/style.css">
@@ -38,29 +38,30 @@
 <body data-page="inicio">
 <header>
 <a href="#inicio" class="brand" aria-label="MAROHE, inicio">
-<span class="brand-text">MAROHE STUDIO</span>
+<span class="brand-text">MAROHE</span>
 </a>
-<nav aria-label="Navegación principal"><a href="#inicio" data-page="inicio">HOME</a><a href="#agency" data-page="about">STUDIO</a><a href="#blog" data-page="news">BLOG</a><a href="#projects" data-page="projects">PROJECTS</a></nav>
+<nav aria-label="Navegación principal"><a href="#inicio" data-page="inicio">HOME</a><a href="#blog" data-page="news">BLOG</a><a href="#projects" data-page="projects">PROJECTS</a><a href="#play/ruletas" data-page="play">RULETAS</a><a href="#productora" data-page="productora">PRODUCTORA</a></nav>
 <button id="install" hidden>Instalar app</button>
 <span class="header-note">ARTE · CREATIVIDAD · AMOR PROPIO</span>
 </header>
 <main>
 <section id="inicio" class="page">
-<div class="catalog-hero marohe-heart-hero"><img class="marohe-heart-art" fetchpriority="high" src="assets/marohe-stained-hearts.jpg" alt="Vitrales de corazones rosas y turquesas entre arcos góticos"><div class="hero-copy"><span class="original-label">LIMA, PERÚ · UN UNIVERSO CREATIVO</span><h1 class="hero-wordmark">MAROHE</h1><h2 class="marohe-manifesto">Crear es <em>jugar.</em></h2><div class="hero-actions"><a class="marohe-cta" href="#projects">Projects ↗</a></div></div></div>
+<div class="catalog-hero marohe-heart-hero"><img class="marohe-heart-art" fetchpriority="high" src="assets/marohe-theater-hero.jpg" alt="Escena teatral con cortinas rojas, niebla y cielo nocturno"><div class="hero-copy"><span class="original-label">LIMA, PERÚ · UN UNIVERSO CREATIVO</span><h1 class="hero-wordmark">MAROHE</h1><h2 class="marohe-manifesto">La cultura también puede ser <em>divertida.</em></h2><div class="hero-actions"><a class="marohe-cta" href="#play/ruletas">Juega! ↗</a></div></div></div>
+
+<section class="home-shelf home-blog" aria-labelledby="home-blog-title"><div class="home-shelf-heading"><div><span class="eyebrow">BLOG · IDEAS PARA CREAR</span><h2 id="home-blog-title">Historias para mirar distinto.</h2></div><a class="home-shelf-link" href="#blog">Ver blog ↗</a></div><div id="home-blog-posts" class="home-strip" aria-live="polite"></div><div class="home-blog-more-wrap"><a class="home-blog-more" href="#blog">Ver más ↗</a></div></section>
 
 
  </section>
 <section id="tienda" class="page welcome-store" hidden aria-labelledby="store-title">
-<div class="welcome-store-hero"><div><span class="welcome-kicker">MAROHE STUDIO · PROYECTOS CREATIVOS</span><h1 id="store-title">Ideas para crear.<br><em>Mundos para jugar.</em></h1><p>Explora proyectos de juego, arte, diseño y creatividad que nacen para convertirse en experiencias.</p></div><span class="store-spark" aria-hidden="true">✦</span></div>
+<div class="welcome-store-hero"><div><span class="welcome-kicker">MAROHE · PROYECTOS CREATIVOS</span><h1 id="store-title">Ideas para crear.<br><em>Mundos para jugar.</em></h1><p>Explora proyectos de juego, arte, teatro y creatividad que nacen para convertirse en experiencias.</p></div><span class="store-spark" aria-hidden="true">✦</span></div>
 <div id="store-categories" class="store-category-covers">
-<a class="store-category-cover" href="#play" aria-label="Explorar Play"><img src="assets/projects/dr-happy-cover.png" alt="Play"><div><span>01 · MAROHE STUDIO</span><h2>Play</h2><p>Juegos y mundos para despertar tu curiosidad.</p><strong>Entrar a Play ↗</strong></div></a>
-<a class="store-category-cover" href="#projects/espiritualidad" aria-label="Explorar Espiritualidad"><img src="assets/marohe-stained-hearts.jpg" alt="Espiritualidad"><div><span>02 · MAROHE STUDIO</span><h2>Espiritualidad</h2><p>Ideas para volver a ti y crear desde adentro.</p><strong>Explorar el proyecto ↗</strong></div></a>
-<a class="store-category-cover" href="#projects/creatividad" aria-label="Explorar Creatividad"><img src="assets/marohe-kit-cemento.jpg" alt="Creatividad"><div><span>03 · MAROHE STUDIO</span><h2>Creatividad</h2><p>Objetos y experiencias para crear con las manos.</p><strong>Explorar el proyecto ↗</strong></div></a>
+<a class="store-category-cover" href="#play/ruletas" aria-label="Explorar Play"><img src="assets/projects/dr-happy-cover.png" alt="Play"><div><span>01 · MAROHE</span><h2>Play</h2><p>Ruletas, juegos y mundos para despertar tu curiosidad.</p><strong>Entrar a Play ↗</strong></div></a>
+<a class="store-category-cover" href="#projects/teatro" aria-label="Explorar Teatro"><img src="assets/marohe-theater-hero.jpg" alt="Teatro"><div><span>02 · MAROHE</span><h2>Teatro</h2><p>Obras, personajes y escenas que invitan a mirar distinto.</p><strong>Explorar el proyecto ↗</strong></div></a>
 </div>
-<div id="store-spirituality" class="welcome-store-group" hidden><div class="store-category-heading"><a href="#projects">← Todos los proyectos</a><h2>Espiritualidad</h2><p>Ideas y lecturas para acompañar tu proceso creativo.</p></div><div class="welcome-store-grid"><article id="producto-fundamentos" class="welcome-store-card" tabindex="-1"><div class="product-image" aria-label="Fundamentos del amor propio para Empáticos próximamente"><img loading="lazy" src="assets/marohe-fundamentos-amazonicare.jpg" alt="Nuevo mockup de Fundamentos del amor propio para Empáticos"></div><div><span>LIBRO · AMOR PROPIO</span><h3>Fundamentos del amor propio para Empáticos</h3><p>Una lectura para acompañarte en el proceso de crear una relación más amable contigo.</p><span class="coming-soon" aria-label="Próximamente">Próximamente</span></div></article></div></div>
-<div id="store-creativity" class="welcome-store-group" hidden><div class="store-category-heading"><a href="#projects">← Todos los proyectos</a><h2>Creatividad</h2><p>Kits para experimentar, crear y jugar.</p></div><div class="welcome-store-grid"><article id="producto-kit-cemento" class="welcome-store-card" tabindex="-1"><div class="product-image" aria-label="Kit de pintura en cemento próximamente"><img loading="lazy" src="assets/marohe-kit-cemento.jpg" alt="Kit de pintura en cemento"></div><div><span>CREAR CON LAS MANOS</span><h3>Kit de pintura en cemento</h3><p>Un pequeño ritual creativo para pintar, experimentar y hacer algo tuyo.</p><span class="coming-soon" aria-label="Próximamente">Próximamente</span></div></article><article id="producto-kit-velas" class="welcome-store-card" tabindex="-1"><div class="product-image" aria-label="Kit de velas DIY próximamente"><img loading="lazy" src="assets/marohe-kit-velas.jpg" alt="Kit de velas DIY"></div><div><span>ENCENDER UN RITUAL</span><h3>Kit de velas DIY</h3><p>Crea una vela y regálate un momento para bajar el ritmo.</p><span class="coming-soon" aria-label="Próximamente">Próximamente</span></div></article></div></div>
-<p class="welcome-store-note">Proyectos creados por MAROHE STUDIO.</p>
+<div id="store-theater" class="welcome-store-group" hidden><div class="store-category-heading"><a href="#projects">← Todos los proyectos</a><h2>Teatro</h2><p>Escenas, cuerpos y relatos que cruzan la imaginación con el escenario.</p></div><article id="producto-crush" class="welcome-store-card theater-project" tabindex="-1"><div><span>TEATRO · PROYECTO</span><h3>Crush</h3><p>Un archivo visual de un proyecto escénico en movimiento.</p><div class="theater-gallery"><img loading="lazy" src="assets/crush-01.jpg" alt="Escena de Crush: intérprete bajo luces azules"><img loading="lazy" src="assets/crush-02.jpg" alt="Escena de Crush: dos intérpretes en diálogo"><img loading="lazy" src="assets/crush-03.jpg" alt="Escena de Crush: intérpretes sobre el escenario"><img loading="lazy" src="assets/crush-04.jpg" alt="Escena de Crush: conductor y elenco entre humo azul"></div></div></article></div>
+<p class="welcome-store-note">Proyectos creados por MAROHE.</p>
 </section>
+<section id="productora" class="page productora-page" hidden aria-labelledby="productora-title"><div><span class="eyebrow">MAROHE · PRODUCTORA</span><h1 id="productora-title">Teatro y cine<br><em>por venir.</em></h1><p>Una productora para futuras obras de teatro, cine y nuevos mundos por contar.</p><span class="coming-soon">Próximamente</span></div></section>
 <section id="explorar" class="page ar-page" hidden>
 <div class="ar-intro"><a href="#inicio" class="ar-back">‹ MAROHE</a><span class="ar-kicker">UN JUEGO DE LANDMARKS Y ENCUENTROS</span><h1>BUNNY CITY <span>AR</span></h1><p class="ar-handwritten">La ciudad es tu tablero.</p><p>Descubre lugares, encuentra a Bunny y colecciona ideas. Los landmarks te cuentan la ciudad; los eventos te invitan a crearla con otras personas.</p></div>
 <div class="ar-tabs" role="group" aria-label="Secciones de Bunny City AR"><button type="button" data-ar-tab="mapa" aria-pressed="true">◎ Explorar Lima</button><button type="button" data-ar-tab="eventos" aria-pressed="false">✧ Eventos <span id="ar-event-count">0</span></button><button type="button" data-ar-tab="pasaporte" aria-pressed="false">♡ Mi Pasaporte <span id="ar-tab-count">0/3</span></button><button type="button" data-ar-tab="mundo" aria-pressed="false">✦ Mundo</button></div>
@@ -622,7 +623,7 @@
 <section id="play" class="page play-page" hidden></section>
 </main>
 <footer>
-<a class="footer-brand" href="#inicio"><span class="brand-text">MAROHE STUDIO</span>
+<a class="footer-brand" href="#inicio"><span class="brand-text">MAROHE</span>
 </a>
 <span>ARTE · CREATIVIDAD · AMOR PROPIO</span>
 <span>De Perú, con amor ♡</span>
