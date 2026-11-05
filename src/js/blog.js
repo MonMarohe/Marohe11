@@ -195,7 +195,7 @@ const allowedCovers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post
   function setAuthMode() {
     const setup = !cloudReady && !getAdminConfig();
     byId('blog-auth-title').textContent = setup ? 'Crear acceso de administradora' : 'Acceder al dashboard';
-    byId('blog-auth-intro').textContent = cloudReady ? 'Ingresa la contraseña de administradora configurada en Vercel para publicar para todos tus lectores.' : setup ? 'Crea una contraseña de al menos 8 caracteres para acceder a tus copias locales en este dispositivo.' : 'Ingresa tu contraseña local. Para publicar a otros dispositivos, primero conecta Storage en Vercel.';
+    byId('blog-auth-intro').textContent = cloudReady ? 'Usa la misma contraseña de Admin correos. Si no la recuerdas, restablécela en Vercel como NEWSLETTER_ADMIN_PASSWORD y vuelve a desplegar.' : setup ? 'Crea una contraseña de al menos 8 caracteres para acceder a tus copias locales en este dispositivo.' : 'Ingresa tu contraseña local. Para publicar a otros dispositivos, primero conecta Storage en Vercel.';
     byId('blog-password-confirm-wrap').hidden = !setup;
     byId('blog-admin-password-confirm').required = setup;
     byId('blog-admin-password').autocomplete = setup ? 'new-password' : 'current-password';
