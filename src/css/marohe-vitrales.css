@@ -40,3 +40,4 @@ header .brand{width:auto;flex-basis:165px;color:#fff1f8;text-decoration:none}
  .store-category-cover h2{font-size:32px}
  .theater-gallery{grid-auto-flow:unset;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible;padding:0}
 }
+.productora-page #productora-title,.productora-page .eyebrow{color:#fff3ea}
