@@ -20,10 +20,11 @@ function route(){
   const name=view==='events'?'explorar':view,navName=name==='blog'?'news':name==='tienda'?'projects':['australia','peru','usa','fuel','juego','city','blocks','match'].includes(name)?'projects':(['explorar'].includes(name)?'projects':name);
   document.body.dataset.page=name;document.body.dataset.view=view;
   $$('.page').forEach(el=>el.hidden=el.id!==name);
-  const storeCategory=['teatro','crush'].includes(hashParts[1])?'teatro':['libros','fundamentos'].includes(hashParts[1])?'libros':null;
+  const storeCategory=['teatro','crush'].includes(hashParts[1])?'teatro':['libros','fundamentos'].includes(hashParts[1])?'libros':['brands','marohe-club'].includes(hashParts[1])?'brands':null;
   if($('#store-categories'))$('#store-categories').hidden=Boolean(storeCategory);
   if($('#store-theater'))$('#store-theater').hidden=storeCategory!=='teatro';
   if($('#store-books'))$('#store-books').hidden=storeCategory!=='libros';
+  if($('#store-brands'))$('#store-brands').hidden=storeCategory!=='brands';
   $$('nav a').forEach(a=>{const active=a.dataset.page===navName;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
   if(name==='usa')window.usaGame?.refresh();else window.usaGame?.pause();if(name==='peru')window.peruGame?.refresh();else window.peruGame?.pause();if(name==='australia')window.australiaGame?.refresh();else window.australiaGame?.pause();if(name!=='juego'&&state==='playing')pauseGame();if(name!=='city')window.cityGame?.pause();if(name!=='blocks')window.blockGame?.pause();if(name!=='match')window.bobaGame?.pause();if(name==='fuel')window.platformGame?.refresh();else window.platformGame?.pause();
   $$('.welcome-store-card').forEach(card=>card.classList.toggle('is-featured',card.id===productId));
