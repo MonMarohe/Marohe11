@@ -85,5 +85,5 @@ body[data-page=play] .play-tool input[type=text],body[data-page=play] .play-tool
 body[data-page=play] .template-list small,body[data-page=play] .studio-note{color:#68556f}
 body[data-page=blog] .welcome-newsletter{grid-template-columns:1fr}
  #about .studio-header-image{max-width:1120px;margin:0 auto 28px;overflow:hidden;border-radius:22px;background:#f5f0f4}
- #about .studio-header-image img{display:block;width:100%;height:clamp(260px,42vw,510px);object-fit:cover;object-position:center}
+ #about .studio-header-image img{display:block;width:100%;height:clamp(260px,42vw,510px);object-fit:cover;object-position:center top}
  @media(max-width:700px){#about .studio-header-image{margin-bottom:20px;border-radius:15px}#about .studio-header-image img{height:auto;aspect-ratio:16/9}}
