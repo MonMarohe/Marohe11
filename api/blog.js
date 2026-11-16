@@ -1,6 +1,6 @@
 'use strict';
-// Shared blog storage: preserve configured Redis deployments, otherwise use the existing private Blob store.
-const blobCommand=require("../lib/blog-blob").createCommand(require("@vercel/blob"));
+// Blog posts and new media live in Supabase. Do not fall back to Vercel Blob:
+// its list() calls are expensive and the paused Blob store must not receive writes.
 const {createHmac, timingSafeEqual, randomBytes, createHash} = require('node:crypto');
 const content=require('../src/js/blog-content');
 const KEY = 'welcome-mate:blog:posts:v1';
@@ -8,27 +8,20 @@ const INDEX = 'welcome-mate:blog:index:v1';
 const covers = new Set(["assets/blog/post-mvlnktwz.jpg","assets/blog/post-mvlnnsmu.jpg",'assets/about-block-bunny.jpg','assets/build-world-kit.jpg','assets/boba-taro-classic.jpg','assets/parfait.jpg','assets/episodio-lima.png','assets/club-polimata-banner.jpg','assets/clothing-peru.jpg','assets/welcome-mate-boba-purple.jpg','assets/welcome-mate-boba-matcha.jpg','assets/welcome-mate-boba-pixel.jpg','assets/welcome-mate-kit-matcha.jpg','assets/welcome-mate-kit-purple.jpg']);
 const json = (res,status,data) => { res.statusCode=status; res.setHeader('Content-Type','application/json; charset=utf-8'); res.end(JSON.stringify(data)); };
 const settings = () => {
-  const url=process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
-  const token=process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
-  const blob=!(url && token) && !!process.env.BLOB_READ_WRITE_TOKEN;
   // Both private dashboards intentionally share the password the owner manages in Vercel.
   const base=(process.env.BLOG_SUPABASE_URL||'').replace(/\/$/,'');
   const secret=process.env.BLOG_SUPABASE_SECRET;
   const external=/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(base)&&!!secret;
-  return {base,secret,external,url,token,blob,password:process.env.NEWSLETTER_ADMIN_PASSWORD || process.env.BLOG_ADMIN_PASSWORD};
+  return {base,secret,external,password:process.env.NEWSLETTER_ADMIN_PASSWORD || process.env.BLOG_ADMIN_PASSWORD};
 };
-const configured = config => (config.external || config.blob || /^https:\/\//.test(config.url || '') && !!config.token) && (config.password || '').length >= 16;
+const configured = config => config.external && (config.password || '').length >= 16;
+const attempts=new Map();
+function inMemoryRateLimit([op,key]){if(op==='EXPIRE')return 1;const now=Date.now();for(const [name,entry]of attempts)if(entry.until<now)attempts.delete(name);const entry=attempts.get(key)||{count:0,until:now+600000};entry.count++;attempts.set(key,entry);return entry.count;}
 async function storageCommand(config,args,transaction=false) {
-  if(config.external && (transaction || String(args[1]).includes(':blog:'))){
-    if(!transaction && ['INCR','EXPIRE'].includes(args[0]))return blobCommand(args);
-    const db=require('../lib/blog-supabase');
-    if(transaction)return db.command(config,args[0]);
-    return db.command(config,args);
-  }
-  if(config.blob)return blobCommand(args,transaction);
-  const response = await fetch(config.url.replace(/\/$/,'')+(transaction?'/multi-exec':''),{method:'POST',headers:{Authorization:`Bearer ${config.token}`,'Content-Type':'application/json'},body:JSON.stringify(args),signal:AbortSignal.timeout(10000)});
-  if (!response.ok) throw new Error('storage');
-  const data = await response.json(); if (data.error || transaction && data.some(item=>item.error)) throw new Error('storage'); return transaction ? data.map(item=>item.result) : data.result;
+  if(['INCR','EXPIRE'].includes(args[0]))return inMemoryRateLimit(args);
+  const db=require('../lib/blog-supabase');
+  if(transaction)return Promise.all(args.map(item=>db.command(config,item)));
+  return db.command(config,args);
 }
 function signature(value,password) { return createHmac('sha256',password).update(value).digest('base64url'); }
 function same(a,b) { const left=createHash('sha256').update(a || '').digest(),right=createHash('sha256').update(b || '').digest(); return timingSafeEqual(left,right); }
@@ -56,7 +49,7 @@ function validate(post) {
 function preview(post,fullCover=false) {
   return {...post,images:(post.images||[]).map(image=>({...image,src:fullCover||content.externalImage(image.src)?image.src:`/api/blog?action=image&id=${encodeURIComponent(post.id)}&image=${encodeURIComponent(image.id)}&v=${encodeURIComponent(post.updated)}`})),cover:post.cover?.startsWith('data:') && !fullCover ? `/api/blog?action=cover&id=${encodeURIComponent(post.id)}&v=${encodeURIComponent(post.updated)}` : post.cover};
 }
-function createHandler(command=storageCommand) { return async function handler(req,res) {
+function createHandler(command=storageCommand,loadFeed) { return async function handler(req,res) {
   res.setHeader('Cache-Control','no-store'); res.setHeader('CDN-Cache-Control','no-store'); res.setHeader('Vercel-CDN-Cache-Control','no-store');
   res.setHeader('X-Content-Type-Options','nosniff');
   const config=settings(),url=new URL(req.url,'https://welcome-mate.local'),action=url.searchParams.get('action'),ready=configured(config);
@@ -107,14 +100,10 @@ function createHandler(command=storageCommand) { return async function handler(r
     }
     if (req.method==='GET') {
       const all=action==='admin'; if (all && !admin) return json(res,401,{error:'Ingresa como administradora.'});
-      if(config.external){
-        const after=url.searchParams.get('after')||'';
-        if(after&&!/^[a-zA-Z0-9_-]{1,100}$/.test(after))return json(res,400,{error:'Página inválida.'});
-        return json(res,200,await require('../lib/blog-supabase').feed(config,{after,admin:all}));
-      }
-      const values=await command(config,['HVALS',INDEX]);
-      const posts=(values || []).map(value=>JSON.parse(value)).filter(post=>all || post.published).sort((a,b)=>b.created.localeCompare(a.created)).map(post=>preview(post));
-      return json(res,200,{posts});
+      const after=url.searchParams.get('after')||'';
+      if(after&&!/^[a-zA-Z0-9_-]{1,100}$/.test(after))return json(res,400,{error:'Página inválida.'});
+      if(!all){const cached='public, s-maxage=3600, stale-while-revalidate=86400';res.setHeader('Cache-Control',cached);res.setHeader('CDN-Cache-Control',cached);res.setHeader('Vercel-CDN-Cache-Control',cached);}
+      return json(res,200,await (loadFeed || require('../lib/blog-supabase').feed)(config,{after,admin:all}));
     }
     if (!admin) return json(res,401,{error:'Tu sesión terminó. Ingresa como administradora.'});
     if (req.method==='DELETE') {

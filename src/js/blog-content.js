@@ -2,7 +2,9 @@
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.MaroheBlogContent=api;})(typeof window==='object'?window:globalThis,()=>{
  const escape=value=>String(value||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const validData=src=>typeof src==='string' && src.length<=600000 && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(src);
- const externalImage=src=>typeof src==='string' && /^https:\/\/[a-z0-9-]+\.supabase\.co\/storage\/v1\/object\/public\/marohe-blog\/[a-f0-9]{64}\.(jpeg|png|webp)$/.test(src);
+ // Supports former marohe-blog URLs and new blog-images URLs. Old Blob URLs remain readable,
+ // but the server never writes or lists Blob objects anymore.
+ const externalImage=src=>typeof src==='string' && (/^https:\/\/[a-z0-9-]+\.supabase\.co\/storage\/v1\/object\/public\/(?:marohe-blog|blog-images)\/[a-f0-9]{64}\.(jpeg|png|webp)$/.test(src)||/^https:\/\/[a-z0-9-]+\.public\.blob\.vercel-storage\.com\/[A-Za-z0-9._-]+(?:\?[A-Za-z0-9._~:/?#[\]@!$&'()*+,;=%-]+)?$/.test(src));
  const safeSource=src=>validData(src) || externalImage(src) || typeof src==='string' && /^\/api\/blog\?action=image&id=[a-zA-Z0-9_-]+&image=[a-zA-Z0-9_-]+&v=[a-zA-Z0-9%_.:-]+$/.test(src);
  function validImages(images){return images===undefined || Array.isArray(images) && images.length<=4 && new Set(images.map(i=>i?.id)).size===images.length && images.every(i=>i && /^[a-zA-Z0-9_-]{1,60}$/.test(i.id) && (validData(i.src)||externalImage(i.src)) && typeof i.alt==='string' && i.alt.length<=160);}
  function render(body,images=[]){

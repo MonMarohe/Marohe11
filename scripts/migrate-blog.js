@@ -1,22 +1,21 @@
 'use strict';
-// Run locally while the old store is readable, before switching production.
+// Import a previously exported JSON backup. This script intentionally never reads Vercel Blob.
 const fs = require('node:fs/promises');
 const path = require('node:path');
-const blob = require('../lib/blog-blob').createCommand(require('@vercel/blob'));
 const database = require('../lib/blog-supabase');
 const key = 'welcome-mate:blog:posts:v1';
 
 async function run() {
   const config = {base: process.env.BLOG_SUPABASE_URL, secret: process.env.BLOG_SUPABASE_SECRET};
   const backup = process.argv[2];
-  if (!process.env.BLOB_READ_WRITE_TOKEN || !/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(config.base) || !config.secret || !backup) {
-    throw Error('Configura los tres secretos/variables y proporciona una ruta de respaldo fuera del repositorio.');
+  if (!/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(config.base) || !config.secret || !backup) {
+    throw Error('Configura BLOG_SUPABASE_URL, BLOG_SUPABASE_SECRET y proporciona la ruta de un respaldo JSON fuera del repositorio.');
   }
   const destination = path.resolve(backup);
   const relative = path.relative(path.resolve(__dirname,'..'), destination);
   if (!relative.startsWith('..'+path.sep) && !path.isAbsolute(relative)) throw Error('Guarda el respaldo fuera del proyecto.');
-  const records = (await blob(['HVALS',key])).map(JSON.parse);
-  await fs.writeFile(destination, JSON.stringify(records), {flag:'wx'});
+  const records = JSON.parse(await fs.readFile(destination,'utf8'));
+  if (!Array.isArray(records)) throw Error('El respaldo JSON debe contener una lista de entradas.');
   for (const post of records) {
     const existing = await database.command(config,['HGET',key,post.id]);
     if (existing) {

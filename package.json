@@ -6,6 +6,7 @@
     "node": "24.x"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.95.3",
     "@vercel/blob": "^2.8.2"
   }
 }
