@@ -19,7 +19,7 @@ function route(){
   const name=view==='events'?'explorar':view,navName=name==='blog'?'news':['australia','peru','usa','fuel','juego','city','blocks','match'].includes(name)?'projects':(['explorar'].includes(name)?'projects':name);
   document.body.dataset.page=name;document.body.dataset.view=view;
   $$('.page').forEach(el=>el.hidden=el.id!==name);
-  const storeCategory=name==='projects'?(['teatro','crush'].includes(hashParts[1])?'teatro':['libros','fundamentos'].includes(hashParts[1])?'libros':['amazonicare','brands','marohe-club'].includes(hashParts[1])?'amazonicare':['tukituks'].includes(hashParts[1])?'tukituks':null):null;
+  const storeCategory=name==='projects'?(['teatro','crush'].includes(hashParts[1])?'teatro':['amazonicare','brands','marohe-club'].includes(hashParts[1])?'amazonicare':['tukituks'].includes(hashParts[1])?'tukituks':null):null;
   if($('#store-categories'))$('#store-categories').hidden=Boolean(storeCategory);
   if($('#store-theater'))$('#store-theater').hidden=storeCategory!=='teatro';
   if($('#store-books'))$('#store-books').hidden=storeCategory!=='libros';
