@@ -1,5 +1,5 @@
 /* MAROHE — baroque hearts, neon accents, generous editorial typography. */
-body[data-page=inicio],body[data-page=blog],body[data-page=tienda]{background:#110b10;color:#fff2e7;background-image:radial-gradient(ellipse at 90% 5%,#54112d55,transparent 55%)}
+body[data-page=inicio],body[data-page=blog],body[data-page=projects]{background:#110b10;color:#fff2e7;background-image:radial-gradient(ellipse at 90% 5%,#54112d55,transparent 55%)}
 header{background:#110b10!important;border-bottom:1px solid #f48ac82a!important}header nav a{color:#f9ece8!important}header nav a.active:after{background:#ff7bc0!important}.header-note{color:#dbadbd!important;font-size:10px;letter-spacing:.14em}.brand img,.footer-brand img{filter:drop-shadow(0 0 8px #fa69b65c)}.brand img{max-height:85px}.brand{flex-basis:165px;width:165px}.brand img{width:165px}
 #inicio .marohe-heart-hero{position:relative;isolation:isolate;min-height:830px;margin:0 -4.5vw 55px;overflow:hidden;background:#10080e;border-bottom:1px solid #ef92c13b;display:flex;align-items:center}
 #inicio .marohe-heart-art{position:absolute;right:0;top:0;width:100%;height:100%;object-fit:cover;object-position:center}
