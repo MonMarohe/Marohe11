@@ -24,6 +24,12 @@ function route(){
   if($('#store-theater'))$('#store-theater').hidden=storeCategory!=='teatro';
   if($('#store-books'))$('#store-books').hidden=storeCategory!=='libros';
   if($('#store-brands'))$('#store-brands').hidden=storeCategory!=='brands';
+  const shopCategory=name==='tienda'&&['amazonicare','tukituks'].includes(hashParts[1])?hashParts[1]:'all';
+  const shopProduct=name==='tienda'&&['fundamentos','boba-kit','boba-regalo'].includes(hashParts[2])?hashParts[2]:null;
+  if($('#shop-catalog'))$('#shop-catalog').hidden=Boolean(shopProduct);
+  $$('[data-shop-listing]').forEach(item=>item.hidden=Boolean(shopProduct)||!(shopCategory==='all'||item.dataset.shopListing===shopCategory));
+  $$('[data-shop-detail]').forEach(item=>item.hidden=item.dataset.shopDetail!==shopProduct);
+  $$('[data-shop-category-link]').forEach(link=>{const active=link.dataset.shopCategoryLink===shopCategory;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current')});
   $$('nav a').forEach(a=>{const active=a.dataset.page===navName;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
   if(name==='usa')window.usaGame?.refresh();else window.usaGame?.pause();if(name==='peru')window.peruGame?.refresh();else window.peruGame?.pause();if(name==='australia')window.australiaGame?.refresh();else window.australiaGame?.pause();if(name!=='juego'&&state==='playing')pauseGame();if(name!=='city')window.cityGame?.pause();if(name!=='blocks')window.blockGame?.pause();if(name!=='match')window.bobaGame?.pause();if(name==='fuel')window.platformGame?.refresh();else window.platformGame?.pause();
   $$('.welcome-store-card').forEach(card=>card.classList.toggle('is-featured',card.id===productId));
