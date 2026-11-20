@@ -61,7 +61,7 @@
     } finally { submitting = false; submit.disabled = false; }
   });
   function showDashboard() {
-    location.hash = '#blog';
+    location.hash = '#inicio';
     dashboard.hidden = false;
     adminStatus.textContent = '';
     setTimeout(() => dashboard.scrollIntoView({behavior: 'smooth', block: 'start'}), 80);
